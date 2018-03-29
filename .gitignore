@@ -1,3 +1,7 @@
+### OTHER
+sounds/
+globalenv/
+
 ### PYTHON
 __pycache__/
 *.py[cod]

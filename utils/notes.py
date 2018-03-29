@@ -13,13 +13,19 @@ class Note(object):
 
     def __str__(self):
         if self.local_index in major_indices:
-            output = letters[self.local_index] + str(self.octave)
+            output = names[self.local_index] + str(self.octave)
         else:
             if self.higher:
-                output = letters[self.local_index-1] + str(self.octave) + '#'
+                output = names[self.local_index-1] + str(self.octave) + '#'
             else:
-                output = letters[self.local_index+1] + str(self.octave) + '♭'
+                output = names[self.local_index+1] + str(self.octave) + '♭'
         return output
+
+    def __eq__(self, other):
+        return str(self) == str(other)
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
 
     # Prospective class functions : exportAsXML
 
