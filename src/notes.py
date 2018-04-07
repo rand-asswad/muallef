@@ -5,11 +5,13 @@ class Note(object):
 
     def __init__(self, frequency, ref_freq=440, ref_index=57):
         self.freq = frequency
-        self.__fltIndex = map_log(frequency, ref_freq=ref_freq, ref_index=ref_index)
-        self.index = int(round(self.__fltIndex))
+        flt_index = frequency2index(frequency, ref_freq=ref_freq, ref_index=ref_index)
+        self.index = int(round(flt_index))
+        self.offset = flt_index - self.index
         self.octave = self.index // 12
         self.local_index = self.index % 12
-        self.higher = True if self.index == int(self.__fltIndex) else False
+        self.higher = True if self.offset > 0 else False
+        self.silence = True if self.index == -1 else False
 
     def __str__(self):
         if self.local_index in major_indices:
@@ -30,8 +32,14 @@ class Note(object):
     # Prospective class functions : exportAsXML
 
 
-def map_log(frequency, ref_freq=440, ref_index=57):
+def frequency2index(frequency, ref_freq=440, ref_index=57, silence_threshold=20):
+    if frequency < silence_threshold:
+        return -1
     return 12 * np.log2(frequency / ref_freq) + ref_index
+
+
+def index2frequency(index, ref_freq=440, ref_index=57):
+    return 2**((index-ref_index)/12) * ref_freq
 
 
 major_indices = [0, 2, 4, 5, 7, 9, 11]

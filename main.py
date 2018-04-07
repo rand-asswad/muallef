@@ -1,48 +1,20 @@
-from utils.notes import Note
-from utils.pitch import aubioPitch, reduceSamples, piecewisePitch
+from src.part import Part
 
-from scipy.io import wavfile
 from matplotlib import pyplot as plt
 import numpy as np
 
 inputFile = 'sounds/czardas1.wav'
-fs, data = wavfile.read(inputFile)
 
-# Detect pitch
-t, f = aubioPitch(inputFile, samplerate=fs)
+p = Part(inputFile)
 
-# Reduce points
-time, freq, down_fs = reduceSamples(t, f, 0.05)
+p.find_pitch()
+p.pitch_diff()
+#t, x, h = p.reduce_samples(threshold=0.5)
+t, x = p.pitch_per_piece(threshold=0.5)
 
-notes = []
-times = []
-for i in range(len(time)):
-    try:
-        n = Note(freq[i], ref_freq=442)
-        if not notes or notes[-1] != n:
-            notes.append(n)
-            times.append(time[i])
-    except OverflowError or ZeroDivisionError:
-        pass
-
-def removeShortNotes(times, notes, time_tol=0.15):
-    t = []
-    n = []
-    for i in range(len(times)-1):
-        if times[i+1]-times[i] >= time_tol:
-            t.append(times[i])
-            n.append(notes[i])
-    t.append(times[-1])
-    n.append(notes[-1])
-    return t, n
-
-times, notes = removeShortNotes(times, notes, time_tol=0.2)
-for i in range(len(times)):
-    print('AT t= ', times[i], '\t Note = ', notes[i])
-
-
-#plt.plot(t, f, 'bo') # Pitch graph
-#plt.plot(time, freq, 'ro') # extracted pieces
-#plt.xlabel('Time (s)')
-#plt.ylabel('Pitch (Hz)')
-#plt.show()
+plt.plot(p.time, p.pitch_log, 'bo')
+plt.plot(t, x, 'ro')
+#plt.plot(p.time[:-1], p.diff, 'ro')
+plt.xlabel('Time (s)')
+plt.ylabel('Pitch Logarithm (log(Hz))')
+plt.show()

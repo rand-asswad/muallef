@@ -42,7 +42,7 @@ def reduceSamples(time, freq, time_interval):
 
 
 def extractDiff(array):
-    return [0] + [np.abs(array[i] - array[i-1]) for i in range(1,len(array))]
+    return [12 * np.log2(array[i+1]/array[i]) for i in range(len(array)-1)] + [0]
 
 
 def findEdges(freq, threshold=10):
