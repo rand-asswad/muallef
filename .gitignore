@@ -1,6 +1,7 @@
 ### OTHER
 sounds/
 globalenv/
+src/old_part.py
 
 ### PYTHON
 __pycache__/
