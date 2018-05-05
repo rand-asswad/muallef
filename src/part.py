@@ -3,7 +3,7 @@ from scipy.io import wavfile
 import numpy as np
 from matplotlib import pyplot as plt
 
-from .utils import array_difference
+from .utils import array_difference, plot_step_function
 from .notes import Note
 from .scale import Scale, find_scale
 
@@ -45,17 +45,24 @@ class Part(object):
         scale = scale / max(scale)
         return notes, scale
 
-    def plot_pitch(self):
+    def plot_pitch(self, MIDI=True):
         time = []
-        midi = []
+        pitch = []
         for note in self.notes:
             time.append(note.time)
-            midi.append(note.midi)
+            if MIDI:
+                pitch.append(note.midi)
+            else:
+                pitch.append(note.freq)
         time = np.array(time)
-        midi = np.array(midi)
-        plt.plot(time, midi, 'bo')
+        pitch = np.array(pitch)
+        #plt.scatter(time, pitch)
+        plot_step_function(time, pitch)
         plt.xlabel('Time (s)')
-        plt.ylabel('Midi note')
+        if MIDI:
+            plt.ylabel('Midi note')
+        else:
+            plt.ylabel('Pitch frequency (Hz)')
         plt.show()
 
     def scale(self):
