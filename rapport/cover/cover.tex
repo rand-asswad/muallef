@@ -1,0 +1,62 @@
+\documentclass[a4paper]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PREAMBULE
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{float}
+\usepackage{libertine}
+\usepackage[pdftex]{graphicx}
+
+\makeatletter
+
+% title page helpers
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+\newcommand{\hsp}{\hspace{20pt}}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\makeatother
+
+\usepackage[english, french]{babel}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% DOCUMENT
+\begin{document}
+\begin{titlepage}
+  \begin{sffamily}
+  \begin{center}
+
+    \includegraphics[scale=0.15]{INSA_logo}\\[2cm]
+
+    \textsc{\huge Département Génie Mathémtique}\\[0.7cm]
+    %\textsc{\Large }\\[1.5cm]
+
+    % Title
+    \HRule \\[0.4cm]
+    {\huge \bfseries Projet de transcription de musique \\[0.4cm]}
+    \HRule \\[1cm]
+	\textsc{\huge rapport d'avancement du projet semestriel}\\[0.7cm]
+
+    \includegraphics[width=.6\textwidth]{fifths_circle.png}~\\[1cm]
+
+    % Author and supervisor
+    \begin{minipage}{0.4\textwidth}
+		\Large\raggedright
+        Rand ASSWAD\\
+		Ergi DIBRA\\
+		Yuge SUN
+    \end{minipage}
+    \begin{minipage}{0.4\textwidth}
+		\Large\raggedleft
+		\emph{A l'attention de :}\\
+		Mme. Natalie FORTIER
+    \end{minipage}
+
+	\vfill
+    % Bottom of the page
+    {\large 5 mai 2018}
+  \end{center}
+  \end{sffamily}
+\end{titlepage}
+\end{document}

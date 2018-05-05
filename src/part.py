@@ -1,16 +1,18 @@
 from subprocess import Popen, PIPE
 from scipy.io import wavfile
 import numpy as np
+from matplotlib import pyplot as plt
+
+from .utils import array_difference
+from .notes import Note
+from .scale import Scale, find_scale
 
 
 class Part(object):
     def __init__(self, input_file):
         self.input_file = input_file
         self.sample_rate, self.file_data = wavfile.read(input_file)
-        self.pitch = None
-        self.pitch_log = None
-        self.time = None
-        self.diff = None
+        self.notes, self.scale_arr = self.find_pitch()
 
     def find_pitch(self, bufsize=2048, hopsize=256, pitch='default'):
         args = [
@@ -35,52 +37,26 @@ class Part(object):
                 freq.append(float(y))
             except:
                 error += line + '\n'
-        self.time = np.array(time)
-        self.pitch = np.array(freq)
-        self.__frequency_log()
+        Note.counter = [0] * 12
+        notes = []
+        for i in range(len(time)):
+            notes.append(Note(time[i], freq[i]))
+        scale = np.array(Note.counter)
+        scale = scale / max(scale)
+        return notes, scale
 
-    def __frequency_log(self, threshold=10):
-        self.pitch_log = []
-        for f in self.pitch:
-            if f > threshold:
-                self.pitch_log.append(12 * np.log2(f))
-            else:
-                self.pitch_log.append(-1)
-        self.pitch_log = np.array(self.pitch_log)
+    def plot_pitch(self):
+        time = []
+        midi = []
+        for note in self.notes:
+            time.append(note.time)
+            midi.append(note.midi)
+        time = np.array(time)
+        midi = np.array(midi)
+        plt.plot(time, midi, 'bo')
+        plt.xlabel('Time (s)')
+        plt.ylabel('Midi note')
+        plt.show()
 
-    def pitch_diff(self):
-        freq = self.pitch_log
-        diff = [0] * (len(freq) - 1)
-        b = freq[-1]
-        for i in range(len(freq) - 2, -1, -1):
-            a = freq[i]
-            diff[i] = b - a
-            b = a
-        self.diff = np.array(diff)
-
-    def reduce_samples(self, threshold=0.8):
-        t, x, h = [], [], []
-        x.append(self.pitch_log[0])
-        t.append(self.time[0])
-        for i in range(1, len(self.diff)):
-            if np.abs(self.diff[i-1]) > threshold:
-                x.append(self.pitch_log[i])
-                t.append(self.time[i])
-                h.append(self.diff[i])
-        return np.array(t), np.array(x), np.array(h)
-
-    def __get_edges(self, threshold=0.8):
-        indices = []
-        for i in range(1, len(self.diff)):
-            if np.abs(self.diff[i-1]) > threshold:
-                indices.append(i)
-        return indices
-
-    def pitch_per_piece(self, threshold=None):
-        edges = self.__get_edges(threshold) if threshold else self.__get_edges()
-        av = []
-        t = []
-        for i in range(len(edges)-1):
-            av.append(np.average(self.pitch_log[edges[i]:edges[i+1]]))
-            t.append(self.time[edges[i]])
-        return t, av
+    def scale(self):
+        return find_scale(self.scale_arr)

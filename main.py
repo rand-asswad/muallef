@@ -1,4 +1,7 @@
 from src.part import Part
+from src.notes import sci_pitch
+from src.scale import Scale, find_scale
+from src.utils import play_wav, plot_step_function
 
 from matplotlib import pyplot as plt
 import numpy as np
@@ -7,14 +10,23 @@ inputFile = 'sounds/czardas1.wav'
 
 p = Part(inputFile)
 
-p.find_pitch()
-p.pitch_diff()
-#t, x, h = p.reduce_samples(threshold=0.5)
-t, x = p.pitch_per_piece(threshold=0.5)
+s = p.scale()
+print(s)
 
-plt.plot(p.time, p.pitch_log, 'bo')
-plt.plot(t, x, 'ro')
-#plt.plot(p.time[:-1], p.diff, 'ro')
-plt.xlabel('Time (s)')
-plt.ylabel('Pitch Logarithm (log(Hz))')
-plt.show()
+wav_time = np.arange(p.file_data.size) / float(p.sample_rate)
+
+# time = []
+# pitch = []
+# for note in p.notes:
+#    time.append(note.time)
+#    pitch.append(note.freq)
+# time = np.array(time)
+# pitch = np.array(pitch)
+
+plt.plot(wav_time, p.file_data)
+# plt.plot(time, pitch, "ro")
+plt.xlabel("Time (s)")
+plt.ylabel("Freq (Hz)")
+# plt.show()
+
+print(max(p.file_data))
