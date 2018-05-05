@@ -80,6 +80,7 @@ La dernière note porte le même nom de la première dans la gamme.
 \begin{figure}[H]
 	\centering
 	\includegraphics{img/intervalles-piano.png}
+	\vspace{-15pt}
 	\caption{Les intervalles sur un piano}
 \end{figure}
 
@@ -97,16 +98,17 @@ Dans le protocole **MIDI**, le notes sont représentées par un nombre entier, i
 \begin{figure}[H]
 	\centering
 	\includegraphics{img/piano-keys.png}
+	\vspace{-15pt}
 	\caption{La notation scientifique des notes sur un piano}
 \end{figure}
 
-### Partie mathématique
+### Reconnaissance des notes
 
 Un demi-ton est l'écart entre deux touches voisines sur un piano.
 On voudrais savoir le rapport $r$ de fréquences associé à un demi-ton, sachant que l'octave double la fréquence on peut conclure facilement :
 $$ r^{12} = 2 \Rightarrow r=2^{1/12} $$
 
-On souhaite ramener l'espace de fréquences $F=(\mathbb{R},\times)$ à l'espace $(\mathbb{N},+)$ tel que $\boxed{\text{demi-ton}\equiv\pm 1}$.
+On souhaite ramener l'espace de fréquences $F=(\mathbb{R},\times)$ à l'espace $(\mathbb{N},+)$ tel que $\boxed{\text{demi-ton}\equiv 1}$.
 On définit donc une bijection
 $$\forall f\in]0,\infty[, f\mapsto 12 \log_2 f $$
 En arrondissant le résultat à la valeur entière la plus proche, on obtient un espace linéaire discrèt correspondant aux notes.
@@ -115,12 +117,60 @@ Il sera convenient d'obtenir les mêmes notes du protocole **MIDI** vu qu'il est
 Pour cela, on effectue une petite translation, en partant de la note de référence $A4\equiv\text{MIDI(69)}\equiv 440Hz$.
 
 $$\begin{cases}
-\varphi:f\mapsto 12\log_2 f + C_{\text{ref}}\\
+\varphi:f\mapsto 12\log_2 f + c_{\text{ref}}\\
 \varphi(440) = 69
-\end{cases}\Rightarrow
-\varphi(f)-\varphi(440) = 12 \log_2 \left(\frac{f}{440}\right)$$
-$$\Rightarrow\varphi:f\mapsto 12\log_2 f + (69 - 12\log_2 440)$$
+\end{cases}\Rightarrow c_{\text{ref}} = 69 - 12\log_2 440$$
+Par conséquent, la bijection $\varphi$ est définit par :
+$$\varphi: ]0,\infty[ \rightarrow \mathbb{R} : f \mapsto 12\log_2 f + c_{\text{ref}}
+\quad\text{avec } c_{\text{ref}}=69 - 12\log_2 440$$
+On note $\bar{\varphi}$ la fonction définit par
+$\bar{\varphi}(f)=\left\lfloor\varphi(f)\right\rceil\in\mathbb{Z}$
+où $\lfloor\cdot\rceil$ est la fonction d'arrondissement à l'entier le plus proche.
 
+On peut donc obtenir les nombres MIDI de notes à partir des fréquences fondamentales grâce à la fonction $\bar{\varphi}$.
+Mais le nombre MIDI n'est pas suffisant pour identifier une note, car certaines notes ont la même fréquence en accord tempéré (i.e. la même touche sur un piano), par exemple $f_{C\#}=f_{D\flat}$.
+Pour distinguer ces notes il est nécessaire de trouver la gamme du morceau.
+
+### Reconnaissance de la gamme
+
+Dans cette étude, on ne s'intéressera aux notes dans une octave. On introduit donc la fonction $\psi$ :
+$$\psi: ]0,\infty[ \rightarrow [0,12[ : f \mapsto \psi(f) \mod 12$$
+De même, on définit la fonction $\bar{\psi}$ telle que
+$\bar{\psi}(f)=\left\lfloor\psi(f)\right\rceil$.
+On voit que $\mathrm{Im}(\bar{\psi})=\mathbb{Z}/12\mathbb{Z}$
+
+|       Note      | C |   | B |   | E | F |   | G |   | A |   | B |
+|-----------------|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| $\bar{\psi}(f)$ | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10| 11|
+
+En musique classique, ils existent 4 types de gammes, on ne s'intéressera qu'à un : *la gamme majeure*.
+Comme on l'a déjà dit, une gamme est caractérisée par sa première note et la suite des intervalles.
+Dans la gamme majeure, les intérvalles en fonction du ton sont :
+1--1--½--1--1--1--½.
+
+La gamme *Do/C Majeur* contient donc les notes {0, 2, 4, 5, 7, 9, 11}.
+
+De même, la gamme *Sol/G Majeur* contient les notes {7, 9, 11, 0, 2, 4, 6}.
+Ces gammes diffèrent par une note, la note 5$\equiv$F est remplacée par la note 6 qui correspond à F# ou G$\flat$. Dans le contexte du Sol Majeur, on sait que 6$\equiv$F# car la gamme contient déjà 7$\equiv$G.
+
+On voit bien que l'identification de la gamme est *nécessaire* pour la distinction entre certaines notes.
+
+Une gamme peut être alors identifié par son ensemble de notes qu'on notera $G$ tel que
+$G\subset\mathbb{Z}/12\mathbb{Z}, |G|=7$.
+On définit le vecteur $g\in\left\{0,1\right\}^{12}$ associé à $G$ tel que
+$$ g_i = \mathbbm{1}_G(i) =
+\begin{cases} 1 & \text{si } i\in G\\ 0 &\text{sinon}\end{cases}$$
+On définit donc $E$ l'ensemble de gammes majeures.
+
+Soit $F$ l'ensemble de fréquences fondamentales obtenues par l'algorithme de YIN,
+soit $S=\bar{\psi}(F)\subset\mathbb{Z}/12\mathbb{Z}$,
+soit $p:{Z}/12\mathbb{Z}\rightarrow\mathbb{N}:n\mapsto\text{le nombre d'occurances de $n$ dans le morceau}$.
+On note $p_{\max}=\max\limits_{n\in S} p(n)$.
+On définit le vecteur $x\in\left[0,1\right]^{12}$ tel que $x_i=\frac{p(i)}{p_{\max}}$.
+
+La gamme du morceau est alors la solution du problème d'optimisation
+$$ \min\limits_{g\in E}\quad \lVert g-x \rVert $$
+En musique classique, $\lvert E\rvert = 12$ donc le problème d'optimisation ne nécessite pas une résolution mathémtique avancée.
 
 \begin{thebibliography}{9}
 \bibitem{yin}
