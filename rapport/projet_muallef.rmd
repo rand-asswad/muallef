@@ -10,8 +10,7 @@ knitr::opts_chunk$set(fig.pos = 'H')
 # Introduction
 
 ## Idée du projet
-Le but du projet est de créer un logiciel de transcription automatique de morceaux de musique, dans le cadre du projet semestriel on vise créer un version capable traiter des morc
-monophoniques.
+Le but du projet est de créer un logiciel de transcription automatique de morceaux de musique, dans le cadre du projet semestriel on vise créer un version capable traiter des morceaux monophoniques.
 
 ## Idée de traitement
 On part du principe qu'un signal sonore est une série harmonique, ce qui sera expliqué en détails dans le rapport final du projet.
@@ -24,22 +23,51 @@ L'étape finale fait appelle à la théorie de musique, elle consiste à extrair
 # Le traitement
 
 ## Cas initial
+```{python, include=FALSE}
+import sys
+project_path = '../'
+sys.path.append(project_path)
+```
 
 ### Partie théorique
-Le signal obtenu en entrée est un signal harmonique. C'est-à-dire qu'une note simple de durée $T$ seconde est donnée par un signal
-$$ x(t) = \sum\limits_{k\in\mathbb{N}} A_k\cdot\cos(2\pi k f_0 t), \forall t\in [0,T] $$
+Le signal obtenu en entrée est un signal harmonique.
+C'est-à-dire qu'une note simple de durée $T$ seconde est donnée par un signal
+$$ u(t) = \sum\limits_{k\in\mathbb{N}} A_k\cdot\cos(2\pi k f_0 t), \forall t\in [0,T] $$
 où $f_0$ est la fréquence fondamentale du signal sur $[0,T]$.
 
 Un morceau musical peut être vu comme une suite de notes où chaque note est caractérisée par sa fréquence et sa durée.
 En divisant le morceau en $N$ parties, on définit la suite $(t_i)_{i=0,\dots,N-1}$ telle que
 $t_i = i\cdot \frac{T}{N}$, le signal devient
-$$ x(t) = \sum\limits_{i=0}^{N-1} \sum\limits_{k\in\mathbb{N}}
-    A_{k,i} \cdot\cos(2\pi k f_{0,i} t) \cdot \mathbbm{1}_{[t_i,t_{i+1}[}(t) $$
+$$ x(t) = \sum\limits_{i=0}^{N-1}
+\underbrace{\sum\limits_{k\in\mathbb{N}} A_{k,i} \cdot\cos(2\pi k f_{0,i} t)}_{u_i(t)}
+\cdot \mathbbm{1}_{[t_i,t_{i+1}[}(t) $$
 
 ### Partie appliquée
-Le stockage de signaux sonore consiste à prélever des valeurs à intervalles définis. En général, l'échantillonnage est régulier, souvent fixé à 44100 Hz (valeur par seconde).
+Le stockage de signaux sonore consiste à prélever des valeurs à intervalles définis. En général, l'échantillonnage est régulier, souvent fixé à 44100 Hz (échantillons par seconde).
 
-% add python code showing an example
+```{python}
+from scipy.io import wavfile
+from matplotlib import pyplot as plt
+import numpy as np
+
+inputFile = project_path + 'sounds/reiding-cut.wav'
+# morceau exemple
+
+fs, x = wavfile.read(inputFile)
+# fs = échantillinage
+# x = signal discrétisé
+
+t = np.arange(x.size) / float(fs)
+# t = temps discrétisé
+
+plt.plot(t, x)
+```
+```{python, echo=FALSE}
+plt.xlabel("Temps (s)")
+plt.ylabel("Signal")
+plt.show()
+plt.clf()
+```
 
 ## Détection des fréquences fondamentales
 
@@ -49,6 +77,7 @@ Chaque type présente des avantages et des inconvénients, dans le cas d'un sign
 Après de nombreuses recherches on a décidé d'appliquer l'algorithme de **YIN** *(Kawahara et de Cheveigné, 2002)* car il est rapide, efficace et produit des erreurs moins importantes comparé avec d'autres algorithmes. Son principe se base sur la fonction d'autocorrélation.
 
 Les étapes de l'algorithme :
+
 1. La méthode d'autocorrelation
 2. La fonction de différences
 3. La fonction de la moyenne normalisée cumulée
@@ -59,8 +88,19 @@ Les étapes de l'algorithme :
 On expliquera la méthode en détails dans le rapport final du projet, et on étudiera l'erreur de cette méthode.
 
 Voyons une l'application de l'algorithme sur l'exemple précédent.
+```{python, eval=FALSE, include=TRUE}
+from src.pitch import YIN
 
-% add python code showing an example
+time, pitch = YIN(fs, x)
+
+plt.plot(time, pitch)
+```
+```{python, echo=FALSE}
+from src.part import Part
+p = Part(inputFile)
+p.plot_pitch(MIDI=False)
+plt.clf()
+```
 
 ## Analyse de notes
 
@@ -128,7 +168,12 @@ $\bar{\varphi}(f)=\left\lfloor\varphi(f)\right\rceil\in\mathbb{Z}$
 où $\lfloor\cdot\rceil$ est la fonction d'arrondissement à l'entier le plus proche.
 
 On peut donc obtenir les nombres MIDI de notes à partir des fréquences fondamentales grâce à la fonction $\bar{\varphi}$.
-Mais le nombre MIDI n'est pas suffisant pour identifier une note, car certaines notes ont la même fréquence en accord tempéré (i.e. la même touche sur un piano), par exemple $f_{C\#}=f_{D\flat}$.
+
+```{python, echo=FALSE}
+p.plot_pitch(MIDI=True)
+plt.clf()
+```
+Néanmoins, le nombre MIDI n'est pas suffisant pour identifier une note, car certaines notes ont la même fréquence en accord tempéré (i.e. la même touche sur un piano), par exemple $f_{C\#}=f_{D\flat}$.
 Pour distinguer ces notes il est nécessaire de trouver la gamme du morceau.
 
 ### Reconnaissance de la gamme
