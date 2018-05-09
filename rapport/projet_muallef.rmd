@@ -10,7 +10,7 @@ knitr::opts_chunk$set(fig.pos = 'H')
 # Introduction
 
 ## Idée du projet
-Le but du projet est de créer un logiciel de transcription automatique de morceaux de musique, dans le cadre du projet semestriel on vise créer un version capable traiter des morceaux monophoniques.
+Le but du projet est de créer un logiciel de transcription automatique de morceaux de musique, dans le cadre du projet semestriel on vise créer un version capable de traiter des morceaux monophoniques.
 
 ## Idée de traitement
 On part du principe qu'un signal sonore est une série harmonique, ce qui sera expliqué en détails dans le rapport final du projet.
@@ -31,7 +31,7 @@ sys.path.append(project_path)
 
 ### Partie théorique
 Le signal obtenu en entrée est un signal harmonique.
-C'est-à-dire qu'une note simple de durée $T$ seconde est donnée par un signal
+C'est-à-dire qu'une note simple de durée $T$ secondes est donnée par un signal
 $$ u(t) = \sum\limits_{k\in\mathbb{N}} A_k\cdot\cos(2\pi k f_0 t), \forall t\in [0,T] $$
 où $f_0$ est la fréquence fondamentale du signal sur $[0,T]$.
 
@@ -72,7 +72,7 @@ plt.clf()
 ## Détection des fréquences fondamentales
 
 Ils existent plusieurs algorithmes de détection de fréqences fondamentales, il y'en a deux types : applications sur le domaine temporel et sur le domaine fréquenciel.
-Chaque type présente des avantages et des inconvénients, dans le cas d'un signal monophone les algorithmes temporel sont meilleur d'où notre choix.
+Chaque type présente des avantages et des inconvénients, dans le cas d'un signal monophone les algorithmes temporels sont privilégiés.
 
 Après de nombreuses recherches on a décidé d'appliquer l'algorithme de **YIN** *(Kawahara et de Cheveigné, 2002)* car il est rapide, efficace et produit des erreurs moins importantes comparé avec d'autres algorithmes. Son principe se base sur la fonction d'autocorrélation.
 
@@ -92,13 +92,12 @@ Voyons une l'application de l'algorithme sur l'exemple précédent.
 from src.pitch import YIN
 
 time, pitch = YIN(fs, x)
-
 plt.plot(time, pitch)
 ```
 ```{python, echo=FALSE}
 from src.part import Part
 p = Part(inputFile)
-p.plot_pitch(MIDI=False)
+p.plot_pitch(MIDI=False, color='r')
 plt.clf()
 ```
 
@@ -109,9 +108,24 @@ L'espace de notes est un espace linéaire discrèt, mais l'espace de fréquences
 Le problème consiste à trouver une fonction qui associe les fréquences fondamentales obtenues avec des valeurs entières.
 
 ### Gammes et intervalles
-En acoustique, un **intervalle** désigne le rapport de fréquences de deux sons. Or, en musique chaque intervalle est caractéristique d'une échelle musicale, elle-même varie selon le type de musique.
-En musique, une **gamme** est une suite de notes conjointes où la fréquence de la dernière est le double de celle de la première.
+En acoustique, un **intervalle** désigne le rapport de fréquences de deux sons.
+Or, chaque intervalle est caractéristique d'une échelle musicale, elle-même varie selon le type de musique.
+
+En musique, une **gamme** (*en:* **scale**) est une suite de notes conjointes où la fréquence de la dernière est le double de celle de la première.
 Une gamme se caractérise par sa première note et la suite d'intervalles qui séparent les notes conjointes.
+
+L'**armure** — ou l'**armature** (*en:* **key signature**) — est un ensemble d'altérations réunies à la clé.
+Elle est composée soit exclusivement de dièses, soit exclusivement de bémols — en dehors du cas particulier constitué par le changement d'armure.
+Ces altérations correspondent à la tonalité principale des mesures suivant la clé.
+
+À chaque tonalité majeure est associée une tonalité en mode mineur, présentant la même armure de clef et appelée relative mineure.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.6\textwidth]{img/cycle-de-quintes.png}
+	\vspace{-30pt}
+	\caption{La cycle des quintes}
+\end{figure}
 
 Pour simplifier, on va considérer la théorie de la musique occidentale basée sur l'accord tempéré (depuis le XVIII^e^ siècle).
 Dans ce cas, l'intervalle séparant la première et la dernière note d'une gamme est dite *octave*, une octave se divise en 12 écarts égales appelés *demi-tons*.
@@ -125,8 +139,10 @@ La dernière note porte le même nom de la première dans la gamme.
 \end{figure}
 
 ### Nomenclature
-Ils existent plusieurs systèmes de nomenclature de notes de musique, en France et dans beaucoup de pays on adopte le noms en termes de *Do-Re-Mi-Fa-Sol-La-Si*.
-Un système très répandu est celui basé sur l'alphabet latin : *C-D-E-F-G-A-B*.
+Ils existent plusieurs systèmes de nomenclature de notes de musique.
+Le système utilisé en France adopte les noms en termes de *Do-Ré-Mi-Fa-Sol-La-Si*.
+De plus, il existe un système basé sur l'alphabet latin : *C-D-E-F-G-A-B*.
+Les deux systèmes sont très utilisés, dans ce projet on utilisera le dernière pour simplifier.
 
 Vu que les noms des notes se répètent au bout d'un octave, il faut distinguer une note *LA* de fréquence $440Hz$ d'une autre de fréquence $220Hz$ ou $880Hz$.
 
@@ -148,13 +164,14 @@ Un demi-ton est l'écart entre deux touches voisines sur un piano.
 On voudrais savoir le rapport $r$ de fréquences associé à un demi-ton, sachant que l'octave double la fréquence on peut conclure facilement :
 $$ r^{12} = 2 \Rightarrow r=2^{1/12} $$
 
-On souhaite ramener l'espace de fréquences $F=(\mathbb{R},\times)$ à l'espace $(\mathbb{N},+)$ tel que $\boxed{\text{demi-ton}\equiv 1}$.
+On souhaite ramener l'espace de fréquences $(\mathbb{R},\times)$ à l'espace $(\mathbb{N},+)$ tel que $\boxed{\text{demi-ton}\equiv 1}$.
 On définit donc une bijection
 $$\forall f\in]0,\infty[, f\mapsto 12 \log_2 f $$
 En arrondissant le résultat à la valeur entière la plus proche, on obtient un espace linéaire discrèt correspondant aux notes.
 
 Il sera convenient d'obtenir les mêmes notes du protocole **MIDI** vu qu'il est très bien établi et très utilisé.
-Pour cela, on effectue une petite translation, en partant de la note de référence $A4\equiv\text{MIDI(69)}\equiv 440Hz$.
+Pour cela, on effectue une petite translation, en partant de la note de référence
+$A4\equiv 69_{\text{MIDI}} \equiv 440Hz$.
 
 $$\begin{cases}
 \varphi:f\mapsto 12\log_2 f + c_{\text{ref}}\\
@@ -169,14 +186,34 @@ où $\lfloor\cdot\rceil$ est la fonction d'arrondissement à l'entier le plus pr
 
 On peut donc obtenir les nombres MIDI de notes à partir des fréquences fondamentales grâce à la fonction $\bar{\varphi}$.
 
+```{python, eval=FALSE}
+def pitch_to_midi(frequency, A4=440, silence_threshold=10):
+	if frequency < silence_threshold:
+		return -1
+	else:
+		return round(12*log2(frequency) + 69 - 12*log2(A4))
+
+def midi_to_note(nb_midi):
+	if nb_midi==-1:
+		octave = None
+		note = nb_midi
+	else:
+		octave = nb_midi // 12
+		note = nb_midi % 12
+	return note, octave
+
+notes_midi = [pitch_to_midi(f) for f in pitch]
+plt.plot(time, notes_midi)
+```
 ```{python, echo=FALSE}
-p.plot_pitch(MIDI=True)
+p.plot_pitch(MIDI=True, color='r')
 plt.clf()
 ```
-Néanmoins, le nombre MIDI n'est pas suffisant pour identifier une note, car certaines notes ont la même fréquence en accord tempéré (i.e. la même touche sur un piano), par exemple $f_{C\#}=f_{D\flat}$.
+Néanmoins, le nombre MIDI n'est pas suffisant pour identifier une note, car certaines notes ont la même fréquence en accord tempéré et donc le même nombre midi (i.e. la même touche sur un piano),
+par exemple $\text{MIDI}(C\#)=\text{MIDI}(D\flat)$.
 Pour distinguer ces notes il est nécessaire de trouver la gamme du morceau.
 
-### Reconnaissance de la gamme
+### Reconnaissance de la gamme/l'armature
 
 Dans cette étude, on ne s'intéressera aux notes dans une octave. On introduit donc la fonction $\psi$ :
 $$\psi: ]0,\infty[ \rightarrow [0,12[ : f \mapsto \psi(f) \mod 12$$
@@ -217,6 +254,82 @@ La gamme du morceau est alors la solution du problème d'optimisation
 $$ \min\limits_{g\in E}\quad \lVert g-x \rVert $$
 En musique classique, $\lvert E\rvert = 12$ donc le problème d'optimisation ne nécessite pas une résolution mathémtique avancée.
 
+
+### Implémentation
+On définit la classe \texttt{Scale} qui définit une type d'objets *gamme majeure*.
+Une instance de \texttt{Scale} contient l'indice de sa première note \texttt{Scale.base_note},
+et le vecteur $g\in{0,1}^{12}$ associé \texttt{Scale.vect}.
+```{python, eval=FALSE, include=TRUE}
+class Scale(object):
+    def __init__(self, note_index):
+		# Constructeur de gamme majeur à partir d'une note
+        self.base_note = note_index
+        self.vect = np.array(shift_array([1,0,1,0,1,1,0,1,0,1,0,1], note_index))
+```
+
+On extrait le vecteur $x$ associé au morceau.
+```{python, eval=FALSE, include=TRUE}
+scale_vect = [0] * 12
+
+for nb in notes_midi:
+	note, octave = midi_to_note(nb)
+	if note > -1:
+		scale_vect[note] += 1
+
+scale_vect = scale_vect/max(scale_vect)
+```
+
+On définit une fonction qui extrait la gamme en résolvant le problème d'optimisation.
+```{python, eval=FALSE, include=TRUE}
+def find_scale(scale_vect):
+	# Fonction qui prend le vecteur x associé au morceau
+	# retourne un objet de classe Scale
+
+	E = [Scale(i) for i in range(12)]
+	# liste de gammes majeurs
+
+	d = [norm(scale_vect - g.vect) for g in E]
+	# liste de distances entre le vecteur x et les gammes de E
+
+	index_min = argmin(d)
+	# l'indexe de la gamme la plus proche à x
+
+	return E[index_min]
+```
+```{python, include=FALSE}
+scale_vect = p.scale_arr
+from src.scale import find_scale
+```
+On applique cette fonction au morceau étudié, Concerto Op. 35 en Si mineur pour violon par Oskar Rieding.
+La gamme *Si mineur* possède deux dièses à l'armure (cf. cycle des quintes),
+on espère obtenir le même résultat :
+```{python}
+scale = find_scale(scale_vect)
+print(scale)
+```
+Ayant identifié l'armure du morceau, on peut obtenir les notes exactes à partir du nombre midi.
+
+# Travail à faire
+## Post-traitement
+Les résultats obtenus sont très intéressants.
+Or, il y a des notes courtes enregistrés qui ne sont qui du bruit capté lors des changements de notes.
+On a essayé d'éliminer ces notes en supprimant les notes courtes, mais on a perdu certaines notes importantes.
+
+On a aussi pensé à éliminer les notes correspondantes aux minimums locaux de l'envelope du signal, car la puissances du sont diminue considérablement lorsque le musicien change de note.
+
+Nous apprécions toutes idées que vous pourriez nous proposer.
+
+## La reconnaissance du rythme
+La notion du rythme en musique est relative. C'est-à-dire, la relation entre le temps est le rythme n'est pas toujours linéaire. L'identification du rythme n'est pas évidente.
+
+Ils existent plusieurs algorithmes pour trouver le rythme, mais ils sont plus adaptés aux pulsations fortes (en musique et en d'autres domaines). Ce qui rend la tâche plus difficile.
+
+J'ai plusieurs idées de solutions à essayer, elle se basent sur le domaine de l'Intelligence Artificielle. Soit une approche de *Machine Learning* couplé avec des statistiques, soit une approche liée au réseaux de neurones récurrents, en particulier *Long Short-Term Memory*.
+
+## Etape finale
+Une fois le *tempo* indentifié, les résultats se transforment facilement en format MusicXML qui peut être extrait facilement en format PDF grâce aux libraries existantes.
+
+\pagebreak
 \begin{thebibliography}{9}
 \bibitem{yin}
 Alain de Cheveigné et Hideki Kawahara.\\
