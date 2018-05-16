@@ -20,7 +20,7 @@ Par la suite, on analyse les notes pour obtenir une suite de notes associées av
 
 L'étape finale fait appelle à la théorie de musique, elle consiste à extraire le *tempo* à partir des durées des notes, et de reconnaitre la *gamme* du morceau à partir des notes obtenues.
 
-# Le traitement
+# Le traitement effectué
 
 ## Cas initial
 ```{python, include=FALSE}
@@ -257,7 +257,7 @@ En musique classique, $\lvert E\rvert = 12$ donc le problème d'optimisation ne 
 
 ### Implémentation
 On définit la classe \texttt{Scale} qui définit une type d'objets *gamme majeure*.
-Une instance de \texttt{Scale} contient l'indice de sa première note \texttt{Scale.base_note},
+Une instance de \texttt{Scale} contient l'indice de sa première note \texttt{Scale.base\_note},
 et le vecteur $g\in{0,1}^{12}$ associé \texttt{Scale.vect}.
 ```{python, eval=FALSE, include=TRUE}
 class Scale(object):
@@ -302,40 +302,55 @@ from src.scale import find_scale
 ```
 On applique cette fonction au morceau étudié, Concerto Op. 35 en Si mineur pour violon par Oskar Rieding.
 La gamme *Si mineur* possède deux dièses à l'armure (cf. cycle des quintes),
-on espère obtenir le même résultat :
+on espère obtenir le même résultat:
 ```{python}
 scale = find_scale(scale_vect)
 print(scale)
 ```
 Ayant identifié l'armure du morceau, on peut obtenir les notes exactes à partir du nombre midi.
 
-# Travail à faire
+# Le traitement en cours de développement
 ## Post-traitement
-Les résultats obtenus sont très intéressants.
-Or, il y a des notes courtes enregistrés qui ne sont qui du bruit capté lors des changements de notes.
+Les résultats obtenus sont certainement intéressants.
+Or, il y a des notes courtes enregistrés qui ne sont que du bruit capté lors des changements de notes.
 On a essayé d'éliminer ces notes en supprimant les notes courtes, mais on a perdu certaines notes importantes.
 
-On a aussi pensé à éliminer les notes correspondantes aux minimums locaux de l'envelope du signal, car la puissances du sont diminue considérablement lorsque le musicien change de note.
+Nous avons observé une relation entre les maximums locaux de l'envelope du signal et le changement de notes, ce qui nous a poussé à trouver une solution qui permet d'identifier ces changements correctement.
+Nous avons donc cherché une méthode mathématique perméttant d'extraire telle fonction. Par conséquent, on a trouvé plusieurs méthodes intéressantes dites en anglais **Onset Detection**.
 
-Nous apprécions toutes idées que vous pourriez nous proposer.
+Notre idée de base ne constitue qu'une partie de la solution.
+En effet, l'identification des *Onsets* ou *Débuts* s'effectue en deux étapes:
+
+1. Calculer une fonction dite **Onset Detection Function** ou parfois **Onset Strength Signal (OSS)** dont les maximums locaux correspondent aux *Onsets*.
+2. **Peak Selection** : il s'agit d'une méthode de sélection de maximums locaux.
+
+Ils existent plusieurs fonctions OSS utilisées dans le domaine temporel, fréquentiel, ou complexe. Qui permettent de quantifier l'énergie du signal et/ou les changements dans la fréquence fondamentale.
+
+Pour la deuxième étape, on introduit souvent un seuil afin d'éliminer les points avec un OSS petit.
+En général, le seuil n'est pas constant, il se calcul à partir de la fonction OSS par des méthodes statistiques comme la moyenne mobile.
+
+On choisira après les points de l'OSS supérieurs au seuil et maximals dans un voisinage petit qu'on fixe.
 
 ## La reconnaissance du rythme
-La notion du rythme en musique est relative. C'est-à-dire, la relation entre le temps est le rythme n'est pas toujours linéaire. L'identification du rythme n'est pas évidente.
+Sans le rythme, la partition ne peut être écrite. Vu qu'on n'a pas encore fini le traitement, nous ne pouvons pas passer à cette étape, le projet se restreint à un outil de conversion en format MIDI.
 
-Ils existent plusieurs algorithmes pour trouver le rythme, mais ils sont plus adaptés aux pulsations fortes (en musique et en d'autres domaines). Ce qui rend la tâche plus difficile.
-
-J'ai plusieurs idées de solutions à essayer, elle se basent sur le domaine de l'Intelligence Artificielle. Soit une approche de *Machine Learning* couplé avec des statistiques, soit une approche liée au réseaux de neurones récurrents, en particulier *Long Short-Term Memory*.
+Si vous pouvez nous guider dans cette étape, ça sera encore mieux pour nous.
 
 ## Etape finale
 Une fois le *tempo* indentifié, les résultats se transforment facilement en format MusicXML qui peut être extrait facilement en format PDF grâce aux libraries existantes.
 
-\pagebreak
 \begin{thebibliography}{9}
+
 \bibitem{yin}
 Alain de Cheveigné et Hideki Kawahara.\\
 \textit{YIN, a fundamental frequency estimator for speech and music}, 2002.
 
-\bibitem{lstm}
-Felix A. Gers, Nicol N. Schraudolph, et Jürgen Schmidhuber.\\
-\textit{Learning Precise Timing with LSTM Recurrent Networks}, 2002.
+\bibitem{peaks}
+Carlos Rosão, Ricardo Ribeiro, et David Martins de Matos.\\
+\textit{Influence of peak selection methods on onset detection}, 2012.
+
+\bibitem{onset-complex}
+Chris Duxbury, Juan Pablo Bello, Mike Davies and Mark Sandler.\\
+\textit{Complex domain onset detection for musical signals}, 2003.
+
 \end{thebibliography}
