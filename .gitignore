@@ -1,8 +1,12 @@
 ### OTHER
 sounds/
 globalenv/
-src/
+old/
 lib/
+draft.py
+librosa_test.py
+main.py
+test.py
 
 ### PYTHON
 __pycache__/
