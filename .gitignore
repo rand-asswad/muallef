@@ -3,6 +3,7 @@ sounds/
 globalenv/
 old/
 lib/
+junk/
 draft.py
 librosa_test.py
 main.py
