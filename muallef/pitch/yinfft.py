@@ -70,7 +70,7 @@ def yinfft_detect(signal, sampleRate, weight, tolerance=0.85):
 def spectral_weights(bufferSize, sampleRate):
     weight = np.zeros(int(bufferSize / 2) + 1)
     j = 1
-    factor = 1.0 / float(bufferSize) * sampleRate
+    factor = (1.0 / float(bufferSize)) * sampleRate
     for i in range(weight.size):
         freq = i * factor
         while freq > freqsMask[j]:

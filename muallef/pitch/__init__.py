@@ -6,11 +6,11 @@ __name__ = "muallef.pitch"
 __package__ = "muallef.pitch"
 
 
-def detect(signal, sampleRate, hopSize, unit='Hz', method='yin', timeUnit='frames', tolerance=None):
+def detect(signal, sampleRate, bufferSize=2048, unit='Hz', method='yin', timeUnit='frames', tolerance=None):
     """Pitch detect function returns pitch and time.
     :param signal: input signal as numpy array
     :param sampleRate: signal sample rate
-    :param hopSize: number of samples per frame
+    :param bufferSize: number of samples per frame
     :param unit: pitch output unit.
         {Hz, MIDI} - default: "Hz"
     :param method: pitch detection method.
@@ -32,7 +32,7 @@ def detect(signal, sampleRate, hopSize, unit='Hz', method='yin', timeUnit='frame
         kwargs = dict(tolerance=tolerance)
     elif method == 'yinfft':
         get_pitch = yinfft.yinfft_detect
-        w = yinfft.spectral_weights(hopSize, sampleRate)
+        w = yinfft.spectral_weights(bufferSize, sampleRate)
         if not tolerance:
             tolerance = 0.85
         kwargs = dict(sampleRate=sampleRate, weight=w, tolerance=tolerance)
@@ -42,18 +42,19 @@ def detect(signal, sampleRate, hopSize, unit='Hz', method='yin', timeUnit='frame
     pitch = []
     time = []
     t = 0
-    start, stop = 0, hopSize
+    start, stop = 0, bufferSize
     while stop <= signal.size:
         buffer = signal[start:stop]
-        pitch.append(get_pitch(buffer, **kwargs))
+        p = get_pitch(buffer, **kwargs)
+        if p > 0:
+            p = sampleRate / p
+        pitch.append(p)
         time.append(t)
-        start, stop = stop, stop + hopSize
+        start, stop = stop, stop + bufferSize
         t += 1
 
-    #time = units.convertFreq(np.array(time), fromUnit="frames", to=timeUnit)
-    #pitch = units.convertFreq(np.array(pitch), fromUnit="Hz", to=unit)
-    time = np.array(time)
-    pitch = np.array(pitch)
+    time = units.convertTime(np.array(time), fromUnit="frames", to=timeUnit)
+    pitch = units.convertFreq(np.array(pitch), fromUnit="hz", to=unit)
 
     return time, pitch
 
