@@ -1,6 +1,5 @@
 from muallef.utils import math
 from muallef.utils.units import dB_to_power
-from scipy.fftpack import fft
 from scipy.signal import hann
 import numpy as np
 
