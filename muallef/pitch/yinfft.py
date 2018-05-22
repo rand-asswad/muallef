@@ -56,14 +56,18 @@ def yinfft_detect(signal, sampleRate, weight, tolerance=0.85):
     short_period = int(round(sampleRate / 1300.0))
     if yin[tau] < tolerance:
         if tau > short_period:
+            peak_position = tau
             pitch = math.quadratic_peak_position(yin, tau)
         else:
             half_period = int(tau / 2.0 + 0.5)
             peak_position = half_period if yin[half_period] < tolerance else tau
             pitch = math.quadratic_peak_position(yin, peak_position)
     else:
+        peak_position = 0
         pitch = 0.0
-    return pitch
+    # get pitch confidence
+    confidence = 1.0 - yin[peak_position]
+    return pitch, confidence
 
 
 def spectral_weights(bufferSize, sampleRate):

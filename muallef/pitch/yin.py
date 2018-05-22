@@ -23,4 +23,4 @@ def yin_detect(signal, tolerance=0.15):
 
     # get best estimate
     peak_pos = np.argmin(yin)
-    return math.quadratic_peak_position(yin, peak_pos)
+    return math.quadratic_peak_position(yin, peak_pos), 0.0
