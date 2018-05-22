@@ -56,3 +56,10 @@ def fft_parts(x, n=None):
     re = np.append([z[0]], z[1::2])
     im = z[2::2]
     return re, im
+
+
+def normalize(array):
+    array -= array.min()
+    if array.any():
+        array /= array.max()
+    return array

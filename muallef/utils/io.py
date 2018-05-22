@@ -1,15 +1,38 @@
+from os import path, remove
+from tempfile import mkstemp
 from subprocess import call
 from threading import Thread
+
 from matplotlib import pyplot as plt
+from scipy.io import wavfile
+from pydub import AudioSegment
 
 
-def play_wav(inputFile):
-    """Plays wave file in a new thread
-    :param inputFile: wave file path
+def read_audio(file_path):
+    file, ext = path.splitext(file_path)
+    sound = AudioSegment.from_file(file_path, ext[1:])
+    if ext == ".wav":
+        tmp = None
+        wav = file_path
+    else:
+        _, tmp = mkstemp()
+        sound.export(tmp, format="wav")
+        wav = tmp
+    fs, data = wavfile.read(wav)
+    if tmp:
+        remove(tmp)
+    return fs, data
+
+
+def play_audio(file_path):
+    """Plays audio file in a new thread
+    :param file_path: audio file path
+    :return thread
     """
-    p = Thread(target=call, args=(['aplay', inputFile], ))
-    p.setName("play:" + inputFile)
+    p = Thread(target=call, args=(['aplay', file_path], ))
+    p.setName("play:" + file_path)
     p.start()
+    return p
 
 
 def plot_step_function(x, y, where='post', color='b'):
