@@ -54,7 +54,7 @@ def onset_function(signal, sampleRate, windowSize, overlap=None,
 def high_frequency_content(stft):
     f, t, s = stft
     mag = square(np.abs(s))
-    coefs = np.arange(X.shape[0])
+    coefs = np.arange(s.shape[0])
     spectral_mag = np.dot(coefs, mag)
     return t, spectral_mag
 

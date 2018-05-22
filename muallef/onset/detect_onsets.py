@@ -1,5 +1,6 @@
 from muallef.onset.detection_functions import onset_function
 from muallef.onset.peak_picker import peak_pick
+import numpy as np
 
 
 def detect_onsets(signal, sampleRate, threshold=0.1, windowSize=2048,
@@ -20,6 +21,8 @@ def detect_onsets(signal, sampleRate, threshold=0.1, windowSize=2048,
                                method=method, normalize=True, unit=unit)
 
     # select peak indices
-    onsets = peak_pick(onset_function, threshold)
+    onsets = peak_pick(odf, threshold)
+    onsets = np.insert(onsets, 0, 0)
+    onsets = np.append(onsets, time.size - 1)
 
     return time[onsets]
