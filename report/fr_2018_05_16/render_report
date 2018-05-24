@@ -8,5 +8,5 @@ input = args[1]
 header = args[2]
 
 tex_header = includes(in_header = header)
-render(input, pdf_document(includes = tex_header, number_sections = TRUE, fig_caption = TRUE))
-#render(input)
+#render(input, pdf_document(includes = tex_header, number_sections = TRUE, fig_caption = TRUE))
+render(input)
