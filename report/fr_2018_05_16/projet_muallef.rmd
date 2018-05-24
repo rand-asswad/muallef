@@ -23,10 +23,14 @@ L'étape finale fait appelle à la théorie de musique, elle consiste à extrair
 # Le traitement effectué
 
 ## Cas initial
-```{python, include=FALSE}
+```{python, include=FALSE, echo=FALSE}
 import sys
-project_path = '../'
-sys.path.append(project_path)
+project_path = '../../'
+code_path = project_path + 'old/functional'
+sys.path.append(code_path)
+from part import Part
+inputFile = project_path + 'sounds/reiding-cut.wav'
+p = Part(inputFile)
 ```
 
 ### Partie théorique
@@ -89,15 +93,14 @@ On expliquera la méthode en détails dans le rapport final du projet, et on ét
 
 Voyons une l'application de l'algorithme sur l'exemple précédent.
 ```{python, eval=FALSE, include=TRUE}
-from src.pitch import YIN
+from pitch import YIN
 
 time, pitch = YIN(fs, x)
 plt.plot(time, pitch)
 ```
 ```{python, echo=FALSE}
-from src.part import Part
-p = Part(inputFile)
 p.plot_pitch(MIDI=False, color='r')
+plt.show()
 plt.clf()
 ```
 
@@ -207,6 +210,7 @@ plt.plot(time, notes_midi)
 ```
 ```{python, echo=FALSE}
 p.plot_pitch(MIDI=True, color='r')
+plt.show()
 plt.clf()
 ```
 Néanmoins, le nombre MIDI n'est pas suffisant pour identifier une note, car certaines notes ont la même fréquence en accord tempéré et donc le même nombre midi (i.e. la même touche sur un piano),
@@ -298,7 +302,7 @@ def find_scale(scale_vect):
 ```
 ```{python, include=FALSE}
 scale_vect = p.scale_arr
-from src.scale import find_scale
+from scale import find_scale
 ```
 On applique cette fonction au morceau étudié, Concerto Op. 35 en Si mineur pour violon par Oskar Rieding.
 La gamme *Si mineur* possède deux dièses à l'armure (cf. cycle des quintes),
