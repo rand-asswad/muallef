@@ -5,7 +5,7 @@ def detect_tempo(time, notes):
     duration = np.diff(time)
     gcf = pseudo_gcf(duration[np.argwhere(notes > 0)])
     tempo = np.rint(duration / gcf)
-    index = np.argwhere(tempo > 0)
+    index = np.argwhere(tempo > 0).squeeze()
     return tempo[index], notes[index]
 
 

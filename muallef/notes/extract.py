@@ -6,21 +6,21 @@ from muallef.notes.tempo import detect_tempo
 def extract_midi(time, notes, output_file):
     tempo, notes = detect_tempo(time, notes)
     notes = np.rint(notes).astype(dtype=int)
-    #time = np.delete(np.insert(np.cumsum(tempo), 0, 0), -1)
-    tempo = tempo.astype(dtype=int)
+    #tempo = tempo.astype(dtype=int)
+    time = np.delete(np.insert(np.cumsum(tempo), 0, 0), -1)
+    if len(notes) != len(tempo) or len(tempo) != len(time):
+        raise Exception('Dimension error')
 
-    mf = MIDIFile(1)
-    track = 0
-    time = 0
-    mf.addTrackName(track, time, "Name")
-    mf.addTempo(track, time, 120)
+    midi = MIDIFile(1)
+    midi.addTempo(track=0, time=time[0], tempo=120)
 
-    channel = 0
-    volume = 100
+    silence = np.argwhere(notes > 0).squeeze()
+    time = time[silence]
+    tempo = tempo[silence]
+    notes = notes[silence]
 
     for i in range(len(notes)):
-        mf.addNote(track, channel, pitch=notes[i], time=time, duration=tempo[i], volume=100)
-        time = time + tempo[i]
+        midi.addNote(track=0, channel=0, pitch=notes[i], time=time[i], duration=tempo[i], volume=100)
 
-    with open(output_file, "wb") as out:
-        mf.writeFile(out)
+    with open(output_file, "wb") as midi_out:
+        midi.writeFile(midi_out)
