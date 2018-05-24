@@ -1,0 +1,11 @@
+#!/usr/bin/bash
+
+echo "Rendering cover page..."
+cd cover
+pdflatex cover.tex >/dev/null
+cd ..
+
+echo "Rendering RMD report..."
+./render_report projet_muallef.rmd header.tex >/dev/null
+
+echo "Done! (assuming there are no errors)"
