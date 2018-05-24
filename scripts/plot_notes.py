@@ -1,11 +1,14 @@
 #!/bin/python3
 
 import sys
-print(sys.path)
+from os import path
+current_dir = path.dirname(path.realpath(__file__))
+sys.path.append(path.join(current_dir, '..'))
+
 import argparse
 from matplotlib import pyplot as plt
-from . import notes
-from .utils.io import read_audio, plot_step_function
+from muallef import notes
+from muallef.utils.io import read_audio, plot_step_function
 
 parser = argparse.ArgumentParser(description="Extracts notes from audio file.")
 
