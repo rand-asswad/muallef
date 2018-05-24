@@ -76,5 +76,5 @@ def segment_pitch(pitch, conf, threshold):
         pitch = pitch[index]
         conf = conf[index]
         if conf.any():
-            return np.average(pitch, weights=conf)
+            return int(round(np.average(pitch, weights=conf)))
     return -1
