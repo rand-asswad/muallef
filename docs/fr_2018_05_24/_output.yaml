@@ -1,0 +1,21 @@
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: simplex
+    fig_caption: true
+    code_folding: show
+    includes:
+      in_header: include/header.html
+      before_body: include/prefix.html
+    pandoc_args: [
+      "--metadata", "pagetitle=Muallef",
+    ]
+  pdf_document:
+    toc: true
+    number_sections: true
+    fig_caption: true
+    includes:
+      in_header: include/header.tex
+      before_body: include/cover.tex
+bibliography: references.bib
