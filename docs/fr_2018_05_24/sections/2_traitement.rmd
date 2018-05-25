@@ -92,23 +92,13 @@ Ces altérations correspondent à la tonalité principale des mesures suivant la
 
 À chaque tonalité majeure est associée une tonalité en mode mineur, présentant la même armure de clef et appelée relative mineure.
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=.6\textwidth]{img/cycle-de-quintes.png}
-	\vspace{-30pt}
-	\caption{La cycle des quintes}
-\end{figure}
+![Le cycle des quintes](img/cycle-de-quintes.png){width=50%}
 
 Pour simplifier, on va considérer la théorie de la musique occidentale basée sur l'accord tempéré (depuis le XVIII^e^ siècle).
 Dans ce cas, l'intervalle séparant la première et la dernière note d'une gamme est dite *octave*, une octave se divise en 12 écarts égales appelés *demi-tons*.
 La dernière note porte le même nom de la première dans la gamme.
 
-\begin{figure}[H]
-	\centering
-	\includegraphics{img/intervalles-piano.png}
-	\vspace{-15pt}
-	\caption{Les intervalles sur un piano}
-\end{figure}
+![Les intervalles sur un piano](img/intervalles-piano.png){width=100%}
 
 ### Nomenclature
 Ils existent plusieurs systèmes de nomenclature de notes de musique.
@@ -123,12 +113,7 @@ Par exemple la fréquence $440Hz$ représente $A_4$ sans ambiguité, et les fré
 
 Dans le protocole **MIDI**, le notes sont représentées par un nombre entier, il permet de coder plus de 10 octave en partant de la note $C_{-1}$.
 
-\begin{figure}[H]
-	\centering
-	\includegraphics{img/piano-keys.png}
-	\vspace{-15pt}
-	\caption{La notation scientifique des notes sur un piano}
-\end{figure}
+![La notation scientifique sur un piano](img/piano-keys.png){width=100%}
 
 ### Reconnaissance des notes
 
@@ -231,7 +216,7 @@ En musique classique, $\lvert E\rvert = 12$ donc le problème d'optimisation ne 
 ### Implémentation
 On définit la classe \texttt{Scale} qui définit une type d'objets *gamme majeure*.
 Une instance de \texttt{Scale} contient l'indice de sa première note \texttt{Scale.base\_note},
-et le vecteur $g\in{0,1}^{12}$ associé \texttt{Scale.vect}.
+et le vecteur $g\in\{0,1\}^{12}$ associé \texttt{Scale.vect}.
 ```{python, eval=FALSE, include=TRUE}
 class Scale(object):
     def __init__(self, note_index):

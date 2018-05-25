@@ -18,4 +18,3 @@ output:
     includes:
       in_header: include/header.tex
       before_body: include/cover.tex
-bibliography: references.bib

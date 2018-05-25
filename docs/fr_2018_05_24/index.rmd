@@ -21,7 +21,3 @@ p = Part(inputFile)
 
 ```{r child='sections/3_reste.rmd'}
 ```
-
-# References
-@R-ggplot2
-@R-knitr

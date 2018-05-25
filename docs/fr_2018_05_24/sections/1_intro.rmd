@@ -3,8 +3,6 @@
 ## Idée du projet
 Le but du projet est de créer un logiciel de transcription automatique de morceaux de musique, dans le cadre du projet semestriel on vise créer un version capable de traiter des morceaux monophoniques.
 
-![La cycle de la vie](img/cycle-de-quintes.png){width=50%}
-
 ## Idée de traitement
 On part du principe qu'un signal sonore est une série harmonique, ce qui sera expliqué en détails dans le rapport final du projet.
 
