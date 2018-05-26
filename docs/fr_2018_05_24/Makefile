@@ -1,21 +1,21 @@
 
 all: index.rmd
-	echo "rendering..."
+	@echo "rendering..."
 	Rscript -e "rmarkdown::render('$<', c('pdf_document', 'html_document'))"
-	echo "done!"
+	@echo "done!"
 
 pdf: index.rmd
-	echo "rendering pdf..."
+	@echo "rendering pdf..."
 	Rscript -e "rmarkdown::render('$<', 'pdf_document')"
-	echo "done!"
+	@echo "done!"
 
 html: index.rmd
-	echo "rendering html..."
+	@echo "rendering html..."
 	Rscript -e "rmarkdown::render('$<', 'html_document')"
-	echo "done!"
+	@echo "done!"
 
 clean:
-	echo "cleaning..."
+	@echo "cleaning..."
 	rm *.pdf *.html
-	echo "done!"
+	@echo "done!"
 
