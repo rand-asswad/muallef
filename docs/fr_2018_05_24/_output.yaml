@@ -5,6 +5,7 @@ output:
     theme: simplex
     fig_caption: true
     code_folding: show
+    css: include/styles.css
     includes:
       in_header: include/header.html
       before_body: include/prefix.html
