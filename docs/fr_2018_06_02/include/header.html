@@ -1,0 +1,20 @@
+<div class="header" id="myHeader">
+    <!--<h2 class="alignleft">Projet de transcription de musique</h2>-->
+    <img class="alignright" src="img/INSA_logo.png" style="height:65px">
+    <div style="clear: both;"></div>
+</div>
+
+<script>
+window.onscroll = function() {myFunction()};
+
+var header = document.getElementById("myHeader");
+var sticky = header.offsetTop;
+
+function myFunction() {
+  if (window.pageYOffset >= sticky) {
+    header.classList.add("sticky");
+  } else {
+    header.classList.remove("sticky");
+  }
+}
+</script>

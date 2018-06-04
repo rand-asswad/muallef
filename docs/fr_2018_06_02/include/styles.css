@@ -1,0 +1,29 @@
+.header {
+	padding: 10px 16px;
+	background-color: #eee;
+	color: #f1f1f1;
+}
+
+.sticky {
+	position: fixed;
+	top: 0;
+	width: 100%;
+}
+
+.alignleft {
+	float: left;
+}
+
+.alignright {
+	float: right;
+}
+
+img {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.caption {
+	text-align: center;
+}

@@ -2,6 +2,7 @@
 sounds/
 globalenv/
 old/
+*.midi
 main.py
 
 ### PYTHON

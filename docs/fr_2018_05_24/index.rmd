@@ -13,11 +13,11 @@ from part import Part
 inputFile = project_path + 'sounds/reiding-cut.wav'
 p = Part(inputFile)
 ```
-```{r child='sections/1_intro.rmd'}
+```{r child='sections/1_intro.md'}
 ```
 
-```{r child='sections/2_traitement.rmd'}
+```{r child='sections/2_traitement.md'}
 ```
 
-```{r child='sections/3_reste.rmd'}
+```{r child='sections/3_reste.md'}
 ```
