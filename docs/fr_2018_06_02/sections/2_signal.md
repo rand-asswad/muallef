@@ -51,9 +51,35 @@ le signal sur un intervalle fermé en temps discret.
 
 Soit $N$ le nombre d'échantillons pris sur l'intervalle $[0,t_{\text{max}}[$.
 On introduit la fréquence d'échantillonnage $f_s$ dîte en anglais *sample rate* ou *sampling frequency*.
-On a donc $t_n = \frac{n}{f_s}$
+On a donc $t_n = \frac{n}{f_s}$ pour $n\in\{0,1,\dots,N-1\}$.
 
-On note $x[n] = x(t_n)$ avec $t_n=\frac{n}{f_s}$ où $f_s$ est la fréquence d'échantillonnage
-dîte en anglais *sample rate* ou *sampling frequency*.
+\begin{align}
+\hat{x}(f) &= \int\limits_{0}^{t_{\text{max}}} x(t)\cdot e^{-2\pi j ft}\mathrm{d}t \\
+    &= \lim\limits{f_s\rightarrow\infty} \sum\limits_{n=0}^{N-1} x(t_n)\cdot e^{-2\pi j ft_n}\\
+    &= \lim\limits{f_s\rightarrow\infty} \sum\limits_{n=0}^{N-1} x(t_n)\cdot e^{-2\pi j f \frac{n}{f_s}}
+\end{align}
 
-Sur une intervalle de temps $$, 
+On note $x[n] = x(t_n)$ on a donc
+$$ \hat{x}(f) = \sum\limits_{n=0}^{N-1} x[n]\cdot e^{-2\pi j f \frac{n}{f_s}}$$
+
+On peut également discrétiser la fréquence en définissant $X[k]=\hat{x}(f)$.
+$$ X[k] = \sum\limits_{n=0}^{N-1} x[n]\cdot e^{-2\pi j k \frac{n}{f_s}}$$
+
+De même, STFT se discrétise:
+$$X[n, k] = \sum\limits_{n=0}^{N-1} x[m]\cdot w[m-n]\cdot e^{-2\pi j k \frac{m}{f_s}}$$ 
+
+Cette partie est une sur-simplification du théroème d'échantillonnage de **Nyquist-Shannon**.
+
+## Fenêtrage
+Il existe une infinité de fenêtres à utiliser dans les calculs.
+La plus simple est la fonction rectangulaire, mais nous avons utilisé dans l'intégralité du projet
+la fonction **Hann**.
+
+Le choix de la fonction est basé sur un le phénomène du **aliasing** qui rend les signaux
+indisntinguables lors de l'échantillonnage. En effet, la fenêtre Hann cause peu de *aliasing* d'où notre choix.
+
+$$w[n] = \sin^2\left(\frac{\pi n}{N -1}\right) =\frac{1}{2}\left(1-\cos\left(\frac{2\pi n}{N -1}\right)\right)$$
+![La fenêtre Hann est sa transformée de Fourier](img/Hann.svg)
+
+## Spectrogramme
+
