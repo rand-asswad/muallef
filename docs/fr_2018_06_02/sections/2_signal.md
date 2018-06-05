@@ -79,7 +79,5 @@ Le choix de la fonction est basé sur un le phénomène du **aliasing** qui rend
 indisntinguables lors de l'échantillonnage. En effet, la fenêtre Hann cause peu de *aliasing* d'où notre choix.
 
 $$w[n] = \sin^2\left(\frac{\pi n}{N -1}\right) =\frac{1}{2}\left(1-\cos\left(\frac{2\pi n}{N -1}\right)\right)$$
-![La fenêtre Hann est sa transformée de Fourier](img/Hann.svg)
-
-## Spectrogramme
+![La fenêtre Hann est sa transformée de Fourier](img/Hann.png)
 

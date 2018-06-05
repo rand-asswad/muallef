@@ -13,6 +13,9 @@ html: index.rmd
 	Rscript -e "rmarkdown::render('$<', 'html_document')"
 	@echo "done!"
 
+reveal: slides.md
+	Rscript -e "rmarkdown::render('$<', 'revealjs::revealjs_presentation')"
+
 clean:
 	@echo "cleaning..."
 	rm *.pdf *.html

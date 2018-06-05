@@ -21,3 +21,6 @@ sys.path.append(project_path)
 
 ```{r child='sections/4_onset.md'}
 ```
+
+```{r child='sections/5_scale.md'}
+```

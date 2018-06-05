@@ -34,7 +34,8 @@ Ce problème pourra être résolu en définissant un seuil au dessous duquel
 aucun onset est considéré. Ils existent plusieurs méthodes pour définir tel seuil.
 
 Soit un seuil fixe, ce qui minimise le coût des calculs au prix de la qualité des résultats.
-Soit de calculer un seuil variable par des méthodes classiques comme la moyenne mobile.
+Soit de calculer un seuil variable, il s'agit de lisser la fonction ODF par des méthodes
+classiques comme la moyenne mobile.
 
 La méthode consiste donc en trois étapes:
 1. Calcul de l'**Onset Detection Function**.
@@ -49,8 +50,31 @@ quelques unes qui se basent sur la STFT.
 Il s'agit de priviligier les fréquences élevées dans un signal:
 $$ HFC[n] = \sum\limits_{k=1}^{N}k\cdot\left\lvert X[n,k]\right\rvert^2 $$
 
-### Phase Deviation
+### Phase Deviation (Phi)
+Il s'agit de calculer les différences de phases en dérivant l'argument complex
+de la STFT, on note $\varphi(t, f) = \mathrm{arg}(X(t, f)) $.
+$$\hat{\varphi}(t, f) = \mathrm{princarg}
+\left( \frac{\partial^2 \varphi}{\partial t^2}(t, f)  \right) $$
+où
+$$ \mathrm{princarg}(\theta) = \pi + ((\theta + \pi) mod (-2\pi)) $$
+donc la ODS de phase se calcule par la formule:
+$$ \Phi[n] = \sum\limits_{k=0}^{N}\left\lvert \hat{\varphi}[n, k] \right\rvert $$
+
+Dans notre implémentation, nous avons approximé la dérivée partielle seconde
+de la phase par un schéma de Taylor d'ordre 2.
+
 ### Complex Distance
+Cette méthode permet de qualifier les changements spectraux du signal
+ainsi que les changements en phase. Il s'agit de calculer une prédiction
+du spectre du signal, et puis le comparer par sa valeur.
+On reprend la fonction calculée en $\hat{varphi}(t, f)$ de la méthode précédante.
+On définit la prédiction :
+$$ \hat{X}[n, k] = \left\lvert X[n, k] \right\rvert \cdot e^{j\hat{\varphi}[n, k]} $$
+
+Donc la distance complexe se calcule:
+$$ DC[n] = \sum\limits_{k=0}^{N} \left\lvert  \hat{X}[n, k] - X[n, k] \right\rvert ^2 $$ 
 
 
-
+## Thresholding
+Nous avons décidé de lisser la fonction ODF par une moyenne mobile echelonnées
+par la fenêtre Hann, il s'agit du produit de convolution de l'ODF avec la fonction Hann.
