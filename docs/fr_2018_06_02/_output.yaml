@@ -10,12 +10,34 @@ output:
       in_header: include/header.html
       before_body: include/prefix.html
     pandoc_args: [
-      "--metadata", "pagetitle=Muallef",
+      "--metadata", "pagetitle=MUALLEF",
     ]
   pdf_document:
+    keep_tex: false
     toc: true
     number_sections: true
     fig_caption: true
     includes:
       in_header: include/header.tex
       before_body: include/cover.tex
+    pandoc_args: [
+      "--bibliography=references.bib",
+      "--natbib",
+    ]
+  revealjs::revealjs_presentation:
+    theme: simple
+    highlight: haddock
+    center: true
+    transition: slide
+    incremental: true
+    css: reveal.css
+    reveal_options:
+      history: false
+      slideNumber: true
+    pandoc_args: [
+      "--metadata", "pagetitle=MUALLEF",
+    ]
+  ioslides_presentation:
+    pandoc_args: [
+      "--metadata", "pagetitle=MUALLEF",
+    ]

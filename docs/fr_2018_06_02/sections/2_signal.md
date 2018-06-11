@@ -4,9 +4,11 @@
 
 Le son d'un résonateur acoustique comme une chorde ou une colonne d'air
 est une onde stationnaire. On dit que tel son évoque un **pitch défini**.
-Dans le cas des instrument de percussion, le son présente une *inharmonicité*.
+Dans le cas des instruments de percussion, le son présente une *inharmonicité*.
 On dit que tel son évoque un **pitch indéfini**.
 Dans ce projet on ne s'intéressera qu'au sons harmoniques de pitch défini.
+
+![Les harmoniques d'une chorde vibrante](img/harmonic-string.png){height=35%}
 
 Un signal sonore de pitch défini, est une série harmonique de sons purs, représenté par
 des ondes sinusoïdales dont les fréquences sont des multiples **entiers**
@@ -15,69 +17,106 @@ d'une fréquence dîte la **fondamentale** (où le **pitch**) notée $f_0$.
 $$ x(t) = \sum\limits_{k\in\mathbb{N}} A_k\cdot\cos(2\pi k f_0 t) $$
 où $A_k$ est l'amplitude de la k^ème^ harmonique.
 
-On cherche donc à indentifier *f_0* dans un signal harmonique donnée.
+On cherche donc à indentifier $f_0$ dans un signal harmonique donnée.
 
-## La transformée de Fourier et ses variantes
-La transformée de Fourier permet d'identifier la fréquence d'une fonction périodique.
+## Discrétisation et échantillonnage
+
+La numérisation d'un signal consiste à prélever des valeurs du signal à intervalles définis.
+Les valeurs obtenues sont appelées des *échantillons*.
+
+La *période d'échantillonnage* $T_s$ est l'intervalle de temps entre deux échantillons, on définit
+$f_s=\frac{1}{T_s}$ le nombre d'échantillons prélevés par secondes, $f_s$ est dît
+*fréquence d'échantillonnage* ou en anglais **sample rate**.
+
+On note $x[n] = x(t_n)$ où $t_n = n\cdot T_s = \frac{n}{f_s}$. Dans le reste du projet, on notera toujours
+$[\cdot]$ les valeurs discrètes.
+
+L'échantillonnage d'un signal consiste à choisir une fréquence d'échantillonnage sans perdre de valeurs importantes
+du signal. En traitement de signaux sonores, $f_s$ est souvent égale à $44.1 kHz, 22.05 kHz, 16 kHz,\text{ou } 8kHz$.
+La numérisation d'un signal dépend aussi d'autre facteurs comme le *bit depth*
+(i.e. le nombre de bits pour stocker chaque échantillon), mais nous ne nous intéressons pas par les détails;
+les bases de l'échantillonnage de signaux sont expliquées et démontrées par le théroème d'échantillonnage de **Nyquist-Shannon**.
+
+## La transformée de Fourier (FT)
+La transformée de Fourier se définit par:
 $$\hat{x}(f) = \int\limits_{-\infty}^{\infty} x(t)\cdot e^{-2\pi j ft}\mathrm{d}t$$
+
+Cette transformation permet d'identifier la fréquence d'une fonction périodique.
+En effet, La transformée de Fourier représente l'intensité d'une fréquence dans un signal,
+donc ses pics correspondent aux fréquences du signal.
+
 <video width="800" controls>
-    <source src="plot/fourier.mp4" type="video/mp4">
+    <source src="../../figures/out/fourier.mp4" type="video/mp4">
 </video>
-Le pic de $\hat{x}(f)$ correspond à la fréquence du signal $x(t)$.
+
 Comme la transformée de Fourier est linéaire, la transformée d'un signal
 harmonique produit plusieurs pics.
 
-![Linéarité de la transformée de Fourier](plot/fourier_linearity.png)
+![Linéarité de la transformée de Fourier](../../figures/out/fourier_linearity.png)
 
-## La transformée de Fourier à court terme
-Grâce à la transformée de Fourier et sa linéarité on peut obtenir les fréquences
-d'un signal harmonique. Or, en pratique, un signal sonore change souvent
-de fréquences, on voudrait donc obtenir la transformée de Fourier en fonction
-du temps **et** de la fréquence, la transformée de Fourier à court terme
-(anglais: *Short-Time Fourier Transform*) souvent dîte **STFT**
-permet d'obtenir tel fonction.
+## La transformée de Fourier discrète (DFT)
 
-La STFT se calcule à l'aide d'une **fonction de fenêtrage** $w$, qui est
-une fonction à support compact. En effet, la STFT est la transformée
-de Fourier d'une fonction pondérée avec une fenêtre $w$ de support
-compact suffisamment petit. Le principe de cette transformée est
-analogue au produit de convolution.
+Soit $N$ le nombre d'échantillons pris sur l'intervalle $[0,t_{\text{max}}[$, soit $f_s$ la fréquence
+d'échantillonage. Pour $n=0,1,\dots,N-1$ on a:
+
+\begin{align*}
+\hat{x}(f) &= \int\limits_{0}^{t_{\text{max}}} x(t)\cdot e^{-2\pi j ft}\mathrm{d}t \\
+    &= \lim\limits_{f_s\rightarrow\infty} \sum\limits_{n=0}^{N-1} x(t_n)\cdot e^{-2\pi j ft_n}\\
+    &= \lim\limits_{f_s\rightarrow\infty} \underbrace{\sum\limits_{n=0}^{N-1} x[n]\cdot e^{-2\pi j f \frac{n}{f_s}}}_{\hat{x}[f]}\\
+    &= \lim\limits_{f_s\rightarrow\infty} \hat{x}[f]
+\end{align*}
+
+La DFT de $x[n]$ se définit donc par: 
+$$ \hat{x}[k] = \sum\limits_{n=0}^{N-1} x[n]\cdot e^{-2\pi j k \frac{n}{f_s}} $$
+
+**Remarque:** La DFT se calcule souvent matriciellement pour économiser les calculs. De plus, dans le cas
+où $N=2^p,p\in\mathbb{N}$ on calcule la transformée de Fourier rapide (FFT) qui utilise le symétrie
+pour minimiser le nombre de calculs.
+
+## Fenêtrage
+Nous avons souvent besoin de traiter le signal sur une durée limitée, on définit donc une fonction
+à support compact $w$ et on étudie le produit de convolution du signal avec la fenêtre.
+
+Voici quelques exemples de fenêtres:
+
+- Fonction rectangulaire:
+$$ \mathrm{rect}_{[0,T]}(t) = \begin{cases} 1 &\text{si } t\in[0,T]\\0 &\text{sinon} \end{cases} $$
+- Fenêtre Hann:
+$$ w(t) = \sin^2 \left( \frac{\pi t}{T} \right) \cdot\mathrm{rect}_{[0,T]}(t) $$
+- Fenêtre Welch (fenêtre parabolique):
+$$ w(t) = 1 - \left( \frac{2t - T}{T} \right) \cdot\mathrm{rect}_{[0,T]}(t) $$
+
+Nous avons choisi d'utiliser la fenêtre de Hann dans notre projet car elle attenue le phénomène **aliasing** qui rend les signaux
+indisntinguables lors de l'échantillonnage.
+
+$$w[n] = \sin^2\left(\frac{\pi n}{N -1}\right)
+    = \frac{1}{2}\left(1-\cos\left(\frac{2\pi n}{N -1}\right)\right)$$
+
+![La fenêtre Hann est sa transformée de Fourier](img/Hann.png){width=70%}
+
+## La transformée de Fourier à court terme (STFT)
+
+La transformée de Fourier nous permet d'obtenir les fréquences d'un signal harmonique.
+Or, la fréquence d'un signal peut changer en fonction du temps, on voudrait donc
+avoir la transformée de Fourier en fonction de la fréquence *et* du temps.
+
+La transformée de Fourier à court terme $X(t,f)$ est la transformée de Fourier
+de $x$ sur une fenêtre glissante $w$ centrée en $t$ (i.e. $w(\tau-t)$).
 
 $$X(t, f) = \int\limits_{-\infty}^{\infty} x(\tau)\cdot w(\tau-t)\cdot e^{-2\pi j f\tau} \mathrm{d}\tau $$
 
-## La transformée de Fourier discrète
-Dans ce projet, on voudrais analyser un son enregistré, on étudie donc
-le signal sur un intervalle fermé en temps discret.
-
-Soit $N$ le nombre d'échantillons pris sur l'intervalle $[0,t_{\text{max}}[$.
-On introduit la fréquence d'échantillonnage $f_s$ dîte en anglais *sample rate* ou *sampling frequency*.
-On a donc $t_n = \frac{n}{f_s}$ pour $n\in\{0,1,\dots,N-1\}$.
-
-\begin{align}
-\hat{x}(f) &= \int\limits_{0}^{t_{\text{max}}} x(t)\cdot e^{-2\pi j ft}\mathrm{d}t \\
-    &= \lim\limits{f_s\rightarrow\infty} \sum\limits_{n=0}^{N-1} x(t_n)\cdot e^{-2\pi j ft_n}\\
-    &= \lim\limits{f_s\rightarrow\infty} \sum\limits_{n=0}^{N-1} x(t_n)\cdot e^{-2\pi j f \frac{n}{f_s}}
-\end{align}
-
-On note $x[n] = x(t_n)$ on a donc
-$$ \hat{x}(f) = \sum\limits_{n=0}^{N-1} x[n]\cdot e^{-2\pi j f \frac{n}{f_s}}$$
-
-On peut également discrétiser la fréquence en définissant $X[k]=\hat{x}(f)$.
-$$ X[k] = \sum\limits_{n=0}^{N-1} x[n]\cdot e^{-2\pi j k \frac{n}{f_s}}$$
-
-De même, STFT se discrétise:
+De même, la STFT discrète se définit:
 $$X[n, k] = \sum\limits_{n=0}^{N-1} x[m]\cdot w[m-n]\cdot e^{-2\pi j k \frac{m}{f_s}}$$ 
 
-Cette partie est une sur-simplification du théroème d'échantillonnage de **Nyquist-Shannon**.
+## Spectrogramme
 
-## Fenêtrage
-Il existe une infinité de fenêtres à utiliser dans les calculs.
-La plus simple est la fonction rectangulaire, mais nous avons utilisé dans l'intégralité du projet
-la fonction **Hann**.
+Le spectrogramme permet de visualiser les changement de fréquences en fonction du temps, il se définit par:
+$$ S(t,f) = \left\lvert X(t,f) \right\rvert $$
 
-Le choix de la fonction est basé sur un le phénomène du **aliasing** qui rend les signaux
-indisntinguables lors de l'échantillonnage. En effet, la fenêtre Hann cause peu de *aliasing* d'où notre choix.
+![](../../figures/out/spectrogram.png)
 
-$$w[n] = \sin^2\left(\frac{\pi n}{N -1}\right) =\frac{1}{2}\left(1-\cos\left(\frac{2\pi n}{N -1}\right)\right)$$
-![La fenêtre Hann est sa transformée de Fourier](img/Hann.png)
+**Remarque:** Si on voudrait visualiser la puissance spectrale d'un signal, on prend le carré de la module
+de la STFT.
+
+\pagebreak
 

@@ -16,6 +16,9 @@ html: index.rmd
 reveal: slides.md
 	Rscript -e "rmarkdown::render('$<', 'revealjs::revealjs_presentation')"
 
+ioslides: slides.md
+	Rscript -e "rmarkdown::render('$<', 'ioslides_presentation')"
+
 clean:
 	@echo "cleaning..."
 	rm *.pdf *.html

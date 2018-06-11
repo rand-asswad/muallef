@@ -38,6 +38,7 @@ Soit de calculer un seuil variable, il s'agit de lisser la fonction ODF par des 
 classiques comme la moyenne mobile.
 
 La méthode consiste donc en trois étapes:
+
 1. Calcul de l'**Onset Detection Function**.
 2. **Thresholding**: calcul du seuil.
 3. **Peak-picking**: la selection des onsets.
@@ -52,7 +53,8 @@ $$ HFC[n] = \sum\limits_{k=1}^{N}k\cdot\left\lvert X[n,k]\right\rvert^2 $$
 
 ### Phase Deviation (Phi)
 Il s'agit de calculer les différences de phases en dérivant l'argument complex
-de la STFT, on note $\varphi(t, f) = \mathrm{arg}(X(t, f)) $.
+de la STFT, on note
+$$ \varphi(t, f) = \mathrm{arg}(X(t, f)) $$
 $$\hat{\varphi}(t, f) = \mathrm{princarg}
 \left( \frac{\partial^2 \varphi}{\partial t^2}(t, f)  \right) $$
 où

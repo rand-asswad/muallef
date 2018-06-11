@@ -16,7 +16,7 @@ Ces altérations correspondent à la tonalité principale des mesures suivant la
 
 À chaque tonalité majeure est associée une tonalité en mode mineur, présentant la même armure de clef et appelée relative mineure.
 
-![Le cycle des quintes](img/cycle-de-quintes.png){width=50%}
+![Le cycle des quintes](img/cycle-des-quintes.png){width=50%}
 
 Pour simplifier, on va considérer la théorie de la musique occidentale basée sur l'accord tempéré (depuis le XVIII^e^ siècle).
 Dans ce cas, l'intervalle séparant la première et la dernière note d'une gamme est dite *octave*, une octave se divise en 12 écarts égales appelés *demi-tons*.
@@ -79,7 +79,7 @@ De même, on définit la fonction $\bar{\psi}$ telle que
 $\bar{\psi}(f)=\left\lfloor\psi(f)\right\rceil$.
 On voit que $\mathrm{Im}(\bar{\psi})=\mathbb{Z}/12\mathbb{Z}$
 
-|       Note      | C |   | B |   | E | F |   | G |   | A |   | B |
+|       Note      | C |   | D |   | E | F |   | G |   | A |   | B |
 |-----------------|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
 | $\bar{\psi}(f)$ | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10| 11|
 
