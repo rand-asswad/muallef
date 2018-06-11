@@ -47,7 +47,7 @@ def convertFreq(frequency, fromUnit, to, A4=440):
             freq = []
             for f in frequency:
                 if f < 20:
-                    freq.append(-1)
+                    freq.append(0)
                 else:
                     freq.append(12 * np.log2(f) + ref)
             frequency = np.array(freq)

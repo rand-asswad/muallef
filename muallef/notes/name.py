@@ -19,16 +19,6 @@ def note_name(midi, tone, name_system="solfege"):
     return octave_note_name(note, tone, name_system=name) + str(octave)
 
 
-def octave_note_name(note, tone, name_system):
-    if scale.C_major[note]:
-        return name_system[note]
-    if tone == -1:
-        sym = name_system[note + 1] + _flat
-    else:
-        sym = name_system[note - 1] + _sharp
-    return sym
-
-
 sci_name = ['C', 'C#/D♭', 'D', 'D#/E♭', 'E', 'F', 'F#/G♭', 'G', 'G#/A♭', 'A', 'A#/B♭', 'B']
 
 alpha_name = {
@@ -52,3 +42,15 @@ solfege_name = {
 }
 _sharp = "#"
 _flat = "♭"
+
+
+def octave_note_name(note, tone, name_system=solfege_name):
+    if scale.C_major[note]:
+        return name_system[note]
+    if tone == -1:
+        sym = name_system[note + 1] + _flat
+    else:
+        sym = name_system[note - 1] + _sharp
+    return sym
+
+

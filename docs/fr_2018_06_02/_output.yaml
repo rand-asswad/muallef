@@ -1,3 +1,4 @@
+lang: french
 output:
   html_document:
     toc: true
@@ -13,7 +14,7 @@ output:
       "--metadata", "pagetitle=MUALLEF",
     ]
   pdf_document:
-    keep_tex: false
+    keep_tex: true
     toc: true
     number_sections: true
     fig_caption: true

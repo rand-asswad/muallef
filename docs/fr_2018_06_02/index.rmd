@@ -24,3 +24,8 @@ sys.path.append(project_path)
 
 ```{r child='sections/5_scale.md'}
 ```
+
+```{r child='sections/6_conclusion.md'}
+```
+
+# Références

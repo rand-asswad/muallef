@@ -1,5 +1,27 @@
 # Signaux sonores
 
+## Musique & Son
+
+L'humain fait le lien entre la musique et le son dans son cerveau instantanément sans
+le moindre d'efforts. Néanmoins, nous voudrions établir ce lien de façon scientifique.
+
+Un son possède des les caractéristiques suivants:
+
+- Hauteur tonale (fréquence)
+- Durée
+- Intensité (énergie)
+- Timbre (source sonore)
+
+La musique se caractérise par:
+
+- **La mélodie:** la suite de phrases ou motifs sonores monophones
+- **L'harmonie:** l'ensemble de son différents simultanés
+- **Le rythme:** la suite de durées du son
+- **La nuance:** l'intensité relative du son
+- **Le timbre:** la nature du son / son source / son empreinte
+
+Nous allons expliquer dans ce projet les notions de base de ce lien.
+
 ## Son harmonique
 
 Le son d'un résonateur acoustique comme une chorde ou une colonne d'air
@@ -113,10 +135,51 @@ $$X[n, k] = \sum\limits_{n=0}^{N-1} x[m]\cdot w[m-n]\cdot e^{-2\pi j k \frac{m}{
 Le spectrogramme permet de visualiser les changement de fréquences en fonction du temps, il se définit par:
 $$ S(t,f) = \left\lvert X(t,f) \right\rvert $$
 
-![](../../figures/out/spectrogram.png)
-
 **Remarque:** Si on voudrait visualiser la puissance spectrale d'un signal, on prend le carré de la module
 de la STFT.
 
+## Méthodes d'analyse
+
+Ils existent deux types d'analyse de signaux harmoniques:
+
+1. **Analyse temporelle:** il s'agit d'étudier le signal sans passer par la transformée de Fourier.
+2. **Analyse fréquentielle/spéctrale:** il s'agit d'étudier le spectre du signal (sa transformée de Fourier).
+
+On obtient toujours des meilleurs résultats par l'analyse fréquentielle, mais la transformée de Fourier
+demande un calcul coûteux.
+Dans le cas d'un signal simple (e.g. percussion, rythmique, etc) on privilégie l'analyse temporelle.
+Sinon, dans le cas d'un signal complexe (e.g. instruments mélodiques, signal polyphône, etc) l'analyse
+fréquentielle est privilégié.
+
+## Implémentation
+
+On lit un fichier audio grâce à la class `source` qu'on a défini
+```{python}
+from muallef.utils import source
+audio_file = project_path + "sounds/violin/violin-czardas-cut.wav"
+sound = source(audio_file)
+x = sound.signal
+fs = sound.sampleRate
+t = sound.get_time()
+```
+
+On trace le signal à l'aide de la librairie `matplotlib`
+```{python}
+from matplotlib import pyplot as plt
+plt.plot(t, x)
+plt.show()
+plt.clf()
+```
+
 \pagebreak
+On trace le spectrogramme du signal
+```{python}
+from figures import plot_spectrogram
+fig = plt.figure()
+ax = fig.add_subplot(111)
+ax, out = plot_spectrogram(signal=x, sample_rate=fs, axis=ax, color_map='inferno')
+plt.show()
+plt.clf()
+```
+
 

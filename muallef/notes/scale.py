@@ -18,7 +18,7 @@ def count_notes(notes, duration=None):
     notes = np.rint(notes).astype(dtype=int)
     index = np.argwhere(notes > 0)
     octave = np.remainder(notes[index], 12)
-    duration = duration[index] if duration.any() else np.ones(index.shape)
+    duration = duration[index] if duration else np.ones(index.shape)
 
     result = np.zeros(12)
     for n in range(12):
