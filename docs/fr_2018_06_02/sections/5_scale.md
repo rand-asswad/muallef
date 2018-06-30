@@ -43,8 +43,6 @@ basée sur l'accord tempéré.
 Les notes principales sont les touches blanches d'un piano.
 Les touches noirs d'un piano sont des notes altérées.
 
-![](img/intervalles-piano.png)
-
 - Noms français: do-ré-mi-fa-sol-la-si
 - Noms alphabétiques: C-D-E-F-G-A-B
 
