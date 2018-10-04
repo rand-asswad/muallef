@@ -88,7 +88,7 @@ d'échantillonage. Pour $n=0,1,\dots,N-1$ on a:
     &= \lim\limits_{f_s\rightarrow\infty} \hat{x}[f]
 \end{align*}
 
-La DFT de $x[n]$ se définit donc par: 
+La DFT de $x[n]$ se définit donc par:
 $$ \hat{x}[k] = \sum\limits_{n=0}^{N-1} x[n]\cdot e^{-2\pi j k \frac{n}{f_s}} $$
 
 **Remarque:** La DFT se calcule souvent matriciellement pour économiser les calculs. De plus, dans le cas
@@ -128,7 +128,7 @@ de $x$ sur une fenêtre glissante $w$ centrée en $t$ (i.e. $w(\tau-t)$).
 $$X(t, f) = \int\limits_{-\infty}^{\infty} x(\tau)\cdot w(\tau-t)\cdot e^{-2\pi j f\tau} \mathrm{d}\tau $$
 
 De même, la STFT discrète se définit:
-$$X[n, k] = \sum\limits_{n=0}^{N-1} x[m]\cdot w[m-n]\cdot e^{-2\pi j k \frac{m}{f_s}}$$ 
+$$X[n, k] = \sum\limits_{n=0}^{N-1} x[m]\cdot w[m-n]\cdot e^{-2\pi j k \frac{m}{f_s}}$$
 
 ## Spectrogramme
 
@@ -166,6 +166,7 @@ t = sound.get_time()
 On trace le signal à l'aide de la librairie `matplotlib`
 ```{python}
 from matplotlib import pyplot as plt
+plt.clf()
 plt.plot(t, x)
 plt.show()
 plt.clf()
