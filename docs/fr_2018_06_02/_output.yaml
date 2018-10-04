@@ -12,6 +12,7 @@ output:
       before_body: include/prefix.html
     pandoc_args: [
       "--metadata", "pagetitle=MUALLEF",
+      "--biblio", "references.bib", "--filter", "pandoc-citeproc",
     ]
   pdf_document:
     keep_tex: true
@@ -22,8 +23,7 @@ output:
       in_header: include/header.tex
       before_body: include/cover.tex
     pandoc_args: [
-      "--bibliography=references.bib",
-      "--natbib",
+      "--biblio", "references.bib", "--filter", "pandoc-citeproc",
     ]
   revealjs::revealjs_presentation:
     theme: simple
