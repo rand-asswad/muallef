@@ -1,4 +1,4 @@
-\documentclass[]{article}
+\documentclass[french,]{article}
 \usepackage{lmodern}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
@@ -24,9 +24,16 @@
 \usepackage[margin=1in]{geometry}
 \usepackage{hyperref}
 \hypersetup{unicode=true,
+            pdftitle={Projet Muallef},
             pdfborder={0 0 0},
             breaklinks=true}
 \urlstyle{same}  % don't use monospace font for urls
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[shorthands=off,main=french]{babel}
+\else
+  \usepackage{polyglossia}
+  \setmainlanguage[]{french}
+\fi
 \usepackage{color}
 \usepackage{fancyvrb}
 \newcommand{\VerbBar}{|}
@@ -113,9 +120,9 @@
 
 \setlength{\droptitle}{-2em}
 
-  \title{}
-    \pretitle{\vspace{\droptitle}}
-  \posttitle{}
+  \title{Projet Muallef}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
     \author{}
     \preauthor{}\postauthor{}
     \date{}
@@ -148,6 +155,7 @@
 \makeatother
 
 \begin{document}
+\maketitle
 
 \begin{titlepage}
   \begin{sffamily}
@@ -207,7 +215,7 @@ En effet, l'humain cherchait à caractériser la musique afin de pouvoir
 la conserver et de la partager. Cette science a commencé par l'écriture
 des chants hourrites sur des tablettes d'argile extraite d'Ougarit
 (actuellement Latakié, Syrie) qui remontent approximativement à 1400 av.
-J.-C. (Wikipédia 2018)
+J.-C. (Wikipédia \protect\hyperlink{ref-ougarit}{2018})
 
 \begin{figure}
 \centering
@@ -546,10 +554,11 @@ la fréquence fondamentale d'un signal.
 \hypertarget{yin}{%
 \subsection{YIN}\label{yin}}
 
-L'algorithme de YIN \emph{(Kawahara and Cheveigné 2002)} est une méthode
-robuste pour la reconnaissance du pitch dans le domaine temporel. Son
-principe est la séléction de fréquences candidates parmi toutes les
-fréquences détéctées sur l'intervalle de fenêtrage.
+L'algorithme de YIN \emph{(Kawahara et Cheveigné
+\protect\hyperlink{ref-yin}{2002})} est une méthode robuste pour la
+reconnaissance du pitch dans le domaine temporel. Son principe est la
+séléction de fréquences candidates parmi toutes les fréquences détéctées
+sur l'intervalle de fenêtrage.
 
 La méthode propose que l'expression \(x(t)-x(t+\tau)\) atteint son
 minimum quand \(\tau\) est égale à la période du signal (i.e.
@@ -572,9 +581,10 @@ recommandent un seuil de 0.1).
 \hypertarget{yin-spectrale}{%
 \subsection{YIN spectrale}\label{yin-spectrale}}
 
-L'algorithme de YIN spectrale \emph{(Brossier 2007)} est une méthode qui
-utilise la même logique de l'algorithme de YIN et l'applique sur le
-spectre du signal.
+L'algorithme de YIN spectrale \emph{(Brossier
+\protect\hyperlink{ref-yinfft}{2007})} est une méthode qui utilise la
+même logique de l'algorithme de YIN et l'applique sur le spectre du
+signal.
 
 La fonction de différence est définie par le carré de la différence
 spéctrale: \begin{align*}
@@ -692,10 +702,11 @@ La méthode consiste donc en trois étapes:
   \textbf{Peak-picking}: la selection des onsets.
 \end{enumerate}
 
-Une méthode heuristique est proposée par (Rosão, Ribeiro, and Matos
-2012) pour séléctionner les onsets, il s'agit de trouver les points
-\(t_n\) tels que, pour \(a,b,\tau\in\mathbb{N}, \delta\in{R_+}\) fixés:
-- \(x[n] = \max\limits_{n+a \leq i\leq n + b} x[i]\) -
+Une méthode heuristique est proposée par (Rosão, Ribeiro, et Matos
+\protect\hyperlink{ref-ismir}{2012}) pour séléctionner les onsets, il
+s'agit de trouver les points \(t_n\) tels que, pour
+\(a,b,\tau\in\mathbb{N}, \delta\in{R_+}\) fixés: -
+\(x[n] = \max\limits_{n+a \leq i\leq n + b} x[i]\) -
 \(x[n] \geq \delta + \frac{1}{a+b+1}\sum\limits_{n+a \leq i\leq n + b} x[i]\)
 - Si \(O\) est l'ensembles d'onsets,
 \(\forall n,m\in O, \lvert n - m \rvert > \tau\)
@@ -717,7 +728,7 @@ quelques unes qui se basent sur la STFT.
 
 Il s'agit de priviligier les fréquences élevées dans un signal.
 \[ D_{HFC}[n] = \sum\limits_{k=1}^{N}k\cdot\left\lvert X[n,k]\right\rvert^2 \]
-(Masri 1996)
+(Masri \protect\hyperlink{ref-hfc}{1996})
 
 \hypertarget{phase-deviation-phi}{%
 \subsubsection{Phase Deviation (Phi)}\label{phase-deviation-phi}}
@@ -729,7 +740,7 @@ complex de la STFT, on note \[ \varphi(t, f) = \mathrm{arg}(X(t, f)) \]
 \[ \mathrm{princarg}(\theta) = \pi + ((\theta + \pi) mod (-2\pi)) \]
 donc la ODS de phase se calcule par la formule:
 \[ D_{\Phi}[n] = \sum\limits_{k=0}^{N}\left\lvert \hat{\varphi}[n, k] \right\rvert \]
-(Bello and Sandler 2003)
+(Bello et Sandler \protect\hyperlink{ref-phase}{2003})
 
 Dans notre implémentation, nous avons approximé la dérivée partielle
 seconde de la phase par un schéma de Taylor d'ordre 2.
@@ -746,7 +757,7 @@ définit la prédiction :
 
 Donc la distance complexe se calcule:
 \[ D_{\mathbb{C}}[n] = \sum\limits_{k=0}^{N} \left\lvert  \hat{X}[n, k] - X[n, k] \right\rvert ^2 \]
-(Duxbury et al. 2003)
+(Duxbury et al. \protect\hyperlink{ref-complex}{2003})
 
 \hypertarget{thresholding}{%
 \subsection{Thresholding}\label{thresholding}}
@@ -1276,11 +1287,11 @@ Nous avons testé les librairies existantes:
 \begin{itemize}
 \tightlist
 \item
-  \url{aubio.org}
+  \href{aubio.org}{Aubio}
 \item
-  \url{essentia.upf.edu}
+  \href{essentia.upf.edu}{Essentia}
 \item
-  \url{librosa.github.io}
+  \href{librosa.github.io}{Librosa}
 \end{itemize}
 
 Les résultats sont assez satisfaisants. En revanche, ce domaine a du
@@ -1288,7 +1299,7 @@ fort potentiel de développement. Notamment le cas de musique pholyphone,
 et dans la reconnaissance du rythme. D'après ma recherche, le plus
 intéressant sera de faire intervenir de l'Intelligence Artificielle, en
 particulier la technologie Long short-term Memory (LSTM). (Wikipedia
-contributors 2018)
+contributors \protect\hyperlink{ref-lstm}{2018})
 
 \hypertarget{apport-personnel}{%
 \subsection{Apport personnel}\label{apport-personnel}}
@@ -1307,37 +1318,37 @@ Nous vous remercions sincèrement pour cette opportunité.
 
 \hypertarget{refs}{}
 \leavevmode\hypertarget{ref-phase}{}%
-Bello, Juan, and Mark Sandler. 2003. ``Phase-Based Note Onset Detection
-for Music Signals.''
+Bello, Juan, et Mark Sandler. 2003. «~Phase-based note onset detection
+for music signals~».
 
 \leavevmode\hypertarget{ref-yinfft}{}%
-Brossier, Paul. 2007. ``Automatic Annotation of Musical Audio for
-Interactive Applications.''
+Brossier, Paul. 2007. «~Automatic Annotation of Musical Audio for
+Interactive Applications~».
 
 \leavevmode\hypertarget{ref-complex}{}%
-Duxbury, Chris, Juan Bello, Mike Davies, and Mark Sandler. 2003.
-``Complex Domain Onset Detection for Musical Signals.''
+Duxbury, Chris, Juan Bello, Mike Davies, et Mark Sandler. 2003.
+«~Complex domain onset detection for musical signals~».
 
 \leavevmode\hypertarget{ref-yin}{}%
-Kawahara, Hideki, and Alain de Cheveigné. 2002. ``YIN, a Fundamental
-Frequency Estimator for Speech and Music.''
+Kawahara, Hideki, et Alain de Cheveigné. 2002. «~YIN, a fundamental
+frequency estimator for speech and music~».
 
 \leavevmode\hypertarget{ref-hfc}{}%
-Masri, Paul. 1996. ``Computer Modeling of Sound for Transformation and
-Synthesis of Musical Signal.''
+Masri, Paul. 1996. «~Computer modeling of Sound for Transformation and
+Synthesis of Musical Signal~».
 
 \leavevmode\hypertarget{ref-ismir}{}%
-Rosão, Carlos, Ricardo Ribeiro, and David Martins de Matos. 2012.
-``Influence of Peak Selection Methods on Onset Detection.''
+Rosão, Carlos, Ricardo Ribeiro, et David Martins de Matos. 2012.
+«~Influence of peak selection methods on onset detection~».
 
 \leavevmode\hypertarget{ref-lstm}{}%
-Wikipedia contributors. 2018. ``Long Short-Term Memory --- Wikipedia,
-the Free Encyclopedia.''
+Wikipedia contributors. 2018. «~Long short-term memory --- Wikipedia,
+The Free Encyclopedia~».
 \url{https://en.wikipedia.org/w/index.php?title=Long_short-term_memory\&oldid=844880987}.
 
 \leavevmode\hypertarget{ref-ougarit}{}%
-Wikipédia. 2018. ``Chants Hourrites --- Wikipédia, L'encyclopédie
-Libre.''
+Wikipédia. 2018. «~Chants hourrites --- Wikipédia, l'encyclopédie
+libre~».
 \url{http://fr.wikipedia.org/w/index.php?title=Chants_hourrites\&oldid=145548895}.
 
 

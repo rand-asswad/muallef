@@ -1,3 +1,10 @@
+---
+title: "Projet Muallef"
+bibliography: references.bib
+link-citations: yes
+lang: fr-FR
+---
+
 ```{r global_options, include=FALSE}
 knitr::opts_chunk$set(fig.pos = 'H')
 knitr::opts_knit$set(root.dir = './')

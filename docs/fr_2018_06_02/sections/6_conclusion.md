@@ -10,9 +10,9 @@ Nous aurions aimé pouvoir faire plus de tests avec des exemples variés.
 ## Développement possible
 Nous avons testé les librairies existantes:
 
-- \url{aubio.org}
-- \url{essentia.upf.edu}
-- \url{librosa.github.io}
+- [Aubio](aubio.org)
+- [Essentia](essentia.upf.edu)
+- [Librosa](librosa.github.io)
 
 Les résultats sont assez satisfaisants. En revanche, ce domaine a du fort potentiel
 de développement. Notamment le cas de musique pholyphone, et dans la reconnaissance
