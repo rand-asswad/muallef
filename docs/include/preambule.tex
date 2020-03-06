@@ -1,0 +1,39 @@
+\geometry{paper=a4paper, margin=2.2cm}
+\usepackage[defaultlines=10,all]{nowidow}
+\usepackage{float}
+\usepackage[justification=centering]{caption}
+
+% force babel to use default item labels
+%\frenchbsetup{StandardItemLabels=true}
+
+% tables
+\usepackage{boldline} % provides V{n} and \hlineB{n}
+\usepackage{makecell} % for line breaks inside cell
+\usepackage{multirow} % for multirow cells
+
+% math
+%\usepackage{amsmath}
+%\usepackage{amsthm,amssymb,amsfonts,amscd}
+%\usepackage{mathtools}
+%\usepackage{centernot}
+
+
+\makeatletter
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{\@title}
+\rhead{Rand ASSWAD}
+
+\usepackage{pmboxdraw} % for tree chars encoding
+
+\renewcommand{\fps@figure}{H}
+
+\AtBeginDocument{\let\maketitle\relax}
+
+%%%%%%%%%%%%%%%% COVER
+
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+\newcommand{\hsp}{\hspace{20pt}}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}

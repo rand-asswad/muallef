@@ -1,0 +1,33 @@
+<script>
+    window.onscroll = function() {myFunction()};
+
+    var header = document.getElementById("myHeader");
+    var sticky = header.offsetTop;
+
+    function myFunction() {
+        if (window.pageYOffset >= sticky) {
+            header.classList.add("sticky");
+        } else {
+            header.classList.remove("sticky");
+        }
+    }
+</script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/prolog.min.js"></script>
+
+<script>
+    var figCaption = [
+        `<b>Table 1</b> – Heuristiques de Hamming et de Manhattan</br>
+        source: <a href="https://www.cs.princeton.edu/courses/archive/spring18/cos226/assignments/8puzzle/index.html">
+        Princeton University - Computer Science Course COS226</a>`,
+        `Une partie de la graphe de résolution A*</br>
+        source: <a href="https://www.cs.princeton.edu/courses/archive/spring18/cos226/assignments/8puzzle/index.html">
+        Princeton University - Computer Science Course COS226</a>`,
+        `<b>Table 2</b> – Comparaison des algorithmes sur des taquin de taille 3×3`
+    ]
+
+    for (let i = 0; i < figCaption.length; i++) {
+        let fig = document.querySelector('figure#fig'+String(i+1));
+        fig.innerHTML += '<figcaption>' + figCaption[i] + '</figcaption>';
+    }
+</script>

@@ -1,0 +1,21 @@
+.reveal section img {
+    background:none;
+    border:none;
+    box-shadow:none;
+}
+
+div.twoCols {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+div.twoCols .left {
+    float: left;
+    width: 55%;
+}
+
+div.twoCols .right {
+    float: right;
+    width: 40%;
+}

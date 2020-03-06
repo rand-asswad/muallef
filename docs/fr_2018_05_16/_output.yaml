@@ -1,7 +1,0 @@
- html_document:
-   toc: true
-   theme: united
- pdf_document:
-   number_sections: true
-   includes:
-     in_header: header.tex

@@ -1,0 +1,38 @@
+bookdown::pdf_book:
+  toc: true
+  number_sections: true
+  fig_caption: true
+  fig_height: 2
+  includes:
+    in_header: include/preambule.tex
+    before_body: include/cover.tex
+bookdown::html_document2:
+  toc: true
+  toc_float: true
+  number_sections: false
+  theme: simplex
+  fig_caption: true
+  css: include/styles.css
+  includes:
+    in_header: include/header.html
+    after_body: include/scripts.html
+beamer_presentation:
+  keep_tex: false
+  slide_level: 1
+  theme: Warsaw
+  includes:
+    in_header: include/mybeamer.tex
+revealjs::revealjs_presentation:
+  theme: simple
+  highlight: haddock
+  center: true
+  transition: slide
+  incremental: true
+  css: include/reveal.css
+  self_contained: true
+  reveal_options:
+    history: false
+    slideNumber: true
+  includes:
+    after_body: include/reveal_scripts.html
+  pandoc_args: ["--standalone"]
