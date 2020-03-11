@@ -5,6 +5,6 @@ rmd_files:
   - main.rmd
   - parts/0_intro.md
   - parts/1_background.md
-  - parts/2_onset.md
-  - parts/3_pitch.md
+  - parts/2_pitch.md
+  - parts/3_onset.md
   - parts/5_conclusion.md

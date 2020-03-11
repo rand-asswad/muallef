@@ -1,7 +1,12 @@
 # Dev (to be removed later)
+lib/
+
+# Other
+samples/
 
 # RMD shit
 book_files
+report_files
 index_files
 index_cache
 

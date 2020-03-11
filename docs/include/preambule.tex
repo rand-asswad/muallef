@@ -17,6 +17,15 @@
 %\usepackage{mathtools}
 %\usepackage{centernot}
 
+% music characters
+\usepackage{musicography}
+\DeclareUnicodeCharacter{266F}{\musSharp{}}
+\DeclareUnicodeCharacter{266D}{\musFlat{}}
+\DeclareUnicodeCharacter{266E}{\musNatural{}}
+
+% remove paragraph numbering
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph*{#1}}
 
 \makeatletter
 
