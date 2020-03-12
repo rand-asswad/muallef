@@ -32,6 +32,7 @@ class Onset(object):
             onset_func.append(self.calcOnsetFunc(mag, phase))
         self.onsetFunction = np.array(onset_func, dtype=np.float32)
         self.onsetTime = np.arange(len(onset_func)) * (self.hopSize / self.sampleRate)
+        self.onsetTime -= self.hopSize / self.sampleRate
 
     def find_peaks(self):
         getOnsets = es.Onsets()

@@ -132,7 +132,7 @@ $$\mathrm{SPL} = 20\log_{10}\left(\frac{P}{P_0}\right)\mathrm{dB}$$
 
 ---
 
-image of loudness
+![Fletcher-Munson Equal Loudness Contours](img/loudness.png)
 
 ---
 
@@ -314,7 +314,11 @@ $h$ partial of period $\tau$.
 2. Remove found $f_0$ from residual spectrum
 3. Repeat until saliences are low
 
-## RESULTS
+---
+
+<img src="plot/multipitch_klapuri.png" class="full-img-slide">
+
+---
 
 ## Spectrogram Factorisation (NMF) [@NNMF]
 
@@ -409,6 +413,9 @@ $\hat{X}[n, k] = \left\lvert X[n, k] \right\rvert
 Quantifies both tonal onsets and percussive events
 by combining spectral difference and phase-based approaches.
 
+---
+
+<img src="plot/odf.png" class="full-img-slide">
 
 ## Thresholding & Peak-picking
 
@@ -417,6 +424,9 @@ by combining spectral difference and phase-based approaches.
 - Suggested threshold: moving average
 - Peak-picking: selecting peaks above defined calculated threshold
 
+---
+
+<img src="plot/onsets_complex.png" class="full-img-slide">
 
 # Conclusion
 
