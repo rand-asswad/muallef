@@ -151,7 +151,7 @@ where the magnitude of the transform attains its local
 maxima at the signal's frequency and its *harmonics*.
 
 <video width="800" controls>
-    <source src="img/fourier.mp4" type="video/mp4">
+    <source src="plot/fourier.mp4" type="video/mp4">
 </video>
 
 Spectral domain methods analyse the fourier transform
@@ -185,8 +185,8 @@ where spectral harmonic bins are compressed with a logarithm.
 Finally, Schroeder proposed two functions of frequency that
 sum the compressed weighted histogram. [@schroeder_period_1968]
 
-- **Harmonic sum:** $$\Sigma(f)=\sum_{m=1}^M 20\log_10 S(nf)$$
-- **Harmonic product:** $$\Sigma'(f)=20\log_10\sum_{m=1}^M S(nf)$$
+- **Harmonic sum:** $$\Sigma(f)=\sum_{m=1}^M 20\log_{10}S(nf)$$
+- **Harmonic product:** $$\Sigma'(f)=20\log_{10}\sum_{m=1}^M S(nf)$$
 
 The sum inside the logarithm in the harmonic product
 can be viewed as a product because of the properties

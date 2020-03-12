@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Rand ASSWAD" />
+  <title>Automatic Music Transcription</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="presentation_files/reveal.js-3.3.0.1/css/reveal.css"/>
+
+
+
+<link rel="stylesheet" href="presentation_files/reveal.js-3.3.0.1/css/theme/simple.css" id="theme">
+
+
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+
+
+
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+    <link rel="stylesheet" href="include/reveal.css"/>
+
+<!-- Printing and PDF exports -->
+<script id="paper-css" type="application/dynamic-css">
+
+/* Default Print Stylesheet Template
+   by Rob Glazebrook of CSSnewbie.com
+   Last Updated: June 4, 2008
+
+   Feel free (nay, compelled) to edit, append, and
+   manipulate this file as you see fit. */
+
+
+@media print {
+
+	/* SECTION 1: Set default width, margin, float, and
+	   background. This prevents elements from extending
+	   beyond the edge of the printed page, and prevents
+	   unnecessary background images from printing */
+	html {
+		background: #fff;
+		width: auto;
+		height: auto;
+		overflow: visible;
+	}
+	body {
+		background: #fff;
+		font-size: 20pt;
+		width: auto;
+		height: auto;
+		border: 0;
+		margin: 0 5%;
+		padding: 0;
+		overflow: visible;
+		float: none !important;
+	}
+
+	/* SECTION 2: Remove any elements not needed in print.
+	   This would include navigation, ads, sidebars, etc. */
+	.nestedarrow,
+	.controls,
+	.fork-reveal,
+	.share-reveal,
+	.state-background,
+	.reveal .progress,
+	.reveal .backgrounds {
+		display: none !important;
+	}
+
+	/* SECTION 3: Set body font face, size, and color.
+	   Consider using a serif font for readability. */
+	body, p, td, li, div {
+		font-size: 20pt!important;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		color: #000;
+	}
+
+	/* SECTION 4: Set heading font face, sizes, and color.
+	   Differentiate your headings from your body text.
+	   Perhaps use a large sans-serif for distinction. */
+	h1,h2,h3,h4,h5,h6 {
+		color: #000!important;
+		height: auto;
+		line-height: normal;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		text-shadow: 0 0 0 #000 !important;
+		text-align: left;
+		letter-spacing: normal;
+	}
+	/* Need to reduce the size of the fonts for printing */
+	h1 { font-size: 28pt !important;  }
+	h2 { font-size: 24pt !important; }
+	h3 { font-size: 22pt !important; }
+	h4 { font-size: 22pt !important; font-variant: small-caps; }
+	h5 { font-size: 21pt !important; }
+	h6 { font-size: 20pt !important; font-style: italic; }
+
+	/* SECTION 5: Make hyperlinks more usable.
+	   Ensure links are underlined, and consider appending
+	   the URL to the end of the link for usability. */
+	a:link,
+	a:visited {
+		color: #000 !important;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	/*
+	.reveal a:link:after,
+	.reveal a:visited:after {
+		content: " (" attr(href) ") ";
+		color: #222 !important;
+		font-size: 90%;
+	}
+	*/
+
+
+	/* SECTION 6: more reveal.js specific additions by @skypanther */
+	ul, ol, div, p {
+		visibility: visible;
+		position: static;
+		width: auto;
+		height: auto;
+		display: block;
+		overflow: visible;
+		margin: 0;
+		text-align: left !important;
+	}
+	.reveal pre,
+	.reveal table {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.reveal pre code {
+		padding: 20px;
+		border: 1px solid #ddd;
+	}
+	.reveal blockquote {
+		margin: 20px 0;
+	}
+	.reveal .slides {
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 0 !important;
+		zoom: 1 !important;
+
+		overflow: visible !important;
+		display: block !important;
+
+		text-align: left !important;
+		-webkit-perspective: none;
+		   -moz-perspective: none;
+		    -ms-perspective: none;
+		        perspective: none;
+
+		-webkit-perspective-origin: 50% 50%;
+		   -moz-perspective-origin: 50% 50%;
+		    -ms-perspective-origin: 50% 50%;
+		        perspective-origin: 50% 50%;
+	}
+	.reveal .slides section {
+		visibility: visible !important;
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+		display: block !important;
+		overflow: visible !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 60px 20px !important;
+		z-index: auto !important;
+
+		opacity: 1 !important;
+
+		page-break-after: always !important;
+
+		-webkit-transform-style: flat !important;
+		   -moz-transform-style: flat !important;
+		    -ms-transform-style: flat !important;
+		        transform-style: flat !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+
+		-webkit-transition: none !important;
+		   -moz-transition: none !important;
+		    -ms-transition: none !important;
+		        transition: none !important;
+	}
+	.reveal .slides section.stack {
+		padding: 0 !important;
+	}
+	.reveal section:last-of-type {
+		page-break-after: avoid !important;
+	}
+	.reveal section .fragment {
+		opacity: 1 !important;
+		visibility: visible !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+	}
+	.reveal section img {
+		display: block;
+		margin: 15px 0px;
+		background: rgba(255,255,255,1);
+		border: 1px solid #666;
+		box-shadow: none;
+	}
+
+	.reveal section small {
+		font-size: 0.8em;
+	}
+
+}  
+</script>
+
+
+<script id="pdf-css" type="application/dynamic-css">
+    
+/**
+ * This stylesheet is used to print reveal.js
+ * presentations to PDF.
+ *
+ * https://github.com/hakimel/reveal.js#pdf-export
+ */
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+
+body {
+	margin: 0 auto !important;
+	border: 0;
+	padding: 0;
+	float: none !important;
+	overflow: visible;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+}
+
+/* Remove any elements not needed in print. */
+.nestedarrow,
+.reveal .controls,
+.reveal .progress,
+.reveal .playback,
+.reveal.overview,
+.fork-reveal,
+.share-reveal,
+.state-background {
+	display: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: 0 0 0 #000 !important;
+}
+
+.reveal pre code {
+	overflow: hidden !important;
+	font-family: Courier, 'Courier New', monospace !important;
+}
+
+ul, ol, div, p {
+	visibility: visible;
+	position: static;
+	width: auto;
+	height: auto;
+	display: block;
+	overflow: visible;
+	margin: auto;
+}
+.reveal {
+	width: auto !important;
+	height: auto !important;
+	overflow: hidden !important;
+}
+.reveal .slides {
+	position: static;
+	width: 100%;
+	height: auto;
+
+	left: auto;
+	top: auto;
+	margin: 0 !important;
+	padding: 0 !important;
+
+	overflow: visible;
+	display: block;
+
+	-webkit-perspective: none;
+	   -moz-perspective: none;
+	    -ms-perspective: none;
+	        perspective: none;
+
+	-webkit-perspective-origin: 50% 50%; /* there isn't a none/auto value but 50-50 is the default */
+	   -moz-perspective-origin: 50% 50%;
+	    -ms-perspective-origin: 50% 50%;
+	        perspective-origin: 50% 50%;
+}
+
+.reveal .slides section {
+	page-break-after: always !important;
+
+	visibility: visible !important;
+	position: relative !important;
+	display: block !important;
+	position: relative !important;
+
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box !important;
+	min-height: 1px;
+
+	opacity: 1 !important;
+
+	-webkit-transform-style: flat !important;
+	   -moz-transform-style: flat !important;
+	    -ms-transform-style: flat !important;
+	        transform-style: flat !important;
+
+	-webkit-transform: none !important;
+	   -moz-transform: none !important;
+	    -ms-transform: none !important;
+	        transform: none !important;
+}
+
+.reveal section.stack {
+	margin: 0 !important;
+	padding: 0 !important;
+	page-break-after: avoid !important;
+	height: auto !important;
+	min-height: auto !important;
+}
+
+.reveal img {
+	box-shadow: none;
+}
+
+.reveal .roll {
+	overflow: visible;
+	line-height: 1em;
+}
+
+/* Slide backgrounds are placed inside of their slide when exporting to PDF */
+.reveal section .slide-background {
+	display: block !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+/* All elements should be above the slide-background */
+.reveal section>* {
+	position: relative;
+	z-index: 1;
+}
+
+/* Display slide speaker notes when 'showNotes' is enabled */
+.reveal .speaker-notes-pdf {
+	display: block;
+	width: 100%;
+	max-height: none;
+	left: auto;
+	top: auto;
+	z-index: 100;
+}
+
+/* Display slide numbers when 'slideNumber' is enabled */
+.reveal .slide-number-pdf {
+	display: block;
+	position: absolute;
+	font-size: 14px;
+}
+
+</script>
+
+
+<script>
+var style = document.createElement( 'style' );
+style.type = 'text/css';
+var style_script_id = window.location.search.match( /print-pdf/gi ) ? 'pdf-css' : 'paper-css';
+var style_script = document.getElementById(style_script_id).text;
+style.innerHTML = style_script;
+document.getElementsByTagName('head')[0].appendChild(style);
+</script>
+
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Automatic Music Transcription</h1>
+  <h1 class="subtitle">Masters Thesis</h1>
+    <h2 class="author">Rand ASSWAD</h2>
+</section>
+
+<section id="summary" class="title-slide slide level1"><h1>Summary</h1><ul>
+<li class="fragment">Automatic music transcription</li>
+<li class="fragment">Audio signal characterization</li>
+<li class="fragment">Perception of music</li>
+<li class="fragment">Pitch analysis</li>
+<li class="fragment">Temporal segmentation</li>
+<li class="fragment">Conclusion &amp; questions</li>
+</ul></section>
+<section><section id="automatic-music-transcription" class="title-slide slide level1"><h1>Automatic Music Transcription</h1><blockquote>
+<p>AMT is the process of converting an acoustic musical signal into some form of musical notation. <span class="citation" data-cites="benetos_2013">(Benetos et al. <a href="#/ref-benetos_2013" role="doc-biblioref">2013</a>)</span></p>
+</blockquote></section>
+<section id="motivation" class="slide level2">
+<h2>Motivation</h2>
+<ul>
+<li class="fragment">Recording imporvised performance</li>
+<li class="fragment">Democratizing no-score music genres</li>
+<li class="fragment">Score following for music learning</li>
+<li class="fragment">Musicological analysis</li>
+</ul>
+</section>
+<section id="background" class="slide level2">
+<h2>Background</h2>
+<ul>
+<li class="fragment">Started in the late 20<sup>th</sup> century</li>
+<li class="fragment">Young discipline (compared to speech processing)</li>
+<li class="fragment"><strong>ISMIR:</strong> International Society for Music Information Retrieval (since 2000)</li>
+<li class="fragment"><strong>MIREX:</strong> Music Information Retrieval Evaluation eXchange (15 years)</li>
+</ul>
+</section>
+<section id="underlying-tasks" class="slide level2">
+<h2>Underlying tasks</h2>
+<ul>
+<li class="fragment"><em>Pitch detection</em></li>
+<li class="fragment"><em>Temporal segmentation</em></li>
+<li class="fragment">Loudness estimation</li>
+<li class="fragment">Instrument recognition</li>
+<li class="fragment">Rhythm detection</li>
+<li class="fragment">Scale detection</li>
+</ul>
+</section>
+<section id="music-theory-vs.-audio-signal-processing" class="slide level2">
+<h2>Music theory vs. audio signal processing</h2>
+<ul>
+<li class="fragment"><strong>Music theory:</strong> studies <em>perceived features</em> of music signals.</li>
+<li class="fragment"><strong>Audio signal processing:</strong> studies the <em>mathematical variables</em> of music signals.</li>
+</ul>
+</section></section>
+<section><section id="audio-signal-characterization" class="title-slide slide level1"><h1>Audio signal characterization</h1></section>
+<section id="physical-definition" class="slide level2">
+<h2>Physical definition</h2>
+<ul>
+<li class="fragment"><p>Acoustic wave equation <span class="citation" data-cites="feynman">(“The Feynman Lectures on Physics Vol. I Ch. 47: Sound. The Wave Equation” <a href="#/ref-feynman" role="doc-biblioref">n.d.</a>)</span> <span class="math display">\[\Delta p =\frac{1}{c^2}\frac{\partial^2 p}{ {\partial t}^2}\]</span></p></li>
+<li class="fragment"><p><span class="math inline">\(p(\mathbf{x},t)\)</span> pressure function of time and space</p></li>
+<li class="fragment"><p><span class="math inline">\(c\)</span> speed of sound propagation</p></li>
+<li class="fragment"><p>Harmonic solutions</p></li>
+</ul>
+</section>
+<section id="audio-signal" class="slide level2">
+<h2>Audio signal</h2>
+<ul>
+<li class="fragment">Audio signal : pressure at the receptor’s position</li>
+<li class="fragment">Harmonic function of time</li>
+<li class="fragment"><span class="math display">\[\tilde{x}(t) = \sum_{h=0}^{\infty} A_h \cos(2\pi hf_0t + \varphi_h)\]</span></li>
+</ul>
+</section>
+<section id="period-and-fundamental-frequency" class="slide level2">
+<h2>Period and fundamental frequency</h2>
+<blockquote>
+<p>[Period is] the smallest positive member of the infinite set of time shifts leaving the signal invariant. <span class="citation" data-cites="yin_2002">(Cheveigné and Kawahara <a href="#/ref-yin_2002" role="doc-biblioref">2002</a>)</span></p>
+</blockquote>
+<ul>
+<li class="fragment"><span class="math inline">\(T&gt;0,\forall t, x(t) = x(t+T)\)</span></li>
+<li class="fragment"><span class="math inline">\(\implies \forall m\in\mathbb{N},\forall t, x(t) = x(t+mT)\)</span></li>
+<li class="fragment"><strong>Fundamental frequency:</strong> <span class="math inline">\(f_0 = \frac{1}{T}\)</span></li>
+<li class="fragment"><strong>Harmonics:</strong> <span class="math inline">\(f_h = h\cdot f_0, h\in\mathbb{N}\setminus\left\{0\right\}\)</span></li>
+<li class="fragment"><strong>Harmonic partials:</strong> harmonics <span class="math inline">\(h&gt;1\)</span></li>
+</ul>
+</section></section>
+<section><section id="perception-of-music" class="title-slide slide level1"><h1>Perception of music</h1></section>
+<section id="pitch" class="slide level2">
+<h2>Pitch</h2>
+<ul>
+<li class="fragment"><em>Tonal height</em> of a sound</li>
+<li class="fragment"><em>Relative musical concept</em></li>
+<li class="fragment">Logarithmic perception</li>
+<li class="fragment"><span class="math inline">\(\neq\)</span> fundamental frequency</li>
+</ul>
+</section>
+<section id="intensity" class="slide level2">
+<h2>Intensity</h2>
+<ul>
+<li class="fragment"><strong>Sound intensity:</strong> power carried by sound waves per unit area</li>
+<li class="fragment"><strong>Sound pressure:</strong> local pressure deviation from ambient pressure caused by a sound wave</li>
+<li class="fragment"><strong>Sound pressure level (SPL):</strong> <span class="math display">\[\mathrm{SPL} = 20\log_{10}\left(\frac{P}{P_0}\right)\mathrm{dB}\]</span></li>
+<li class="fragment"><strong><em>Loudness</em></strong>: <em>subjective</em> perception of sound pressure
+<ul>
+<li class="fragment">Function of SPL and frequency</li>
+<li class="fragment">Range from <em>quiet</em> to <em>loud</em></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level2">
+
+<p>image of loudness</p>
+</section>
+<section class="slide level2">
+
+</section></section>
+<section><section id="pitch-analysis" class="title-slide slide level1"><h1>Pitch Analysis</h1></section>
+<section id="general-model" class="slide level2">
+<h2>General model</h2>
+<p><span class="citation" data-cites="yeh_thesis">(Yeh, <a href="#/ref-yeh_thesis" role="doc-biblioref">n.d.</a>)</span></p>
+<ul>
+<li class="fragment">Imperfect signals
+<ul>
+<li class="fragment">Inharmonicity</li>
+<li class="fragment">Resonance</li>
+<li class="fragment">Surrounding noise</li>
+</ul></li>
+<li class="fragment"><span class="math display">\[x(t) = \tilde{x}(t) + z(t)\]</span></li>
+<li class="fragment"><span class="math inline">\(x(t)\)</span> is <strong>quasi-periodic</strong></li>
+<li class="fragment">Performed on short-time periods we refer to as <strong>frames</strong> using a sliding windowing function</li>
+</ul>
+</section>
+<section id="classification" class="slide level2">
+<h2>Classification</h2>
+<ul>
+<li class="fragment"><strong>Sound:</strong> Monophonic (single pitch) vs. Polyphonic (multiple pitch)</li>
+<li class="fragment"><strong>Analysis:</strong> Time domain vs. Spectral domain</li>
+</ul>
+</section>
+<section id="single-pitch-estimation" class="slide level2">
+<h2>Single pitch estimation</h2>
+<p><span class="math display">\[\tilde{x}(t)=\sum_{h=1}^{\infty} A_h\cos(2\pi f_0 t + \varphi_h)
+    \approx\sum_{h=1}^{H} A_h\cos(2\pi f_0 t + \varphi_h)\]</span></p>
+<p><strong>Task:</strong> find <span class="math inline">\(f_0\)</span></p>
+</section>
+<section id="time-domain" class="slide level2">
+<h2>Time domain</h2>
+<ul>
+<li class="fragment">Analyse signal <span class="math inline">\(x(t)\)</span> directly with respect to time.</li>
+<li class="fragment">Compare signal <span class="math inline">\(x(t)\)</span> with a delayed version of itself <span class="math inline">\(x(t+\tau)\)</span></li>
+<li class="fragment">Similarity/dissimilarity functions</li>
+</ul>
+</section>
+<section id="autocorrelation-function-acf" class="slide level2">
+<h2>Autocorrelation Function (ACF)</h2>
+<p><span class="math display">\[r[\tau] = \sum_{t=1}^{N-\tau} x[t]x[t+\tau]\]</span></p>
+<ul>
+<li class="fragment">Attains local maximum for <span class="math inline">\(\tau\approx mT\)</span></li>
+<li class="fragment">Sensitive to structures in signals
+<ul>
+<li class="fragment"><strong>(+):</strong> useful for speech detection</li>
+<li class="fragment"><strong>(-):</strong> resonance structures in music signals</li>
+</ul></li>
+</ul>
+</section>
+<section id="average-magnitude-difference-function-amdf" class="slide level2">
+<h2>Average Magnitude Difference Function (AMDF)</h2>
+<p><span class="math display">\[d_{\text{AM}}[\tau] = \frac{1}{N}
+    \sum_{t=1}^{N-\tau} \left\lvert x[t]-x[t+\tau]\right\rvert\]</span> <span class="citation" data-cites="ross_average_1974">(Ross et al. <a href="#/ref-ross_average_1974" role="doc-biblioref">1974</a>)</span></p>
+<ul>
+<li class="fragment">Attains local minimum for <span class="math inline">\(\tau\approx mT\)</span></li>
+<li class="fragment">More adapted for music signals</li>
+</ul>
+</section>
+<section id="squared-difference-function-sdf" class="slide level2">
+<h2>Squared difference function (SDF)</h2>
+<p><span class="math display">\[d[\tau] = \sum_{t=1}^{N-\tau}(x[t]-x[t+\tau])^2\]</span></p>
+<ul>
+<li class="fragment">Attains local minimum for <span class="math inline">\(\tau\approx mT\)</span></li>
+<li class="fragment">Accentuates dips at corresponding periods</li>
+<li class="fragment">More clear local minima</li>
+</ul>
+</section>
+<section id="yin-algorithm-yin_2002" class="slide level2">
+<h2>YIN algorithm <span class="citation" data-cites="yin_2002">(Cheveigné and Kawahara <a href="#/ref-yin_2002" role="doc-biblioref">2002</a>)</span></h2>
+<p>Cumulative mean normalized function: <span class="math display">\[d[\tau] = \sum_{t=1}^{N-\tau}(x[t]-x[t+\tau])^2\]</span> <span class="math display">\[d_{\text{YIN}}[\tau] = \begin{cases}
+    1 &amp;\text{if}~\tau = 0\\
+    d[\tau] / \frac{1}{\tau}\sum\limits_{t=0}^{\tau} d[t]
+        &amp;\text{otherwise}
+\end{cases}\]</span></p>
+<ul>
+<li class="fragment">Starts at 1 rather than 0</li>
+<li class="fragment">Divides SDF by its average over shorter lags</li>
+<li class="fragment">Tends to stay large at short lags</li>
+<li class="fragment">Drops when SQD falls under its average</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<p><img src="plot/timedomain_func.png" class="full-img-slide"></p>
+</section>
+<section id="spectral-domain" class="slide level2">
+<h2>Spectral domain</h2>
+<ul>
+<li class="fragment">Analyse fourier transform <span class="math inline">\(X(f)\)</span> of the signal</li>
+<li class="fragment">The <strong>spectrum</strong> of a signal in the magnitude of its fourier transform <span class="math inline">\(S(f)=\left\lvert X(f)\right\rvert\)</span></li>
+<li class="fragment">Local maxima of the spectrum correspond to frequencies of the signal</li>
+<li class="fragment">Analyse spectrum patterns with adapted similarity/dissimilarity functions</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<video width="800" controls>
+<source src="plot/fourier.mp4" type="video/mp4">
+</video>
+</section>
+<section id="autocorrelation-function-acf-1" class="slide level2">
+<h2>Autocorrelation Function (ACF)</h2>
+<p><span class="math display">\[R[f] = \sum_{k=1}^{K-f} S[k]S[k+f]\]</span></p>
+<ul>
+<li class="fragment">Attains local maximum for partial harmonics <span class="math inline">\(f\approx hf_0\)</span> <span class="citation" data-cites="lahat_spectral_1987">(Lahat, Niederjohn, and Krubsack <a href="#/ref-lahat_spectral_1987" role="doc-biblioref">1987</a>)</span></li>
+<li class="fragment">Function is attenuated when partial peaks are not well aligned</li>
+</ul>
+</section>
+<section id="harmonic-sumproduct-schroeder_period_1968" class="slide level2">
+<h2>Harmonic sum/product <span class="citation" data-cites="schroeder_period_1968">(Schroeder <a href="#/ref-schroeder_period_1968" role="doc-biblioref">1968</a>)</span></h2>
+<ul>
+<li class="fragment"><p><strong>Harmonic sum:</strong> <span class="math display">\[\Sigma(f)=\sum_{h=1}^H 20\log_{10}S(hf)\]</span></p></li>
+<li class="fragment"><p><strong>Harmonic product:</strong> <span class="math display">\[\Sigma&#39;(f)=20\log_{10}\sum_{h=1}^H S(hf)\]</span></p></li>
+<li class="fragment"><p>Weighted frequency histogram</p></li>
+<li class="fragment"><p>Measures the contribution of each harmonic to the histogram</p></li>
+<li class="fragment"><p>Also known as <em>log compression</em></p></li>
+</ul>
+</section>
+<section class="slide level2">
+
+<p><img src="plot/spectral_func.png" class="full-img-slide"></p>
+</section>
+<section id="spectral-yin-brossier" class="slide level2">
+<h2>Spectral YIN <span class="citation" data-cites="brossier">(Brossier <a href="#/ref-brossier" role="doc-biblioref">2006</a>)</span></h2>
+<ul>
+<li class="fragment">Optimized version of YIN in frequency domain</li>
+<li class="fragment">The square difference function is defined over spectral magnitudes <span class="math display">\[\hat{d}(\tau) = \frac{2}{N} \sum\limits_{k=0}^{\frac{N}{2}+1}
+  \left\lvert\left(-e^{2\pi jk\tau/N}\right) X[k]\right\rvert^2\]</span></li>
+</ul>
+<h3 id="demo-yinyinfft">DEMO YIN/YINFFT</h3>
+</section>
+<section id="multiple-pitch-estimation" class="slide level2">
+<h2>Multiple pitch estimation</h2>
+<p><span class="math display">\[\begin{align}
+\tilde{x}(t)&amp;=\sum_{m=1}^{M}\tilde{x}_m(t)\\
+    &amp;=\sum_{m=1}^{M}\sum_{h=1}^{\infty}
+    A_{m,h}\cos(2\pi f_{0,m} t + \varphi_{m,h})\\
+    &amp;\approx\sum_{m=1}^{M}\sum_{h=1}^{H_m}
+    A_{m,h}\cos(2\pi f_{0,m} t + \varphi_{m,h})
+\end{align}\]</span></p>
+<p><strong>Task:</strong> find <span class="math inline">\(f_{0,m}\)</span> for <span class="math inline">\(m\in\left\{1,\ldots,M\right\}\)</span></p>
+</section>
+<section id="challenges" class="slide level2">
+<h2>Challenges</h2>
+<ul>
+<li class="fragment">Concurrent music notes</li>
+<li class="fragment">Can be produced by several instruments</li>
+<li class="fragment"><em>Core difficulty</em> of polyphonic music transcription</li>
+</ul>
+</section>
+<section id="approaches" class="slide level2">
+<h2>Approaches</h2>
+<ul>
+<li class="fragment"><strong>Iterative:</strong>
+<ul>
+<li class="fragment">Extract most prominent pitch at each iteration</li>
+<li class="fragment">Tends to accumulate errors at each iteration</li>
+<li class="fragment">Computationally inexpensive</li>
+</ul></li>
+<li class="fragment"><strong>Joint:</strong>
+<ul>
+<li class="fragment">Evaluate <span class="math inline">\(f0\)</span> combinations</li>
+<li class="fragment">More accurate estimations</li>
+<li class="fragment">Increased computational cost</li>
+</ul></li>
+</ul>
+</section>
+<section id="harmonic-amplitudes-sum-klapuri" class="slide level2">
+<h2>Harmonic Amplitudes Sum <span class="citation" data-cites="klapuri">(Klapuri, <a href="#/ref-klapuri" role="doc-biblioref">n.d.</a>)</span></h2>
+<ol type="1">
+<li class="fragment"><strong>Spectral whitening:</strong> flatten the spectrum to suppress timbral information.</li>
+<li class="fragment"><strong>Salience function:</strong> strength of <span class="math inline">\(f0\)</span> candidate as weighted sum of amplitudes of its harmonic partials.</li>
+<li class="fragment">Iterative or joint estimators.</li>
+</ol>
+</section>
+<section id="spectral-whitening" class="slide level2">
+<h2>Spectral whitening</h2>
+<ul>
+<li class="fragment">Apply <em>bandpass filter</em> in frequency domain <span class="math inline">\(X(f)\)</span>.</li>
+<li class="fragment">Calculate standard deviations <span class="math inline">\(\sigma_b\)</span> within subbands</li>
+<li class="fragment">Calculate compression coefficients <span class="math inline">\(\gamma_b=\sigma_b^{\nu-1}\)</span> where <span class="math inline">\(\nu\)</span> is the whitening parameter.</li>
+<li class="fragment">Interpolate <span class="math inline">\(\gamma\)</span> for all frequencies.</li>
+<li class="fragment">Whitened spectrum <span class="math inline">\(Y(f) = \gamma(f)X(f)\)</span></li>
+</ul>
+</section>
+<section id="salience-function" class="slide level2">
+<h2>Salience function</h2>
+<p><span class="math display">\[s(\tau) = \sum_{h=1}^H g(\tau,h)\left\lvert Y(hf_{\tau})\right\rvert\]</span> where <span class="math inline">\(f_{\tau}=f_s/\tau\)</span> the <span class="math inline">\(f_0\)</span> candidate corresponding to the period <span class="math inline">\(\tau\)</span> and <span class="math inline">\(g(\tau,h)\)</span> is the weight of the <span class="math inline">\(h\)</span> partial of period <span class="math inline">\(\tau\)</span>.</p>
+</section>
+<section id="iterative-estimation" class="slide level2">
+<h2>Iterative estimation</h2>
+<ol type="1">
+<li class="fragment">Determine <span class="math inline">\(f_0=\mathop{\mathrm{argmax}}_{f} s(f)\)</span></li>
+<li class="fragment">Remove found <span class="math inline">\(f_0\)</span> from residual spectrum</li>
+<li class="fragment">Repeat until saliences are low</li>
+</ol>
+</section>
+<section id="results" class="slide level2">
+<h2>RESULTS</h2>
+</section>
+<section id="spectrogram-factorisation-nmf-nnmf" class="slide level2">
+<h2>Spectrogram Factorisation (NMF) <span class="citation" data-cites="NNMF">(Smaragdis and Brown <a href="#/ref-NNMF" role="doc-biblioref">2003</a>)</span></h2>
+<ul>
+<li class="fragment">Non-negative matrix factorisation is a well-established technique</li>
+<li class="fragment">Works best with harmonically fixed spectral profiles (such as piano notes)</li>
+<li class="fragment">Joint estimation method</li>
+</ul>
+</section>
+<section id="boldsymbolxapprox-boldsymbolwboldsymbolh" class="slide level2">
+<h2><span class="math display">\[\boldsymbol{X}\approx \boldsymbol{W}\boldsymbol{H}\]</span></h2>
+<ul>
+<li class="fragment">Variables:
+<ul>
+<li class="fragment"><span class="math inline">\(\boldsymbol{X}\in\mathbb{R}_+^{K\times N}\)</span> input spectrogram</li>
+<li class="fragment"><span class="math inline">\(\boldsymbol{W}\in\mathbb{R}_+^{K\times R}\)</span> spectral bases for each pitch component (template matrix)</li>
+<li class="fragment"><span class="math inline">\(\boldsymbol{H}\in\mathbb{R}_+^{R\times N}\)</span> pitch activity across time (activation matrix)</li>
+</ul></li>
+<li class="fragment">Dimensions:
+<ul>
+<li class="fragment"><span class="math inline">\(K\)</span> number of frequency bins</li>
+<li class="fragment"><span class="math inline">\(N\)</span> number of frames</li>
+<li class="fragment"><span class="math inline">\(R\)</span> number of pitch components (rank) such that <span class="math inline">\(R&lt;&lt;K\)</span></li>
+</ul></li>
+<li class="fragment">Cost function: <span class="math display">\[C=\left\lVert\boldsymbol{X}- \boldsymbol{W}\boldsymbol{H}\right\rVert_F\]</span></li>
+</ul>
+</section>
+<section class="slide level2">
+
+<p><img data-src="img/nmf.png" /></p>
+</section>
+<section id="nmf-concept" class="slide level2">
+<h2>NMF concept</h2>
+<ul>
+<li class="fragment"><span class="math inline">\(C=\left\lVert\boldsymbol{V}-\boldsymbol{W}\boldsymbol{H}\right\rVert_2\)</span> is a nonconvex optimisation problem with respect to <span class="math inline">\(\boldsymbol{W}\)</span> <em>and</em> <span class="math inline">\(\boldsymbol{H}\)</span>.</li>
+<li class="fragment">Let <span class="math inline">\(\boldsymbol{V}=(v_1,\ldots,v_N)\)</span> and <span class="math inline">\(\boldsymbol{H}=(h_1,\ldots,h_N)\)</span></li>
+<li class="fragment"><span class="math inline">\(\boldsymbol{V}=\boldsymbol{W}\boldsymbol{H}\implies v_i = \boldsymbol{W}h_i\)</span></li>
+<li class="fragment">Impose orthogonality constraint <span class="math inline">\(\boldsymbol{H}\boldsymbol{H}^T=I\)</span></li>
+<li class="fragment">Obtain <strong>K-means</strong> clustering property</li>
+</ul>
+</section>
+<section id="application-on-polyphonic-music-decomposition" class="slide level2">
+<h2>Application on polyphonic music decomposition</h2>
+<ul>
+<li class="fragment">The rank <span class="math inline">\(R\)</span> corresponds to the pitch components, which is in the case of a piano is the midi integer range from 20 to 109.</li>
+<li class="fragment">Reinforce sparsity constraint <span class="citation" data-cites="cont_realtime_nodate">(Cont, <a href="#/ref-cont_realtime_nodate" role="doc-biblioref">n.d.</a>)</span></li>
+<li class="fragment">Apply single pitch estimation on rows of <span class="math inline">\(\boldsymbol{H}\)</span></li>
+</ul>
+</section></section>
+<section><section id="temporal-segmentation" class="title-slide slide level1"><h1>Temporal Segmentation</h1><p>Finding boundaries of audio objects</p>
+<ul>
+<li class="fragment"><strong>Onset:</strong> when the note starts</li>
+<li class="fragment"><strong>Offset:</strong> when the note ends</li>
+</ul></section>
+<section class="slide level2">
+
+<p><img data-src="img/onset.png" style="width:50.0%" /></p>
+</section>
+<section id="onset-estimation-method" class="slide level2">
+<h2>Onset estimation method</h2>
+<ol type="1">
+<li class="fragment">Compute an <strong>Onset Detection Function</strong></li>
+<li class="fragment">Calculate a <strong>threshold function</strong></li>
+<li class="fragment"><strong>Peak-picking</strong> local maxima above threshold</li>
+</ol>
+</section>
+<section id="onset-detection-function-odf" class="slide level2">
+<h2>Onset Detection Function (ODF)</h2>
+<ul>
+<li class="fragment">Characterize change in energy or harmonic content in the signal</li>
+<li class="fragment">Difficult to identify on time domains</li>
+<li class="fragment">Computed on spectral domains using magnitude and/or phase</li>
+<li class="fragment">Onsets are detected from local maxima</li>
+</ul>
+</section>
+<section id="high-frequency-content-hfc-hfc" class="slide level2">
+<h2>High Frequency Content (HFC) <span class="citation" data-cites="hfc">(Masri and Bateman, <a href="#/ref-hfc" role="doc-biblioref">n.d.</a>)</span></h2>
+<p><span class="math display">\[D_{\text{HFC}}[n] = \sum\limits_{k=1}^{N}
+    k\cdot\left\lVert X[n,k]\right\rVert^2\]</span></p>
+<p>Favours wide-band energy bursts and high frequency components</p>
+</section>
+<section id="phase-deviation-bello" class="slide level2">
+<h2>Phase Deviation <span class="citation" data-cites="bello">(“(PDF) Phase-Based Note Onset Detection for Music Signals” <a href="#/ref-bello" role="doc-biblioref">n.d.</a>)</span></h2>
+<p>Evaluates phase difference <span class="math display">\[D_{\Phi}[n] = \sum\limits_{k=0}^{N}
+    \left\lvert \hat{\varphi}[n, k] \right\rvert\]</span></p>
+<p>where</p>
+<ul>
+<li class="fragment"><span class="math inline">\(\mathrm{princarg}(\theta) = \pi + ((\theta + \pi) mod (-2\pi))\)</span></li>
+<li class="fragment"><span class="math inline">\(\varphi(t, f) = \mathrm{arg}(X(t, f))\)</span></li>
+<li class="fragment"><span class="math inline">\(\hat{\varphi}(t, f) = \mathrm{princarg} \left( \frac{\partial^2 \varphi}{\partial t^2}(t, f) \right)\)</span></li>
+</ul>
+<p>Identifies tonal onsets and evergy bursts</p>
+</section>
+<section id="complex-distance-duxbury" class="slide level2">
+<h2>Complex Distance <span class="citation" data-cites="duxbury">(Duxbury et al. <a href="#/ref-duxbury" role="doc-biblioref">2003</a>)</span></h2>
+<p><span class="math display">\[D_{\mathbb{C}}[n] = \sum\limits_{k=0}^{N}
+    \left\lVert\hat{X}[n, k] - X[n, k]\right\rVert^2\]</span></p>
+<p>where <span class="math inline">\(\hat{X}[n, k] = \left\lvert X[n, k] \right\rvert \cdot e^{j\hat{\varphi}[n, k]}\)</span></p>
+<p>Quantifies both tonal onsets and percussive events by combining spectral difference and phase-based approaches.</p>
+</section>
+<section id="thresholding-peak-picking" class="slide level2">
+<h2>Thresholding &amp; Peak-picking</h2>
+<ul>
+<li class="fragment">ODFs are usually sensitive to the slightest perturbations</li>
+<li class="fragment">Defining a threshold would eliminate insignificant peaks</li>
+<li class="fragment">Suggested threshold: moving average</li>
+<li class="fragment">Peak-picking: selecting peaks above defined calculated threshold</li>
+</ul>
+</section></section>
+<section id="conclusion" class="title-slide slide level1"><h1>Conclusion</h1><ul>
+<li class="fragment">Single pitch estimation obtains satisfactory results</li>
+<li class="fragment">Multi-pitch estimation remains an open problem</li>
+<li class="fragment">Promising results in onset detection</li>
+</ul></section>
+<section id="merci-pour-votre-attention" class="title-slide slide level1"><h1>Merci pour votre attention</h1><p>Avez-vous des questions ?</p></section>
+<section id="references" class="title-slide slide level1"><h1 class="unnumbered">References</h1><div id="refs" class="references hanging-indent" role="doc-bibliography">
+<div id="ref-benetos_2013">
+<p>Benetos, Emmanouil, Simon Dixon, Dimitrios Giannoulis, Holger Kirchhoff, and Anssi Klapuri. 2013. “Automatic Music Transcription: Challenges and Future Directions.” <em>Journal of Intelligent Information Systems</em> 41 (December). <a href="https://doi.org/10.1007/s10844-013-0258-3">https://doi.org/10.1007/s10844-013-0258-3</a>.</p>
+</div>
+<div id="ref-brossier">
+<p>Brossier, Paul M. 2006. <em>Automatic Annotation of Musical Audio for Interactive Applications</em>.</p>
+</div>
+<div id="ref-yin_2002">
+<p>Cheveigné, Alain de, and Hideki Kawahara. 2002. “YIN, a Fundamental Frequency Estimator for Speech and Music.” <em>The Journal of the Acoustical Society of America</em> 111 (4): 1917–30. <a href="https://doi.org/10.1121/1.1458024">https://doi.org/10.1121/1.1458024</a>.</p>
+</div>
+<div id="ref-cont_realtime_nodate">
+<p>Cont, Arshia. n.d. “Realtime Multiple Pitch Observation Using Sparse Non-Negative Constraints,” 6.</p>
+</div>
+<div id="ref-duxbury">
+<p>Duxbury, Chris, Juan Pablo Bello, Mike Davies, and Mark Sandler. 2003. “COMPLEX DOMAIN ONSET DETECTION FOR MUSICAL SIGNALS,” 4.</p>
+</div>
+<div id="ref-klapuri">
+<p>Klapuri, Anssi. n.d. “Multiple Fundamental Frequency Estimation by Summing Harmonic Amplitudes,” 6.</p>
+</div>
+<div id="ref-lahat_spectral_1987">
+<p>Lahat, M., Russell J. Niederjohn, and David A. Krubsack. 1987. “A Spectral Autocorrelation Method for Measurement of the Fundamental Frequency of Noise-Corrupted Speech.” <em>IEEE Trans. Acoustics, Speech, and Signal Processing</em>. <a href="https://doi.org/10.1109/TASSP.1987.1165224">https://doi.org/10.1109/TASSP.1987.1165224</a>.</p>
+</div>
+<div id="ref-hfc">
+<p>Masri, Paul, and Andrew Bateman. n.d. “Improved Modelling of Attack Transients in Music Analysis-Resynthesis,” 4.</p>
+</div>
+<div id="ref-bello">
+<p>“(PDF) Phase-Based Note Onset Detection for Music Signals.” n.d. <em>ResearchGate</em>. Accessed March 12, 2020. <a href="https://doi.org/http://dx.doi.org/10.1109/ASPAA.2003.1285811">https://doi.org/http://dx.doi.org/10.1109/ASPAA.2003.1285811</a>.</p>
+</div>
+<div id="ref-ross_average_1974">
+<p>Ross, M., H. Shaffer, A. Cohen, R. Freudberg, and H. Manley. 1974. “Average Magnitude Difference Function Pitch Extractor.” <em>IEEE Transactions on Acoustics, Speech, and Signal Processing</em> 22 (5): 353–62. <a href="https://doi.org/10.1109/TASSP.1974.1162598">https://doi.org/10.1109/TASSP.1974.1162598</a>.</p>
+</div>
+<div id="ref-schroeder_period_1968">
+<p>Schroeder, Manfred R. 1968. “Period Histogram and Product Spectrum: New Methods for Fundamental-Frequency Measurement.” <em>The Journal of the Acoustical Society of America</em>. <a href="https://doi.org/10.1121/1.1910902">https://doi.org/10.1121/1.1910902</a>.</p>
+</div>
+<div id="ref-NNMF">
+<p>Smaragdis, P., and J. C. Brown. 2003. “Non-Negative Matrix Factorization for Polyphonic Music Transcription.” In <em>2003 IEEE Workshop on Applications of Signal Processing to Audio and Acoustics (IEEE Cat. No.03TH8684)</em>, 177–80. New Paltz, NY, USA: IEEE. <a href="https://doi.org/10.1109/ASPAA.2003.1285860">https://doi.org/10.1109/ASPAA.2003.1285860</a>.</p>
+</div>
+<div id="ref-feynman">
+<p>“The Feynman Lectures on Physics Vol. I Ch. 47: Sound. The Wave Equation.” n.d. Accessed March 8, 2020. <a href="https://www.feynmanlectures.caltech.edu/I_47.html">https://www.feynmanlectures.caltech.edu/I_47.html</a>.</p>
+</div>
+<div id="ref-yeh_thesis">
+<p>Yeh, Chunghsin. n.d. “Multiple Fundamental Frequency Estimation of Polyphonic Recordings,” 153.</p>
+</div>
+</div></section>
+    </div>
+  </div>
+
+  <script src="presentation_files/reveal.js-3.3.0.1/lib/js/head.min.js"></script>
+  <script src="presentation_files/reveal.js-3.3.0.1/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display the page number of the current slide
+        slideNumber: true,
+        // Push each slide change to the browser history
+        history: false,
+        // Vertical centering of slides
+        center: true,
+        // Transition style
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+
+
+
+        // Optional reveal.js plugins
+        dependencies: [
+        ]
+      });
+    </script>
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {  
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+<!-- slides title -->
+<script>
+    let titleSlide = document.querySelector("div.slides section");
+    titleSlide.id = "title-slide";
+
+    let title = titleSlide.querySelector(".title");
+    let subtitle = titleSlide.querySelector(".subtitle");
+    titleSlide.innerHTML = `
+    <div class="img-row">
+        <div style="float:left; width=40%;"><img src="img/logo_insa.png" height="100pt"></div>
+        <div style="float:right; width=40%;"><img src="img/logo_univ.png" height="85pt"> </div>
+    </div>
+    <h1 class="title">${title.innerHTML}</h1>
+    <h3 class="subtitle">${subtitle.innerHTML}</h2>
+    <h2 class="author">Rand ASSWAD</h3>
+    <p class="author">
+        <em>Supervisors:</em></br>
+        Prof. Natalie FORTIER</br>
+        Prof. Jean-Philippe DUBERNARD
+    </p>
+    </div>
+    `;
+</script>
+
+<!-- plan slide -->
+<!--script>
+    let plan = document.querySelector("section#plan");
+    let list = plan.querySelector("ul");
+
+    list.classList.add("left");
+    plan.innerHTML = `
+        <h1>Plan</h1>
+        <div class="twoCols">
+            ${list.outerHTML}
+            <div class="right fragment" data-fragment-index="2">
+                <img src="img/cover_img.png" style="width=100%;">
+            </div>
+        </div>
+    `;
+</script-->
+
+  </body>
+</html>

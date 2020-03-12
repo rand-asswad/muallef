@@ -1,282 +1,431 @@
 ---
-title: Algorithme CORDIC
+title: Automatic Music Transcription
 author: Rand ASSWAD
-subtitle: Jack E. Volder
-institute: Université de Rouen Normandie
-lang: fr-FR
+subtitle: Masters Thesis
+institute: INSA Rouen Normandie
+lang: en-US
+bibliography: ref.bib
+biblio-style: "apalike"
+link-citations: true
 ---
 
-# Plan
+# Summary
 
-- Codage de réels sur machine
-- Fonctions trigonométriques
-- Algorithme Cordic
-- Guarantie de précision
-- Implémentation
-- Alternatifs
-- Questions
+- Automatic music transcription
+- Audio signal characterization
+- Perception of music
+- Pitch analysis
+- Temporal segmentation
+- Conclusion & questions 
 
-# Les fonctions trigonométriques
+\def\R{\mathbb{R}}
+\def\C{\mathbb{C}}
+\def\N{\mathbb{N}}
+\def\Z{\mathbb{Z}}
 
----
+\def\x{\tilde{x}}
+\def\w{\omega}
+\def\phi{\varphi}
 
-![](img/trig.gif)
+\def\dt{\mathrm{d}t}
 
-## Applications
+\def\pp#1{\left(#1\right)}
+\def\sset#1{\left\{#1\right\}}
+\def\vset#1#2{\sset{#1\left\lvert#2\right.}}
 
-### Directes
+\def\abs #1{\left\lvert#1\right\rvert}
+\def\norm#1{\left\lVert#1\right\rVert}
+\def\dotp#1#2{\left\langle#1{;}#2\right\rangle}
 
-- Exponentielles complexes
-- Résolutions des EDO linéaires d'ordre 2
-- Résolutions des EDP
-- Séries et transformations de Fourier
+\def\pmat#1{\begin{pmatrix}#1\end{pmatrix}}
 
-### Indirectes
+\def\qtext#1{\quad\text{#1}\quad}
 
-- Acoustique et musique
-- Transmission des signaux (radio, télé, etc)
-- Navigation, GPS
-- Imagerie
-- ...
+\def\X{\boldsymbol{X}}
+\def\V{\boldsymbol{V}}
+\def\W{\boldsymbol{W}}
+\def\H{\boldsymbol{H}}
 
-# Codage de réels sur machine
+\def\argmin{\mathop{\mathrm{argmin}}}
+\def\argmax{\mathop{\mathrm{argmax}}}
 
-## Virgule Fixe
+# Automatic Music Transcription
 
-Codage similaire aux entiers
+> AMT is the process of converting an acoustic musical
+signal into some form of musical notation. [@benetos_2013]
 
-![](img/fixed_point.gif)
+## Motivation
 
----
+- Recording imporvised performance
+- Democratizing no-score music genres
+- Score following for music learning
+- Musicological analysis
 
-**exemple :** $20.75_{10} = 10100.1100_2$
+## Background
 
-| Puissance | $2^5$ | $2^4$ | $2^3$ | $2^1$ | $2^0$ | $2^{-1}$ | $2^{-2}$ | $2^{-3}$ | $2^{-4}$ |
-|:----------|:-----:|:-----:|:-----:|:-----:|:-----:|:--------:|:--------:|:--------:|:--------:|
-| Valeur    |  16   |   8   |   4   |   2   |   1   |   0.5    |   0.25   |  0.125   |  0.0625  |
-| Bit Mask  |   1   |   0   |   1   |   0   |   0   |    1     |    1     |    0     |    0     |
+- Started in the late 20^th^ century
+- Young discipline (compared to speech processing)
+- **ISMIR:** International Society for Music Information Retrieval (since 2000)
+- **MIREX:** Music Information Retrieval Evaluation eXchange (15 years)
 
+## Underlying tasks
 
+- *Pitch detection*
+- *Temporal segmentation*
+- Loudness estimation
+- Instrument recognition
+- Rhythm detection
+- Scale detection
 
-- **Avantage :** simple donc calculs robustes
-- **Inconvénient :** compromis entre l'amplitude et la précision
-  + pour $n$ bits, un précision $p$, l'amplitude est de $2^{n-p}$
-  + pour avoir 3 chiffres décimaux après la virgule, il faut 10 bits de précision
-  + Le plus grand représentable sur 32 bits avec 3 bits de précision est $2~097~151.875$
-  + un nombre comme $11!$ ne pourrais pas être représenté !
+## Music theory vs. audio signal processing
 
-## Virgule Flottante
+- **Music theory:** studies *perceived features* of music signals.
+- **Audio signal processing:** studies the *mathematical variables* of music signals.
 
-$$ x = (-1)^s 2^e (1 + m) $$
+# Audio signal characterization
 
-- **Signe :** $s\in\{0,1\}$
-- **Exposant :** $e\in \mathbb{Z}$
-- **Mantisse :** $m\in \left[0,1\right[$
+## Physical definition
 
-Il s'agit de la notation scientifique en base 2
+- Acoustic wave equation [@feynman]
+$$\Delta p =\frac{1}{c^2}\frac{\partial^2 p}{ {\partial t}^2}$$
 
----
+- $p(\mathbf{x},t)$ pressure function of time and space
+- $c$ speed of sound propagation
+- Harmonic solutions
 
-### Standard IEEE-754
+## Audio signal
 
-$$ x = (-1)^s 2^e (1 + m) $$
+- Audio signal : pressure at the receptor's position
+- Harmonic function of time
+- $$\x(t) = \sum_{h=0}^{\infty} A_h \cos(2\pi hf_0t + \phi_h)$$
 
-![](img/ieee-754.png)
+## Period and fundamental frequency
 
-- l'exposant se stocke sur $q$ bits
-- la mantisse se stocke sur $p$ bits
+> [Period is] the smallest positive member of the infinite set of time shifts
+leaving the signal invariant. [@yin_2002]
 
+- $T>0,\forall t, x(t) = x(t+T)$
+- $\implies \forall m\in\N,\forall t, x(t) = x(t+mT)$
+- **Fundamental frequency:** $f_0 = \frac{1}{T}$
+- **Harmonics:** $f_h = h\cdot f_0, h\in\N\setminus\sset{0}$
+- **Harmonic partials:** harmonics $h>1$
 
-|     | single (32 bits) | double(64 bits) |
-|:----|:----------------:|:---------------:|
-| $q$ |        8         |       11        | 
-| $p$ |        23        |       52        | 
+# Perception of music
 
----
+## Pitch
 
-### Quelques remarques sur le standard IEEE-754
+- *Tonal height* of a sound
+- *Relative musical concept*
+- Logarithmic perception
+- $\neq$ fundamental frequency
 
-- la valeur de la mantisse est $m=k\cdot 2^{-p}$ où $k\in\left\{0,\ldots,2^p-1\right\}$
-- la plage de représentation de l'exposant $e\in\left\{-2^{q-1}+2,\ldots,2^{q-1}-1\right\}$
-- on réserve la valeur maximale de l'exposant pour $\infty$ et `NaN`
-  et la valeur minimale pour le zéro et les nombres dénormalisés
-- on stocke un exposant biaisé d'un biais $\Delta$ afin de représenter les exposants négatifs
-  donc on stocke $E=e+\Delta$ où $\Delta = 2^{q-1} -1$ donc $E\in\left\{1,\ldots,2^q - 2\right\}$
+## Intensity
 
-# Algorithme CORDIC
-
-## Historique
-
-- CORDIC a été inventé en 1956 par Jack E. Volder
-- Le but de CORDIC était de remplacer le résolveur (transducteur électromagnétique)
-  dans les ordinateurs du bombardier Convair B-58 Hustler par une solution digitale
-  plus *précise* et plus *performante* en temps réel.
-- L'algorithme a été publié en 1959, et a été ensuite adopté dans les ordinateurs de navigation.
-
----
-
-- Une variante de CORDIC (décimal) a été intégrée dans une machine HP en 1966,
-  qui a résulté dans le premier ordinateur intégrant des fonctions scientifiques en 1968, le **hp 9100A**.
-- CORDIC a été implémnté dans les FPU de Intel des années 80s.
-- CORDIC est très utilisé dans les calculatrices pour son économie de mémoire et son efficacité.
-
-## Principe
-
-On souhaite approcher l'angle $t\in\left[-\frac{\pi}{2},\frac{\pi}{2}\right]$ par $\theta_n$
-
-Les coordonnées du vecteur unitaires $v_n$ d'angle $\theta_n$ sont
-$\left(\cos\theta_n,\sin\theta_n\right)$
-
-- On commence avec $\theta_0 = 0$ donc $v_0=(1, 0)$
-- On ajuste $\theta_n$ par l'angle $\alpha_n = \arctan 2^{-n}$
-  + si $t > \theta_n$, on rajoute l'angle $\alpha_n$
-  + sinon on soustrait l'angle $\alpha_n$
-- On applique une rotation d'angle $\alpha_n$ à $v_n$ dans vers $t$
-- On s'arrête à la précision souhaitée
+- **Sound intensity:** power carried by sound waves per unit area
+- **Sound pressure:** local pressure deviation from ambient
+pressure caused by a sound wave
+- **Sound pressure level (SPL):**
+$$\mathrm{SPL} = 20\log_{10}\left(\frac{P}{P_0}\right)\mathrm{dB}$$
+- **_Loudness_**: *subjective* perception of sound pressure
+  - Function of SPL and frequency
+  - Range from *quiet* to *loud*
 
 ---
 
-![](img/CORDIC-illustration.png)
+image of loudness
 
 ---
 
-## Formellement
+# Pitch Analysis
 
-$$\begin{cases}
-\alpha_n &= \arctan 2^{-n} \\
-\delta_n &= \mathrm{sign}\left(t - \theta_n\right) \\
-\theta_{n+1} &= \theta_n + \delta_n \alpha_n
+## General model
+
+[@yeh_thesis]
+
+- Imperfect signals
+  - Inharmonicity
+  - Resonance
+  - Surrounding noise
+- $$x(t) = \x(t) + z(t)$$
+- $x(t)$ is **quasi-periodic**
+- Performed on short-time periods we refer to as **frames**
+using a sliding windowing function
+
+## Classification
+
+- **Sound:** Monophonic (single pitch) vs. Polyphonic (multiple pitch)
+- **Analysis:** Time domain vs. Spectral domain
+
+## Single pitch estimation
+
+$$\x(t)=\sum_{h=1}^{\infty} A_h\cos(2\pi f_0 t + \phi_h)
+    \approx\sum_{h=1}^{H} A_h\cos(2\pi f_0 t + \phi_h)$$
+
+**Task:** find $f_0$
+
+## Time domain
+
+- Analyse signal $x(t)$ directly with respect to time.
+- Compare signal $x(t)$ with a delayed version of itself $x(t+\tau)$
+- Similarity/dissimilarity functions
+
+## Autocorrelation Function (ACF)
+
+$$r[\tau] = \sum_{t=1}^{N-\tau} x[t]x[t+\tau]$$
+
+- Attains local maximum for $\tau\approx mT$
+- Sensitive to structures in signals
+  - **(+):** useful for speech detection
+  - **(-):** resonance structures in music signals
+
+## Average Magnitude Difference Function (AMDF)
+
+$$d_{\text{AM}}[\tau] = \frac{1}{N}
+    \sum_{t=1}^{N-\tau} \abs{x[t]-x[t+\tau]}$$
+[@ross_average_1974]
+
+- Attains local minimum for $\tau\approx mT$
+- More adapted for music signals
+
+## Squared difference function (SDF)
+
+$$d[\tau] = \sum_{t=1}^{N-\tau}(x[t]-x[t+\tau])^2$$
+
+- Attains local minimum for $\tau\approx mT$
+- Accentuates dips at corresponding periods
+- More clear local minima
+
+## YIN algorithm  [@yin_2002]
+
+Cumulative mean normalized function:
+$$d[\tau] = \sum_{t=1}^{N-\tau}(x[t]-x[t+\tau])^2$$
+$$d_{\text{YIN}}[\tau] = \begin{cases}
+    1 &\text{if}~\tau = 0\\
+    d[\tau] / \frac{1}{\tau}\sum\limits_{t=0}^{\tau} d[t]
+        &\text{otherwise}
 \end{cases}$$
 
-On définit les vecteurs et les rotations à l'aide des nombres complexes
-$$\begin{cases}
-v_n &= e^{i\theta_n} = x_n + iy_n \\
-R_n &= e^{i\delta_n\alpha_n}
-\end{cases}\quad
-\Rightarrow v_{n+1} = R_n v_n$$
+- Starts at 1 rather than 0
+- Divides SDF by its average over shorter lags
+- Tends to stay large at short lags
+- Drops when SQD falls under its average
 
 ---
+
+<img src="plot/timedomain_func.png" class="full-img-slide">
+
+## Spectral domain
+
+- Analyse fourier transform $X(f)$ of the signal
+- The **spectrum** of a signal in the magnitude of its fourier transform $S(f)=\abs{X(f)}$
+- Local maxima of the spectrum correspond to frequencies of the signal
+- Analyse spectrum patterns with adapted similarity/dissimilarity functions
+
+---
+
+<video width="800" controls>
+    <source src="plot/fourier.mp4" type="video/mp4">
+</video>
+
+## Autocorrelation Function (ACF)
+
+$$R[f] = \sum_{k=1}^{K-f} S[k]S[k+f]$$
+
+- Attains local maximum for partial harmonics $f\approx hf_0$ [@lahat_spectral_1987]
+- Function is attenuated when partial peaks are not well aligned
+
+## Harmonic sum/product [@schroeder_period_1968]
+
+- **Harmonic sum:** $$\Sigma(f)=\sum_{h=1}^H 20\log_{10}S(hf)$$
+- **Harmonic product:** $$\Sigma'(f)=20\log_{10}\sum_{h=1}^H S(hf)$$
+
+- Weighted frequency histogram
+- Measures the contribution of each harmonic to the histogram
+- Also known as *log compression*
+
+---
+
+<img src="plot/spectral_func.png" class="full-img-slide">
+
+---
+
+## Spectral YIN [@brossier]
+
+- Optimized version of YIN in frequency domain
+- The square difference function is defined over spectral magnitudes
+$$\hat{d}(\tau) = \frac{2}{N} \sum\limits_{k=0}^{\frac{N}{2}+1}
+    \abs{\pp{-e^{2\pi jk\tau/N}} X[k]}^2$$
+
+### DEMO YIN/YINFFT
+
+## Multiple pitch estimation
 
 \begin{align}
-R_n &= e^{i\delta_n\alpha_n}\\
-    &= \cos\alpha_n+i\delta_n\sin\alpha_n\\
-    &= \cos\alpha_n\left(1 + i\delta_n\tan\alpha_n\right)\\
-    &= \cos\alpha_n\left(1 + i\delta_n\tan(\arctan 2^{-n})\right)\\
-    &= \cos\alpha_n\left(1 + i\delta_n 2^{-n}\right)\\
-    &= K_n \left(1 + i\delta_n 2^{-n}\right)\\
+\x(t)&=\sum_{m=1}^{M}\x_m(t)\\
+    &=\sum_{m=1}^{M}\sum_{h=1}^{\infty}
+    A_{m,h}\cos(2\pi f_{0,m} t + \phi_{m,h})\\
+    &\approx\sum_{m=1}^{M}\sum_{h=1}^{H_m}
+    A_{m,h}\cos(2\pi f_{0,m} t + \phi_{m,h})
 \end{align}
 
-le nouveau vecteur s'obtient donc
+**Task:** find $f_{0,m}$ for $m\in\sset{1,\ldots,M}$
 
-\begin{align}
-v_{n+1} &= R_n v_n\\
-    &= K_n \left(1 + i\delta_n 2^{-n}\right) (x_n + iy_n)\\
-    &= \underbrace{K_n \left(x_n + \delta_n 2^{-n} y_n\right)}_{x_{n+1}} +
-       i\cdot\underbrace{K_n\left(\delta_n 2^{-n} x_n + y_n\right)}_{y_{n+1}}
-\end{align}
+## Challenges
 
----
+- Concurrent music notes
+- Can be produced by several instruments
+- *Core difficulty* of polyphonic music transcription
 
-Ayant les valeurs de $K_n$ et $\delta_n$, les seules opérations
-à faire sont des des additions, des multiplications, et des divisions par 2 (décalages).
+## Approaches
 
-Supposons qu'on souhaite faire $N$ itérations:
+- **Iterative:**
+  - Extract most prominent pitch at each iteration
+  - Tends to accumulate errors at each iteration
+  - Computationally inexpensive
+- **Joint:**
+  - Evaluate $f0$ combinations
+  - More accurate estimations
+  - Increased computational cost
 
-- Il suffit de stocker les valeurs de $\alpha_n$ dans un tableau
-  afin de pouvoir en déduire les valeurs de $\delta_n$
-  qui sont nécessaires pour calculer $\theta_n$ et $v_n$.
-- Il suffit de stocker les valeurs de $K_n=\cos\alpha_n$ pour calculer les $v_n$.
+## Harmonic Amplitudes Sum [@klapuri]
 
----
+1. **Spectral whitening:** flatten the spectrum to suppress timbral information.
+2. **Salience function:** strength of $f0$ candidate as weighted sum of amplitudes of its harmonic partials.
+3. Iterative or joint estimators.
 
-### Optimisation essentielle
+## Spectral whitening
 
-- On peut facilement déduire que $v_N = v_0\prod\limits_{n=0}^{N-1} R_n$
-- De plus, $\prod\limits_{n=0}^{N-1} R_n
-  = \prod\limits_{n=0}^{N-1} K_n \prod\limits_{n=0}^{N-1} \left(1 + i\delta_n 2^{-n}\right)$
-- Il suffit alors de stocker la valeur de $K = \prod\limits_{n=0}^{N-1} K_n$
-- $K_n = \cos\alpha_n = \cos\arctan 2^{-n} = \frac{1}{\sqrt{1+2^{-2n}}}$
-- Par conséquent, $v_N=K v_0 \prod\limits_{n=0}^{N-1} \left(1 + i\delta_n 2^{-n}\right)$
-- En initialisant $v_0 = (K, 0)$ on aura simplement
-  $v_n = v_0\prod\limits_{n=0}^{N-1} \left(1 + i\delta_n 2^{-n}\right)$
+- Apply *bandpass filter* in frequency domain $X(f)$.
+- Calculate standard deviations $\sigma_b$ within subbands
+- Calculate compression coefficients $\gamma_b=\sigma_b^{\nu-1}$ where $\nu$ is the whitening parameter.
+- Interpolate $\gamma$ for all frequencies.
+- Whitened spectrum $Y(f) = \gamma(f)X(f)$
 
----
+## Salience function
 
-- Cette optimisation économise $N$ multiplications et la taille de $N$ nombres en mémoire
-- Mode de convergence:
+$$s(\tau) = \sum_{h=1}^H g(\tau,h)\abs{Y(hf_{\tau})}$$
+where $f_{\tau}=f_s/\tau$ the $f_0$ candidate corresponding
+to the period $\tau$ and $g(\tau,h)$ is the weight of the
+$h$ partial of period $\tau$.
 
-![](img/cordic_opti.png){width=65%}
+## Iterative estimation
 
-## Adaptation pour virgule flottante
+1. Determine $f_0=\argmax_{f} s(f)$
+2. Remove found $f_0$ from residual spectrum
+3. Repeat until saliences are low
 
-$$t\in\left[-\frac{\pi}{2},\frac{\pi}{2}\right]\subset\left]-2,+2\right[$$
+## RESULTS
 
-donc l'exposant est nul $t=(-1)^s (1+m)$
+## Spectrogram Factorisation (NMF) [@NNMF]
 
-d'où l'application de l'algorithme sur la mantisse est suffisante
+- Non-negative matrix factorisation is a well-established technique
+- Works best with harmonically fixed spectral profiles (such as piano notes)
+- Joint estimation method
 
-# Guarantie de précision
+## $$\X \approx \W\H$$
 
-## Proposition 1
-
-Si $\forall n\in\mathbb{N}, 0\leq \frac{\alpha_n}{2} \leq \alpha_{n+1} \leq \alpha_n$
-alors, $\forall t$ telle que $\lvert t\rvert\leq 2\alpha_0$ la suite définie
-par $\theta_{n+1} = \sum\limits_{k=0}^n \delta_k \alpha_k$.
-
-$$\forall n\in\mathbb{N}, \lvert \theta_{n+1} - t \rvert \leq \alpha_n $$
-
-*Preuve par récurrence sur le tableau*
-
-## Proposition 2
-
-$\alpha_n = \arctan 2^{-n}$ vérifie
-$\forall n\in\mathbb{N}, 0\leq \frac{\alpha_n}{2} \leq \alpha_{n+1} \leq \alpha_n$
-
-*Preuve par récurrence sur le tableau*
-
-## Conclusion
-
-$$\forall n\in\mathbb{N}, \lvert \theta_{n+1} - t \rvert \leq \arctan 2^{-n} \leq 2^{-n} $$
-
-
-# Implémentation
+- Variables:
+  - $\X\in\R_+^{K\times N}$ input spectrogram
+  - $\W\in\R_+^{K\times R}$ spectral bases for each pitch component (template matrix)
+  - $\H\in\R_+^{R\times N}$ pitch activity across time (activation matrix)
+- Dimensions:
+  - $K$ number of frequency bins
+  - $N$ number of frames
+  - $R$ number of pitch components (rank) such that $R<<K$
+- Cost function: $$C=\norm{\X - \W\H}_F$$
 
 ---
 
-```c
-vec2 cordic(double t) {
-    double theta = 0; // theta[n]
-    double pow2 = 1;  // 2^(-n)
+![](img/nmf.png)
 
-    // v[0] := (K, 0)
-    vec2 v;
-    v.x = K;
-    v.y = 0;
+## NMF concept
 
-    double tmp;
-    for (uint8_t n = 0; n < BITS; n++) {
-        tmp = v.x;
-        if (t >= theta) { // delta = +1
-            theta += alpha[n];
-            v.x -= pow2 * v.y; // x' = x - y/2^n
-            v.y += pow2 * tmp; // y' = x/2^n + y
-        } else { // delta = -1
-            theta -= alpha[n];
-            v.x += pow2 * v.y; // x' = x - y/2^n
-            v.y -= pow2 * tmp; // y' = x/2^n + y
-        }
-        pow2 /= 2;
-    }
-    return v;
-}
-```
-Opérations par itération:
+- $C=\norm{\V-\W\H}_2$ is a nonconvex optimisation problem with respect to $\W$ *and* $\H$.
+- Let $\V=(v_1,\ldots,v_N)$ and $\H=(h_1,\ldots,h_N)$
+- $\V=\W\H \implies v_i = \W h_i$
+- Impose orthogonality constraint $\H\H^T=I$
+- Obtain **K-means** clustering property
 
-- 3 additions/soustractions
-- 1 multiplications
-- 1 division par 2
+## Application on polyphonic music decomposition
 
+- The rank $R$ corresponds to the pitch components, which is in the case of a piano is the midi integer range from 20 to 109.
+- Reinforce sparsity constraint [@cont_realtime_nodate]
+- Apply single pitch estimation on rows of $\H$
+
+# Temporal Segmentation
+
+Finding boundaries of audio objects
+
+- **Onset:** when the note starts
+- **Offset:** when the note ends
+
+---
+
+![](img/onset.png){width=50%}
+
+## Onset estimation method
+
+1. Compute an **Onset Detection Function**
+2. Calculate a **threshold function**
+3. **Peak-picking** local maxima above threshold
+
+## Onset Detection Function (ODF)
+
+- Characterize change in energy or harmonic content in the signal
+- Difficult to identify on time domains
+- Computed on spectral domains using magnitude and/or phase
+- Onsets are detected from local maxima
+
+## High Frequency Content (HFC) [@hfc]
+
+$$D_{\text{HFC}}[n] = \sum\limits_{k=1}^{N}
+    k\cdot\norm{X[n,k]}^2$$
+
+Favours wide-band energy bursts and high frequency components
+
+## Phase Deviation [@bello]
+
+Evaluates phase difference
+$$D_{\Phi}[n] = \sum\limits_{k=0}^{N}
+    \left\lvert \hat{\varphi}[n, k] \right\rvert$$
+
+where
+
+- $\mathrm{princarg}(\theta) = \pi + ((\theta + \pi) mod (-2\pi))$
+- $\varphi(t, f) = \mathrm{arg}(X(t, f))$
+- $\hat{\varphi}(t, f) = \mathrm{princarg} \left( \frac{\partial^2 \varphi}{\partial t^2}(t, f)  \right)$
+
+Identifies tonal onsets and evergy bursts
+
+## Complex Distance [@duxbury]
+
+$$D_{\mathbb{C}}[n] = \sum\limits_{k=0}^{N}
+    \norm{\hat{X}[n, k] - X[n, k]}^2$$
+
+where
+$\hat{X}[n, k] = \left\lvert X[n, k] \right\rvert
+\cdot e^{j\hat{\varphi}[n, k]}$
+
+Quantifies both tonal onsets and percussive events
+by combining spectral difference and phase-based approaches.
+
+
+## Thresholding & Peak-picking
+
+- ODFs are usually sensitive to the slightest perturbations
+- Defining a threshold would eliminate insignificant peaks
+- Suggested threshold: moving average
+- Peak-picking: selecting peaks above defined calculated threshold
+
+
+# Conclusion
+
+- Single pitch estimation obtains satisfactory results
+- Multi-pitch estimation remains an open problem
+- Promising results in onset detection
 
 # Merci pour votre attention
 
 Avez-vous des questions ?
+
+# References

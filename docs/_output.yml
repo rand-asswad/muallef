@@ -30,7 +30,7 @@ revealjs::revealjs_presentation:
   transition: slide
   incremental: true
   css: include/reveal.css
-  self_contained: true
+  self_contained: false
   reveal_options:
     history: false
     slideNumber: true

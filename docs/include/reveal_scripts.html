@@ -6,24 +6,24 @@
     let title = titleSlide.querySelector(".title");
     let subtitle = titleSlide.querySelector(".subtitle");
     titleSlide.innerHTML = `
-    <img src="img/logo_univ.png" width="50%">
-    <h3 class="institute">Master 2 - Informatique Théorique et Appliquées</h3>
+    <div class="img-row">
+        <div style="float:left; width=40%;"><img src="img/logo_insa.png" height="100pt"></div>
+        <div style="float:right; width=40%;"><img src="img/logo_univ.png" height="85pt"> </div>
+    </div>
     <h1 class="title">${title.innerHTML}</h1>
-    <h2 class="subtitle">${subtitle.innerHTML}</h2>
-        <p class="author" style="float:left;">
-            <em>Présenté par:</em></br>
-            Rand ASSWAD
-        </p>
-        <p class="author" style="float:right;">
-            <em>A l'attentien de:</em></br>
-            M. Jean-Philippe DUBERNARD
-        </p>
+    <h3 class="subtitle">${subtitle.innerHTML}</h2>
+    <h2 class="author">Rand ASSWAD</h3>
+    <p class="author">
+        <em>Supervisors:</em></br>
+        Prof. Natalie FORTIER</br>
+        Prof. Jean-Philippe DUBERNARD
+    </p>
     </div>
     `;
 </script>
 
 <!-- plan slide -->
-<script>
+<!--script>
     let plan = document.querySelector("section#plan");
     let list = plan.querySelector("ul");
 
@@ -37,4 +37,4 @@
             </div>
         </div>
     `;
-</script>
+</script-->

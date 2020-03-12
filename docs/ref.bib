@@ -12,7 +12,7 @@
 	file = {Full Text PDF:/home/rand/Zotero/storage/4JRUEL5K/Benetos et al. - 2013 - Automatic music transcription Challenges and futu.pdf:application/pdf}
 }
 
-@book{brossier_automatic_2006,
+@book{brossier,
 	title = {Automatic {Annotation} of {Musical} {Audio} for {Interactive} {Applications}},
 	author = {Brossier, Paul M.},
 	year = {2006},
@@ -171,7 +171,7 @@ La hauteur d'un son périodique est étroitement liée à sa période. Pour perc
 	file = {IEEE Xplore Abstract Record:/home/rand/Zotero/storage/XVH62WJU/1328092.html:text/html;Oppenheim and Schafer - 2004 - From frequency to quefrency a history of the ceps.pdf:/home/rand/Zotero/storage/6I7YUVCF/Oppenheim and Schafer - 2004 - From frequency to quefrency a history of the ceps.pdf:application/pdf}
 }
 
-@misc{noauthor_feynman_nodate,
+@misc{feynman,
 	title = {The {Feynman} {Lectures} on {Physics} {Vol}. {I} {Ch}. 47: {Sound}. {The} wave equation},
 	url = {https://www.feynmanlectures.caltech.edu/I_47.html},
 	urldate = {2020-03-08},
@@ -202,4 +202,69 @@ Perfect reconstruction may still be possible when the sample-rate criterion is n
 	author = {Salamon, Justin and Gomez, Emilia},
 	pages = {12},
 	file = {Salamon and Gomez - Melody Extraction from Polyphonic Music Signals us.pdf:/home/rand/Zotero/storage/U2AYQ8Z3/Salamon and Gomez - Melody Extraction from Polyphonic Music Signals us.pdf:application/pdf}
+}
+
+@article{klapuri,
+	title = {Multiple {Fundamental} {Frequency} {Estimation} by {Summing} {Harmonic} {Amplitudes}},
+	abstract = {This paper proposes a conceptually simple and computationally efﬁcient fundamental frequency (F0) estimator for polyphonic music signals. The studied class of estimators calculate the salience, or strength, of a F0 candidate as a weighted sum of the amplitudes of its harmonic partials. A mapping from the Fourier spectrum to a “F0 salience spectrum” is found by optimization using generated training material. Based on the resulting function, three different estimators are proposed: a “direct” method, an iterative estimation and cancellation method, and a method that estimates multiple F0s jointly. The latter two performed as well as a considerably more complex reference method. The number of concurrent sounds is estimated along with their F0s.},
+	language = {en},
+	author = {Klapuri, Anssi},
+	pages = {6},
+	file = {Klapuri - Multiple Fundamental Frequency Estimation by Summi.pdf:/home/rand/Zotero/storage/47AJWRKL/Klapuri - Multiple Fundamental Frequency Estimation by Summi.pdf:application/pdf}
+}
+
+@inproceedings{NNMF,
+	address = {New Paltz, NY, USA},
+	title = {Non-negative matrix factorization for polyphonic music transcription},
+	isbn = {978-0-7803-7850-6},
+	url = {http://ieeexplore.ieee.org/document/1285860/},
+	doi = {10.1109/ASPAA.2003.1285860},
+	abstract = {In this paper we present a methodology for analyzing polyphonic musical passages comprised by notes that exhibit a harmonically fixed spectral profile (such as piano notes). Taking advantage of this unique note structure we can model the audio content of the musical passage by a linear basis transform and use non-negative matrix decomposition methods to estimate the spectral profile and the temporal information of every note. This approach results in a very simple and compact system that is not knowledge-based, but rather learns notes by observation.},
+	language = {en},
+	urldate = {2020-03-12},
+	booktitle = {2003 {IEEE} {Workshop} on {Applications} of {Signal} {Processing} to {Audio} and {Acoustics} ({IEEE} {Cat}. {No}.{03TH8684})},
+	publisher = {IEEE},
+	author = {Smaragdis, P. and Brown, J.C.},
+	year = {2003},
+	pages = {177--180},
+	file = {Smaragdis and Brown - 2003 - Non-negative matrix factorization for polyphonic m.pdf:/home/rand/Zotero/storage/PZVCHZP3/Smaragdis and Brown - 2003 - Non-negative matrix factorization for polyphonic m.pdf:application/pdf}
+}
+
+@article{cont_realtime_nodate,
+	title = {Realtime {Multiple} {Pitch} {Observation} using {Sparse} {Non}-negative {Constraints}},
+	abstract = {In this paper we introduce a new approach for realtime multiple pitch observation of musical instruments. The proposed algorithm is quite different from others in the literature both in its purpose and approach. It is destined not for continuous multiple f0 recognition but rather for projection of the ongoing spectrum to learned pitch templates. The decomposition algorithm on the other hand, does not compromise signal processing models for pitches and consists of an algorithm for efﬁcient decomposition of a spectrum using known pitch structures and based on sparse non-negative constraints. After introducing the algorithm along with evaluations, a real-time implementation of the algorithm is provided for free download for the MaxMSP realtime programming environment.},
+	language = {en},
+	author = {Cont, Arshia},
+	pages = {6},
+	file = {Cont - Realtime Multiple Pitch Observation using Sparse N.pdf:/home/rand/Zotero/storage/3ZXUJ5I8/Cont - Realtime Multiple Pitch Observation using Sparse N.pdf:application/pdf}
+}
+
+@article{hfc,
+	title = {Improved {Modelling} of {Attack} {Transients} in {Music} {Analysis}-{Resynthesis}},
+	abstract = {Current music analysis-resynthesis models represent sounds through a set of features, which are extracted from a time-frequency representation. So that each time-frame can present a good approximation to the instantaneous spectrum, it is necessary to analyse the waveform in short segments. This is achieved with a window function whose position is advanced by a fixed amount between frames. When the window encompasses a transient event, such as the percussive onset of a note, it contains information both before and after the event. These partiallycorrelated spectra often become confused during analysis and cause audible ‘diffusion’ upon resynthesis.},
+	language = {en},
+	author = {Masri, Paul and Bateman, Andrew},
+	pages = {4},
+	file = {Masri and Bateman - Improved Modelling of Attack Transients in Music A.pdf:/home/rand/Zotero/storage/KZIM5XF9/Masri and Bateman - Improved Modelling of Attack Transients in Music A.pdf:application/pdf}
+}
+
+@misc{bello,
+	title = {({PDF}) {Phase}-based note onset detection for music signals},
+	url = {https://www.researchgate.net/publication/4068561_Phase-based_note_onset_detection_for_music_signals},
+	abstract = {PDF {\textbar} Summary form only given. Note onsets mark the beginning of attack transients, short areas of a note containing rapid changes of the signal... {\textbar} Find, read and cite all the research you need on ResearchGate},
+	language = {en},
+	urldate = {2020-03-12},
+	journal = {ResearchGate},
+	doi = {http://dx.doi.org/10.1109/ASPAA.2003.1285811},
+	file = {Snapshot:/home/rand/Zotero/storage/NLX75UAW/4068561_Phase-based_note_onset_detection_for_music_signals.html:text/html}
+}
+
+@article{duxbury,
+	title = {{COMPLEX} {DOMAIN} {ONSET} {DETECTION} {FOR} {MUSICAL} {SIGNALS}},
+	abstract = {We present a novel method for onset detection in musical signals. It improves over previous energy-based and phase-based approaches by combining both types of information in the complex domain. It generates a detection function that is sharp at the position of onsets and smooth everywhere else. Results on a handlabelled data-set show that high detection rates can be achieved at very low error rates. The approach is more robust than its predecessors both theoretically and practically.},
+	language = {en},
+	author = {Duxbury, Chris and Bello, Juan Pablo and Davies, Mike and Sandler, Mark},
+	year = {2003},
+	pages = {4},
+	file = {Duxbury et al. - 2003 - COMPLEX DOMAIN ONSET DETECTION FOR MUSICAL SIGNALS.pdf:/home/rand/Zotero/storage/YSTVED2X/Duxbury et al. - 2003 - COMPLEX DOMAIN ONSET DETECTION FOR MUSICAL SIGNALS.pdf:application/pdf}
 }
