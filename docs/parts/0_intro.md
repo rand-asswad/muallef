@@ -40,12 +40,4 @@ and the underlying tasks.
 We explore the state of the art and propose an implementation
 for a subset of the presented methods.
 
-I have held interest for this project for quite some time,
-partly because I am a violinist myself but also because
-of my fondness of the employed mathematical principles.
-Most importantly, this project requires application of various
-mathematical notions as well as computer science skills
-hence serving as a demonstration of acquired knowledge
-throughout the Masters program.
-
 \pagebreak

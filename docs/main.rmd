@@ -2,7 +2,7 @@
 title: "Automatic Music Transcription"
 lang: en-US
 bibliography: ref.bib
-biblio-style: "apalike"
+biblio-style: apalike
 link-citations: true
 date: 12 March 2020
 ---
@@ -18,7 +18,7 @@ opts_knit$set(root.dir = proj)
 opts_chunk$set(fig.pos = 'H')
 opts_chunk$set(comment = NA)
 opts_chunk$set(include = TRUE, eval = TRUE)
-#opts_chunk$set(cache = TRUE)
+opts_chunk$set(cache = TRUE)
 
 # set reticulate options
 library(reticulate)

@@ -2,13 +2,93 @@
 
 The focus of this project is music information retrieval
 from music audio signals.
-In this section we study defining characteristics
-of musical elements, human perception of music,
-and basic notions of modern music theory.
+In this section we go through the main problems in
+the discipline of Automatic Music Transcription,
+we study characteristics of musical elements,
+human perception of music, and basic notions
+of modern music theory.
 We also review the main characteristics of a sound wave
 as well as analytic tools for processing digital audio signals.
 Furthermore, we establish the bridge between music
 theory and physical properties of audio signals.
+
+## Automatic Music Transcription
+
+> AMT is the process of converting an acoustic musical
+signal into some form of musical notation. [@benetos_2013]
+
+### History and community
+
+The interest in the task of AMT has started in the late
+20^th^ century, with researchers borrowing and adapting
+concepts from the well-established domain of
+*speech-processing*.
+Major strides have been made in the 21^st^ century,
+particularly since the creation of the International
+Society for Music Information Retrieval **(ISMIR)** in 2000.
+Which have connected the community and provided a platform
+for sharing and learning Music Information Retrieval **(MIR)**
+concepts worldwide. [@muller_2015]
+
+Furthurmore, the Music Information Retrieval Evaluation eXchange
+**(MIREX)** is an annual evaluation compaign for MIR algorithms.
+Since it started in 2005, MIREX has served as a benchmark
+for evaluating novelty algorithms and helped advance
+MIR Research.
+
+### Motivation
+
+MIR and AMT can be of great interest for different demographics.
+First, most musicians stand to benefit from reliable
+transcription algorithms as it can facilitate their tasks in
+difficult cases or for the least accelerate the process.
+
+Moreover, in many music genres such as Jazz, musical
+notation is rarely used, therefore the exchange formats
+are almost exclusively recordings of performances.
+AMT would play a role in democratizing no-score music
+for new learners and provide an easier canonical
+format for exchanging music.
+
+Another use of MIR is score-following software development
+that include a cursor that follows real-time playing
+indicating the correct and incorrect notes played
+helping pupils practice and progress on their
+own more efficiently, making the task of music learning
+less painful.
+
+Furthermore, MIR allows performing musicological analysis
+directly on recordings, gaining access to much larger
+databases compared to anotated music, which can also
+be applied for various tasks such as music recognition
+or melody recognition.
+
+### Underlying tasks
+
+Automatic Music Transcription is divided into several subtasks
+where each represents a research topic that fall
+within the scope of Musical Information Retrieval.
+
+The largest topic of MIR is tonal analysis, which
+is based on analysing spectral features of audio signals,
+and subsequently estimating *pitch*, melody and harmony.
+Despite the large interest in this topic and various
+techniques applied, this task remains the core problem in AMT,
+Exploration of main pitch analysis techniques is the
+first part of this project.
+
+Another main AMT task is *temporal segmentation*,
+which relates consequently to rythme extraction and tempo
+detection in melodic sounds. [@benetos_2013]
+This task pertains pertains to spectral features
+as well as signal energy.
+We expore this topic in the second part of this project.
+
+Several more tasks are needed to fully transcribe a musical
+piece, including: loudness estimation, instrument recognition,
+rhythm detection, scale detection and harmony analysis.
+In the scope of this project, we limit our study to
+*pitch analysis* and *temporal segmentation*.
 
 ## Physical definition of acoustic waves
 
@@ -17,7 +97,7 @@ cause oscillations of molecules in the medium.
 The varying pressure propagates through the medium as a wave,
 the pressure is therefore the solution of the wave
 equation in time and space, also known as the acoustic
-wave equation.
+wave equation. [@feynman]
 $$\Delta p =\frac{1}{c^2}\frac{\partial^2 p}{ {\partial t}^2}$$
 where $p$ is the accoustic pressure function of time and space
 and $c$ is the speed of sound propagation.
@@ -125,6 +205,8 @@ The subjective perception of sound pressure
 is defined by a sound's **loudness** which is a function of
 both SPL and frequency ranging from quiet to loud.
 
+![](img/loudness.png){width=60%}
+
 In music theory, loudness is defined by a piece's **dynamics**.
 Dynamics are indicators of a part's loudness *relative*
 to other parts and/or instruments.
@@ -140,8 +222,6 @@ Music dynamics also allow expressing gradual changes
 in loudness, indicated as symbols or italian keywords
 (*crescendo* and *diminuendo*).
 
-### Perception of duration
-
 ## Audio signal processing
 
 ### Discrete-time signals
@@ -155,11 +235,30 @@ that permits a discrete sequence of samples to capture
 all the information from a continuous-time signal.
 [@wiki:nyquistshannon]
 
+The sample rate $f_s$ of a discrete-time signal
+is defined as the number of samples per second,
+its inverse is the time step between samples $T_s$.
+
+We denote, conformely to litterature a discrete signal
+time frame as $x[n]=x(t_n)$ where
+$t_n=n\cdot T_s=\frac{n}{f_s}$.
+
 ### Discrete Fourier Transform (DFT)
 
-### Short-Time Fourier Transform (STFT)
+The discrete Fourier transform of $N$ samples,
+with a sample rate of $f_s$ can be obtained
+from its continuous definition.
 
-## Automatic Music Transcription
+\begin{align}
+X(f) &= \int\limits_{0}^{t_N} x(t)\cdot e^{-2\pi j ft}\dt\\
+    &= \lim\limits_{f_s\rightarrow\infty} \sum\limits_{n=0}^{N-1}
+        x(t_n)\cdot e^{-2\pi j ft_n}\\
+    &= \lim\limits_{f_s\rightarrow\infty} \underbrace{\sum\limits_{n=0}^{N-1} x[n]\cdot e^{-2\pi j f \frac{n}{f_s}}}_{X[f]}\\
+    &= \lim\limits_{f_s\rightarrow\infty} X[f]
+\end{align}
 
-- what is it
-- what are its sub-tasks
+The DFT of $x[n]$ is given for all frequency bins
+$k=0,\ldots,K$
+$$X[k] = \sum\limits_{n=0}^{N-1} x[n]\cdot e^{-2\pi j k \frac{n}{f_s}}$$
+
+\pagebreak

@@ -1,5 +1,6 @@
 bookdown::pdf_book:
   toc: true
+  toc_depth: 3
   keep_tex: true
   number_sections: true
   fig_caption: true

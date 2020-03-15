@@ -1,5 +1,0 @@
-# Conclusion
-
-\pagebreak
-
-# References {-}
