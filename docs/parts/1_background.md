@@ -30,7 +30,7 @@ Which have connected the community and provided a platform
 for sharing and learning Music Information Retrieval **(MIR)**
 concepts worldwide. [@muller_2015]
 
-Furthurmore, the Music Information Retrieval Evaluation eXchange
+furthermore, the Music Information Retrieval Evaluation eXchange
 **(MIREX)** is an annual evaluation compaign for MIR algorithms.
 Since it started in 2005, MIREX has served as a benchmark
 for evaluating novelty algorithms and helped advance
@@ -137,7 +137,7 @@ The human auditory system is capable of distinguishing
 intensities and frequencies of sound waves as well as
 temporal features.
 The inner ear is extremely sensitive to sound wave features,
-the brain allows furthur analysis of these features.
+the brain allows further analysis of these features.
 
 Music theory defines and studies *perceived features*
 of music signals.

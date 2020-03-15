@@ -83,7 +83,7 @@ This comparison is achieved using special functions that
 represent the pattern similarity or dissimilarity
 as a function of the **time lag** $\tau$.
 
-We will study and compare a the functions that
+We will study and compare the functions that
 appear the most in litterature.
 
 #### Autocorrelation function {-}

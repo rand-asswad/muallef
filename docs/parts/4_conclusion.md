@@ -17,10 +17,10 @@ as we hoped.
 
 As this is our second attempt in approaching AMT,
 we have been able to study closely core concepts of AMT,
-and explore deeply the core difficulty of AMT systems
+and deeply explore the core difficulty of AMT systems
 that is *Multi-pitch Estimation*.
 As research has lead us to studying several methods and approaches
-to this problem, we had to restrict the study into two algorithms
+to this problem, we had to restrict the study to two algorithms
 that are robust, mathematically sound and appreciated by the MIR community.
 
 I have held interest for this subject for quite some time,
@@ -30,8 +30,8 @@ Most importantly, this project requires application of various
 mathematical notions as well as computer science skills
 hence serving as a demonstration of acquired knowledge
 throughout the Masters program.
-This open problem is more suited as a PhD thesis subject or
-as a research full-time focus, we have attempted to do as much
+This open problem is more suited to a PhD thesis subject or
+as a full-time focus research, we have attempted to do as much
 as we could to accomplish with very little time.
 
 

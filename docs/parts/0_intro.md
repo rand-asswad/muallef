@@ -32,7 +32,7 @@ musical audio signals and producing the corresponding musical scores.
 This task has captured researchers interest in the late 20^th^ century
 and has become a wide research discipline as many of the problems
 in this domain remain unsolved.
-Furthurmore, strides in the domain of AMT would apply to numerous
+furthermore, strides in the domain of AMT would apply to numerous
 applications that can facilitate creating, sharing, and learning music.
 
 The scope of this thesis is the domain of Automatic Music Transcription
