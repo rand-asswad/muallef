@@ -18,7 +18,7 @@ opts_knit$set(root.dir = proj)
 opts_chunk$set(fig.pos = 'H')
 opts_chunk$set(comment = NA)
 opts_chunk$set(include = TRUE, eval = TRUE)
-opts_chunk$set(cache = TRUE)
+opts_chunk$set(cache = FALSE)
 
 # set reticulate options
 library(reticulate)

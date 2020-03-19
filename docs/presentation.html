@@ -558,7 +558,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </section>
 <section class="slide level2">
 
-<p>image of loudness</p>
+<p><img data-src="img/loudness.png" alt="Fletcher-Munson Equal Loudness Contours" /></p>
 </section>
 <section class="slide level2">
 
@@ -692,7 +692,10 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <li class="fragment">The square difference function is defined over spectral magnitudes <span class="math display">\[\hat{d}(\tau) = \frac{2}{N} \sum\limits_{k=0}^{\frac{N}{2}+1}
   \left\lvert\left(-e^{2\pi jk\tau/N}\right) X[k]\right\rvert^2\]</span></li>
 </ul>
-<h3 id="demo-yinyinfft">DEMO YIN/YINFFT</h3>
+</section>
+<section class="slide level2">
+
+<p><img src="plot/monopitch_compare.png" class="full-img-slide"></p>
 </section>
 <section id="multiple-pitch-estimation" class="slide level2">
 <h2>Multiple pitch estimation</h2>
@@ -760,8 +763,9 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <li class="fragment">Repeat until saliences are low</li>
 </ol>
 </section>
-<section id="results" class="slide level2">
-<h2>RESULTS</h2>
+<section class="slide level2">
+
+<p><img src="plot/multipitch_klapuri.png" class="full-img-slide"></p>
 </section>
 <section id="spectrogram-factorisation-nmf-nnmf" class="slide level2">
 <h2>Spectrogram Factorisation (NMF) <span class="citation" data-cites="NNMF">(Smaragdis and Brown <a href="#/ref-NNMF" role="doc-biblioref">2003</a>)</span></h2>
@@ -862,6 +866,10 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <p>where <span class="math inline">\(\hat{X}[n, k] = \left\lvert X[n, k] \right\rvert \cdot e^{j\hat{\varphi}[n, k]}\)</span></p>
 <p>Quantifies both tonal onsets and percussive events by combining spectral difference and phase-based approaches.</p>
 </section>
+<section class="slide level2">
+
+<p><img src="plot/odf.png" class="full-img-slide"></p>
+</section>
 <section id="thresholding-peak-picking" class="slide level2">
 <h2>Thresholding &amp; Peak-picking</h2>
 <ul>
@@ -870,14 +878,20 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <li class="fragment">Suggested threshold: moving average</li>
 <li class="fragment">Peak-picking: selecting peaks above defined calculated threshold</li>
 </ul>
+</section>
+<section class="slide level2">
+
+<p><img src="plot/onsets_complex.png" class="full-img-slide"></p>
 </section></section>
 <section id="conclusion" class="title-slide slide level1"><h1>Conclusion</h1><ul>
 <li class="fragment">Single pitch estimation obtains satisfactory results</li>
 <li class="fragment">Multi-pitch estimation remains an open problem</li>
 <li class="fragment">Promising results in onset detection</li>
 </ul></section>
-<section id="merci-pour-votre-attention" class="title-slide slide level1"><h1>Merci pour votre attention</h1><p>Avez-vous des questions ?</p></section>
-<section id="references" class="title-slide slide level1"><h1 class="unnumbered">References</h1><div id="refs" class="references hanging-indent" role="doc-bibliography">
+<section><section id="merci-pour-votre-attention" class="title-slide slide level1"><h1>Merci pour votre attention</h1></section>
+<section id="references" class="slide level2">
+<h2 class="unnumbered">References</h2>
+<div id="refs" class="references hanging-indent" role="doc-bibliography">
 <div id="ref-benetos_2013">
 <p>Benetos, Emmanouil, Simon Dixon, Dimitrios Giannoulis, Holger Kirchhoff, and Anssi Klapuri. 2013. “Automatic Music Transcription: Challenges and Future Directions.” <em>Journal of Intelligent Information Systems</em> 41 (December). <a href="https://doi.org/10.1007/s10844-013-0258-3">https://doi.org/10.1007/s10844-013-0258-3</a>.</p>
 </div>
@@ -920,7 +934,8 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <div id="ref-yeh_thesis">
 <p>Yeh, Chunghsin. n.d. “Multiple Fundamental Frequency Estimation of Polyphonic Recordings,” 153.</p>
 </div>
-</div></section>
+</div>
+</section></section>
     </div>
   </div>
 

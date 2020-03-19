@@ -256,7 +256,9 @@ $$R[f] = \sum_{k=1}^{K-f} S[k]S[k+f]$$
 $$\hat{d}(\tau) = \frac{2}{N} \sum\limits_{k=0}^{\frac{N}{2}+1}
     \abs{\pp{-e^{2\pi jk\tau/N}} X[k]}^2$$
 
-### DEMO YIN/YINFFT
+---
+
+<img src="plot/monopitch_compare.png" class="full-img-slide">
 
 ## Multiple pitch estimation
 
@@ -436,6 +438,4 @@ by combining spectral difference and phase-based approaches.
 
 # Merci pour votre attention
 
-Avez-vous des questions ?
-
-# References
+## References

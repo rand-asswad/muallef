@@ -121,8 +121,8 @@ onset = Onset(x, fs, method='complex')
 onsets = onset()
 
 fig, ax = plt.subplots(2, 1, sharex=True)
-fig.set_figheight(8)
-fig.suptitle("Onset detection of Beethoven's \"Für Elise\"", fontsize=16)
+fig.set_figheight(6)
+_ = fig.suptitle("Onset detection of Beethoven's \"Für Elise\"", fontsize=16)
 _ = ax[0].set_title("Segmented time signal")
 _ = ax[0].plot(t, x)
 for on in onsets:
