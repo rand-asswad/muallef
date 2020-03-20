@@ -1,18 +1,17 @@
 doc: pdf html
 	@echo "rendering document html and pdf..."
 
-pdf: main.rmd
+pdf: index.rmd
 	@echo "rendering pdf book..."
-	Rscript -e "bookdown::render_book('$<', 'bookdown::pdf_book', output_file='report.pdf')"
-	[ -f _book/report.pdf ] && mv _book/report.pdf report.pdf
+	Rscript -e "bookdown::render_book('$<', 'bookdown::pdf_book', output_file='book.pdf')"
 	@echo "done!"
 
-html: main.rmd
+html: index.rmd
 	@echo "rendering html document..."
-	Rscript -e "bookdown::render_book('$<', 'bookdown::html_document2')"
+	Rscript -e "bookdown::render_book('$<', 'bookdown::html_document2', output_file='index.html')"
 	@echo "done!"
 
-gitbook: main.rmd
+gitbook: index.rmd
 	@echo "rendering gitbook..."
 	Rscript -e "bookdown::render_book('$<', 'bookdown::gitbook')"
 	@echo "done!"

@@ -19,8 +19,13 @@ bookdown::html_document2:
     in_header: include/header.html
     after_body: include/scripts.html
 bookdown::gitbook:
-  split_by: chapter+number
+  split_by: rmd
   config:
+    toc:
+      before: |
+        <li><a href="./">Automatic Music Transcription</a></li>
+      after: |
+        <li><a href="https://github.com/rand-asswad/muallef" target="blank">Github Repository</a></li>
     toolbar:
       position: fixed
     sharing:
@@ -28,7 +33,7 @@ bookdown::gitbook:
       facebook: no
       twitter: no
       all: []
-    download: [['../report.pdf', 'PDF']]
+    download: [['book.pdf', 'PDF']]
     info: no
     fontsettings: no
 beamer_presentation:

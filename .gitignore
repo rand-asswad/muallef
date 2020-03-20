@@ -9,6 +9,8 @@ book_files
 report_files
 index_files
 index_cache
+doc_cache
+doc_files
 
 # GM4
 gm4/

@@ -5,13 +5,14 @@ biblio/
 
 # RMD shit
 index_cache
+doc_cache
 gitbook_files
 book_files
 index_files
 main.md
-index.rmd
+index.md
+doc.rmd
 *.knit.md
-#_book/
 _bookdown_files
 
 # LaTeX
