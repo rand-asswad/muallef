@@ -4,7 +4,7 @@ doc: pdf html
 pdf: main.rmd
 	@echo "rendering pdf book..."
 	Rscript -e "bookdown::render_book('$<', 'bookdown::pdf_book', output_file='report.pdf')"
-	[ -f _book/report.pdf ] && mv _book/report.pdf report.pdf && rm -rf _book
+	[ -f _book/report.pdf ] && mv _book/report.pdf report.pdf
 	@echo "done!"
 
 html: main.rmd

@@ -11,7 +11,7 @@ index_files
 main.md
 index.rmd
 *.knit.md
-_book/
+#_book/
 _bookdown_files
 
 # LaTeX
