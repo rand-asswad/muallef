@@ -5,6 +5,7 @@ bibliography: ref.bib
 biblio-style: apalike
 link-citations: true
 date: 12 March 2020
+github-repo: rand-asswad/muallef
 ---
 
 ```{r setup, include=FALSE}
@@ -18,7 +19,7 @@ opts_knit$set(root.dir = proj)
 opts_chunk$set(fig.pos = 'H')
 opts_chunk$set(comment = NA)
 opts_chunk$set(include = TRUE, eval = TRUE)
-opts_chunk$set(cache = FALSE)
+opts_chunk$set(cache = TRUE)
 
 # set reticulate options
 library(reticulate)

@@ -18,6 +18,19 @@ bookdown::html_document2:
   includes:
     in_header: include/header.html
     after_body: include/scripts.html
+bookdown::gitbook:
+  split_by: chapter+number
+  config:
+    toolbar:
+      position: fixed
+    sharing:
+      github: yes
+      facebook: no
+      twitter: no
+      all: []
+    download: [['../report.pdf', 'PDF']]
+    info: no
+    fontsettings: no
 beamer_presentation:
   keep_tex: false
   slide_level: 1

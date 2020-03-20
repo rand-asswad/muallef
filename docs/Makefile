@@ -12,6 +12,11 @@ html: main.rmd
 	Rscript -e "bookdown::render_book('$<', 'bookdown::html_document2')"
 	@echo "done!"
 
+gitbook: main.rmd
+	@echo "rendering gitbook..."
+	Rscript -e "bookdown::render_book('$<', 'bookdown::gitbook')"
+	@echo "done!"
+
 beamer: presentation.md
 	@echo "rendering beamer presentation..."
 	Rscript -e "rmarkdown::render('$<', 'beamer_presentation')"
