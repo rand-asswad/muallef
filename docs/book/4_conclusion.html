@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4 Conclusion | Automatic Music Transcription</title>
   <meta name="description" content="4 Conclusion | Automatic Music Transcription" />
-  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4 Conclusion | Automatic Music Transcription" />
   <meta property="og:type" content="book" />
@@ -33,7 +33,6 @@
   
 <link rel="prev" href="3_onset.html"/>
 
-<script src="libs/header-attrs-2.1/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -54,26 +53,25 @@
 
 
 <style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -82,9 +80,9 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  {  }
 @media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+a.sourceLine::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -129,50 +127,43 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Automatic Music Transcription</a></li>
+<li class="toc-logo"><img src="img/logo_insa.png" width="100%" style="padding: 15px"></li>
+<li><h3 style="margin: 0"><a href="./">Automatic Music Transcription</a></h3></li>
+<li><h2 style="margin: 0"><a href="https://rand-asswad.xyz/" target="blank">Rand ASSWAD</a></h2></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="0_intro.html"><a href="0_intro.html"><i class="fa fa-check"></i>Introduction</a></li>
-<li class="chapter" data-level="1" data-path="1_background.html"><a href="1_background.html"><i class="fa fa-check"></i><b>1</b> Background</a>
-<ul>
-<li class="chapter" data-level="1.1" data-path="1_background.html"><a href="1_background.html#automatic-music-transcription"><i class="fa fa-check"></i><b>1.1</b> Automatic Music Transcription</a>
-<ul>
+<li class="chapter" data-level="1" data-path="1_background.html"><a href="1_background.html"><i class="fa fa-check"></i><b>1</b> Background</a><ul>
+<li class="chapter" data-level="1.1" data-path="1_background.html"><a href="1_background.html#automatic-music-transcription"><i class="fa fa-check"></i><b>1.1</b> Automatic Music Transcription</a><ul>
 <li class="chapter" data-level="1.1.1" data-path="1_background.html"><a href="1_background.html#history-and-community"><i class="fa fa-check"></i><b>1.1.1</b> History and community</a></li>
 <li class="chapter" data-level="1.1.2" data-path="1_background.html"><a href="1_background.html#motivation"><i class="fa fa-check"></i><b>1.1.2</b> Motivation</a></li>
 <li class="chapter" data-level="1.1.3" data-path="1_background.html"><a href="1_background.html#underlying-tasks"><i class="fa fa-check"></i><b>1.1.3</b> Underlying tasks</a></li>
 </ul></li>
 <li class="chapter" data-level="1.2" data-path="1_background.html"><a href="1_background.html#physical-definition-of-acoustic-waves"><i class="fa fa-check"></i><b>1.2</b> Physical definition of acoustic waves</a></li>
-<li class="chapter" data-level="1.3" data-path="1_background.html"><a href="1_background.html#perception-of-sound-and-music"><i class="fa fa-check"></i><b>1.3</b> Perception of sound and music</a>
-<ul>
+<li class="chapter" data-level="1.3" data-path="1_background.html"><a href="1_background.html#perception-of-sound-and-music"><i class="fa fa-check"></i><b>1.3</b> Perception of sound and music</a><ul>
 <li class="chapter" data-level="1.3.1" data-path="1_background.html"><a href="1_background.html#fundamental-frequency-and-pitch"><i class="fa fa-check"></i><b>1.3.1</b> Fundamental frequency and pitch</a></li>
 <li class="chapter" data-level="1.3.2" data-path="1_background.html"><a href="1_background.html#perception-of-intensity"><i class="fa fa-check"></i><b>1.3.2</b> Perception of intensity</a></li>
 </ul></li>
-<li class="chapter" data-level="1.4" data-path="1_background.html"><a href="1_background.html#audio-signal-processing"><i class="fa fa-check"></i><b>1.4</b> Audio signal processing</a>
-<ul>
+<li class="chapter" data-level="1.4" data-path="1_background.html"><a href="1_background.html#audio-signal-processing"><i class="fa fa-check"></i><b>1.4</b> Audio signal processing</a><ul>
 <li class="chapter" data-level="1.4.1" data-path="1_background.html"><a href="1_background.html#discrete-time-signals"><i class="fa fa-check"></i><b>1.4.1</b> Discrete-time signals</a></li>
 <li class="chapter" data-level="1.4.2" data-path="1_background.html"><a href="1_background.html#discrete-fourier-transform-dft"><i class="fa fa-check"></i><b>1.4.2</b> Discrete Fourier Transform (DFT)</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="2_pitch.html"><a href="2_pitch.html"><i class="fa fa-check"></i><b>2</b> Pitch analysis</a>
-<ul>
+<li class="chapter" data-level="2" data-path="2_pitch.html"><a href="2_pitch.html"><i class="fa fa-check"></i><b>2</b> Pitch analysis</a><ul>
 <li class="chapter" data-level="2.1" data-path="2_pitch.html"><a href="2_pitch.html#introduction-1"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
-<li class="chapter" data-level="2.2" data-path="2_pitch.html"><a href="2_pitch.html#single-pitch"><i class="fa fa-check"></i><b>2.2</b> Single pitch</a>
-<ul>
+<li class="chapter" data-level="2.2" data-path="2_pitch.html"><a href="2_pitch.html#single-pitch"><i class="fa fa-check"></i><b>2.2</b> Single pitch</a><ul>
 <li class="chapter" data-level="2.2.1" data-path="2_pitch.html"><a href="2_pitch.html#time-domain"><i class="fa fa-check"></i><b>2.2.1</b> Time domain</a></li>
 <li class="chapter" data-level="2.2.2" data-path="2_pitch.html"><a href="2_pitch.html#spectral-domain"><i class="fa fa-check"></i><b>2.2.2</b> Spectral domain</a></li>
 <li class="chapter" data-level="2.2.3" data-path="2_pitch.html"><a href="2_pitch.html#application-example"><i class="fa fa-check"></i><b>2.2.3</b> Application Example</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="2_pitch.html"><a href="2_pitch.html#multiple-pitch"><i class="fa fa-check"></i><b>2.3</b> Multiple pitch</a>
-<ul>
+<li class="chapter" data-level="2.3" data-path="2_pitch.html"><a href="2_pitch.html#multiple-pitch"><i class="fa fa-check"></i><b>2.3</b> Multiple pitch</a><ul>
 <li class="chapter" data-level="2.3.1" data-path="2_pitch.html"><a href="2_pitch.html#harmonic-amplitudes-sum"><i class="fa fa-check"></i><b>2.3.1</b> Harmonic Amplitudes Sum</a></li>
 <li class="chapter" data-level="2.3.2" data-path="2_pitch.html"><a href="2_pitch.html#spectral-factorisation"><i class="fa fa-check"></i><b>2.3.2</b> Spectral factorisation</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="3_onset.html"><a href="3_onset.html"><i class="fa fa-check"></i><b>3</b> Temporal segmentation</a>
-<ul>
+<li class="chapter" data-level="3" data-path="3_onset.html"><a href="3_onset.html"><i class="fa fa-check"></i><b>3</b> Temporal segmentation</a><ul>
 <li class="chapter" data-level="3.1" data-path="3_onset.html"><a href="3_onset.html#introduction-2"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
-<li class="chapter" data-level="3.2" data-path="3_onset.html"><a href="3_onset.html#onset-detection-function-odf"><i class="fa fa-check"></i><b>3.2</b> Onset Detection Function (ODF)</a>
-<ul>
+<li class="chapter" data-level="3.2" data-path="3_onset.html"><a href="3_onset.html#onset-detection-function-odf"><i class="fa fa-check"></i><b>3.2</b> Onset Detection Function (ODF)</a><ul>
 <li class="chapter" data-level="3.2.1" data-path="3_onset.html"><a href="3_onset.html#high-frequency-content-hfc"><i class="fa fa-check"></i><b>3.2.1</b> High Frequency Content (HFC)</a></li>
 <li class="chapter" data-level="3.2.2" data-path="3_onset.html"><a href="3_onset.html#phase-deviation"><i class="fa fa-check"></i><b>3.2.2</b> Phase Deviation</a></li>
 <li class="chapter" data-level="3.2.3" data-path="3_onset.html"><a href="3_onset.html#complex-distance"><i class="fa fa-check"></i><b>3.2.3</b> Complex Distance</a></li>
@@ -183,7 +174,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4" data-path="4_conclusion.html"><a href="4_conclusion.html"><i class="fa fa-check"></i><b>4</b> Conclusion</a></li>
 <li class="chapter" data-level="" data-path="4_conclusion.html"><a href="4_conclusion.html#references"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
-<li><a href="https://github.com/rand-asswad/muallef" target="blank">Github Repository</a></li>
+<li><a href="book.pdf" target="blank"><i class="fa fa-file-pdf-o"></i> PDF book</a></li>
+<li><a href="https://github.com/rand-asswad/muallef" target="blank"><i class="fa fa-github"></i> Github repository</a></li>
+<li><a href="https://github.com/rand-asswad/muallef/archive/refs/heads/master.zip"><i class="fa fa-download"></i> Download code</a></li>
 
 </ul>
 
@@ -202,7 +195,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="conclusion" class="section level1" number="4">
+<div id="conclusion" class="section level1">
 <h1><span class="header-section-number">4</span> Conclusion</h1>
 <p>Great strides have been made in the field of Music Information
 Retrieval pertaining to Automatic Music Transcription,
@@ -236,12 +229,12 @@ as a full-time focus research, we have attempted to do as much
 as we could to accomplish with very little time.</p>
 <div style="page-break-after: always;"></div>
 </div>
-<div id="references" class="section level1 unnumbered" number="">
+<div id="references" class="section level1 unnumbered">
 <h1>References</h1>
 
-<div id="refs" class="references hanging-indent">
+<div id="refs" class="references">
 <div>
-<p>Bello, J. P., and M. Sandler. 2003. “Phase-Based Note Onset Detection for Music Signals.” In <em>2003 IEEE International Conference on Acoustics, Speech, and Signal Processing, 2003. Proceedings. (ICASSP ’03).</em>, 5:V–441. <a href="https://doi.org/10.1109/ICASSP.2003.1200001">https://doi.org/10.1109/ICASSP.2003.1200001</a>.</p>
+<p>Bello, J.P., and M. Sandler. 2003. “Phase-Based Note Onset Detection for Music Signals.” In <em>2003 IEEE International Conference on Acoustics, Speech, and Signal Processing, 2003. Proceedings. (ICASSP ’03).</em>, 5:V–441. <a href="https://doi.org/10.1109/ICASSP.2003.1200001">https://doi.org/10.1109/ICASSP.2003.1200001</a>.</p>
 </div>
 <div>
 <p>Benetos, Emmanouil, Simon Dixon, Dimitrios Giannoulis, Holger Kirchhoff, and Anssi Klapuri. 2013. “Automatic Music Transcription: Challenges and Future Directions.” <em>Journal of Intelligent Information Systems</em> 41 (December). <a href="https://doi.org/10.1007/s10844-013-0258-3">https://doi.org/10.1007/s10844-013-0258-3</a>.</p>
@@ -280,7 +273,7 @@ as we could to accomplish with very little time.</p>
 <p>Schroeder, Manfred R. 1968. “Period Histogram and Product Spectrum: New Methods for Fundamental-Frequency Measurement.” <em>The Journal of the Acoustical Society of America</em>. <a href="https://doi.org/10.1121/1.1910902">https://doi.org/10.1121/1.1910902</a>.</p>
 </div>
 <div>
-<p>Smaragdis, P., and J. C. Brown. 2003. “Non-Negative Matrix Factorization for Polyphonic Music Transcription.” In <em>2003 IEEE Workshop on Applications of Signal Processing to Audio and Acoustics (IEEE Cat. No.03TH8684)</em>, 177–80. New Paltz, NY, USA: IEEE. <a href="https://doi.org/10.1109/ASPAA.2003.1285860">https://doi.org/10.1109/ASPAA.2003.1285860</a>.</p>
+<p>Smaragdis, P., and J.C. Brown. 2003. “Non-Negative Matrix Factorization for Polyphonic Music Transcription.” In <em>2003 IEEE Workshop on Applications of Signal Processing to Audio and Acoustics (IEEE Cat. No.03TH8684)</em>, 177–80. New Paltz, NY, USA: IEEE. <a href="https://doi.org/10.1109/ASPAA.2003.1285860">https://doi.org/10.1109/ASPAA.2003.1285860</a>.</p>
 </div>
 <div>
 <p>Wikipedia. 2020. “Nyquist–Shannon Sampling Theorem.” <em>Wikipedia</em>. <a href="https://en.wikipedia.org/w/index.php?title=Nyquist%E2%80%93Shannon_sampling_theorem&amp;oldid=941933031">https://en.wikipedia.org/w/index.php?title=Nyquist%E2%80%93Shannon_sampling_theorem&amp;oldid=941933031</a>.</p>
@@ -341,6 +334,7 @@ gitbook.start({
 "toolbar": {
 "position": "fixed"
 },
+"search": true,
 "info": false
 });
 });

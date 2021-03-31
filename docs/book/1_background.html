@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>1 Background | Automatic Music Transcription</title>
   <meta name="description" content="1 Background | Automatic Music Transcription" />
-  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="1 Background | Automatic Music Transcription" />
   <meta property="og:type" content="book" />
@@ -33,7 +33,6 @@
   
 <link rel="prev" href="0_intro.html"/>
 <link rel="next" href="2_pitch.html"/>
-<script src="libs/header-attrs-2.1/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -54,26 +53,25 @@
 
 
 <style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -82,9 +80,9 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  {  }
 @media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+a.sourceLine::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -129,50 +127,43 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Automatic Music Transcription</a></li>
+<li class="toc-logo"><img src="img/logo_insa.png" width="100%" style="padding: 15px"></li>
+<li><h3 style="margin: 0"><a href="./">Automatic Music Transcription</a></h3></li>
+<li><h2 style="margin: 0"><a href="https://rand-asswad.xyz/" target="blank">Rand ASSWAD</a></h2></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="0_intro.html"><a href="0_intro.html"><i class="fa fa-check"></i>Introduction</a></li>
-<li class="chapter" data-level="1" data-path="1_background.html"><a href="1_background.html"><i class="fa fa-check"></i><b>1</b> Background</a>
-<ul>
-<li class="chapter" data-level="1.1" data-path="1_background.html"><a href="1_background.html#automatic-music-transcription"><i class="fa fa-check"></i><b>1.1</b> Automatic Music Transcription</a>
-<ul>
+<li class="chapter" data-level="1" data-path="1_background.html"><a href="1_background.html"><i class="fa fa-check"></i><b>1</b> Background</a><ul>
+<li class="chapter" data-level="1.1" data-path="1_background.html"><a href="1_background.html#automatic-music-transcription"><i class="fa fa-check"></i><b>1.1</b> Automatic Music Transcription</a><ul>
 <li class="chapter" data-level="1.1.1" data-path="1_background.html"><a href="1_background.html#history-and-community"><i class="fa fa-check"></i><b>1.1.1</b> History and community</a></li>
 <li class="chapter" data-level="1.1.2" data-path="1_background.html"><a href="1_background.html#motivation"><i class="fa fa-check"></i><b>1.1.2</b> Motivation</a></li>
 <li class="chapter" data-level="1.1.3" data-path="1_background.html"><a href="1_background.html#underlying-tasks"><i class="fa fa-check"></i><b>1.1.3</b> Underlying tasks</a></li>
 </ul></li>
 <li class="chapter" data-level="1.2" data-path="1_background.html"><a href="1_background.html#physical-definition-of-acoustic-waves"><i class="fa fa-check"></i><b>1.2</b> Physical definition of acoustic waves</a></li>
-<li class="chapter" data-level="1.3" data-path="1_background.html"><a href="1_background.html#perception-of-sound-and-music"><i class="fa fa-check"></i><b>1.3</b> Perception of sound and music</a>
-<ul>
+<li class="chapter" data-level="1.3" data-path="1_background.html"><a href="1_background.html#perception-of-sound-and-music"><i class="fa fa-check"></i><b>1.3</b> Perception of sound and music</a><ul>
 <li class="chapter" data-level="1.3.1" data-path="1_background.html"><a href="1_background.html#fundamental-frequency-and-pitch"><i class="fa fa-check"></i><b>1.3.1</b> Fundamental frequency and pitch</a></li>
 <li class="chapter" data-level="1.3.2" data-path="1_background.html"><a href="1_background.html#perception-of-intensity"><i class="fa fa-check"></i><b>1.3.2</b> Perception of intensity</a></li>
 </ul></li>
-<li class="chapter" data-level="1.4" data-path="1_background.html"><a href="1_background.html#audio-signal-processing"><i class="fa fa-check"></i><b>1.4</b> Audio signal processing</a>
-<ul>
+<li class="chapter" data-level="1.4" data-path="1_background.html"><a href="1_background.html#audio-signal-processing"><i class="fa fa-check"></i><b>1.4</b> Audio signal processing</a><ul>
 <li class="chapter" data-level="1.4.1" data-path="1_background.html"><a href="1_background.html#discrete-time-signals"><i class="fa fa-check"></i><b>1.4.1</b> Discrete-time signals</a></li>
 <li class="chapter" data-level="1.4.2" data-path="1_background.html"><a href="1_background.html#discrete-fourier-transform-dft"><i class="fa fa-check"></i><b>1.4.2</b> Discrete Fourier Transform (DFT)</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="2_pitch.html"><a href="2_pitch.html"><i class="fa fa-check"></i><b>2</b> Pitch analysis</a>
-<ul>
+<li class="chapter" data-level="2" data-path="2_pitch.html"><a href="2_pitch.html"><i class="fa fa-check"></i><b>2</b> Pitch analysis</a><ul>
 <li class="chapter" data-level="2.1" data-path="2_pitch.html"><a href="2_pitch.html#introduction-1"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
-<li class="chapter" data-level="2.2" data-path="2_pitch.html"><a href="2_pitch.html#single-pitch"><i class="fa fa-check"></i><b>2.2</b> Single pitch</a>
-<ul>
+<li class="chapter" data-level="2.2" data-path="2_pitch.html"><a href="2_pitch.html#single-pitch"><i class="fa fa-check"></i><b>2.2</b> Single pitch</a><ul>
 <li class="chapter" data-level="2.2.1" data-path="2_pitch.html"><a href="2_pitch.html#time-domain"><i class="fa fa-check"></i><b>2.2.1</b> Time domain</a></li>
 <li class="chapter" data-level="2.2.2" data-path="2_pitch.html"><a href="2_pitch.html#spectral-domain"><i class="fa fa-check"></i><b>2.2.2</b> Spectral domain</a></li>
 <li class="chapter" data-level="2.2.3" data-path="2_pitch.html"><a href="2_pitch.html#application-example"><i class="fa fa-check"></i><b>2.2.3</b> Application Example</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="2_pitch.html"><a href="2_pitch.html#multiple-pitch"><i class="fa fa-check"></i><b>2.3</b> Multiple pitch</a>
-<ul>
+<li class="chapter" data-level="2.3" data-path="2_pitch.html"><a href="2_pitch.html#multiple-pitch"><i class="fa fa-check"></i><b>2.3</b> Multiple pitch</a><ul>
 <li class="chapter" data-level="2.3.1" data-path="2_pitch.html"><a href="2_pitch.html#harmonic-amplitudes-sum"><i class="fa fa-check"></i><b>2.3.1</b> Harmonic Amplitudes Sum</a></li>
 <li class="chapter" data-level="2.3.2" data-path="2_pitch.html"><a href="2_pitch.html#spectral-factorisation"><i class="fa fa-check"></i><b>2.3.2</b> Spectral factorisation</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="3_onset.html"><a href="3_onset.html"><i class="fa fa-check"></i><b>3</b> Temporal segmentation</a>
-<ul>
+<li class="chapter" data-level="3" data-path="3_onset.html"><a href="3_onset.html"><i class="fa fa-check"></i><b>3</b> Temporal segmentation</a><ul>
 <li class="chapter" data-level="3.1" data-path="3_onset.html"><a href="3_onset.html#introduction-2"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
-<li class="chapter" data-level="3.2" data-path="3_onset.html"><a href="3_onset.html#onset-detection-function-odf"><i class="fa fa-check"></i><b>3.2</b> Onset Detection Function (ODF)</a>
-<ul>
+<li class="chapter" data-level="3.2" data-path="3_onset.html"><a href="3_onset.html#onset-detection-function-odf"><i class="fa fa-check"></i><b>3.2</b> Onset Detection Function (ODF)</a><ul>
 <li class="chapter" data-level="3.2.1" data-path="3_onset.html"><a href="3_onset.html#high-frequency-content-hfc"><i class="fa fa-check"></i><b>3.2.1</b> High Frequency Content (HFC)</a></li>
 <li class="chapter" data-level="3.2.2" data-path="3_onset.html"><a href="3_onset.html#phase-deviation"><i class="fa fa-check"></i><b>3.2.2</b> Phase Deviation</a></li>
 <li class="chapter" data-level="3.2.3" data-path="3_onset.html"><a href="3_onset.html#complex-distance"><i class="fa fa-check"></i><b>3.2.3</b> Complex Distance</a></li>
@@ -183,7 +174,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4" data-path="4_conclusion.html"><a href="4_conclusion.html"><i class="fa fa-check"></i><b>4</b> Conclusion</a></li>
 <li class="chapter" data-level="" data-path="4_conclusion.html"><a href="4_conclusion.html#references"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
-<li><a href="https://github.com/rand-asswad/muallef" target="blank">Github Repository</a></li>
+<li><a href="book.pdf" target="blank"><i class="fa fa-file-pdf-o"></i> PDF book</a></li>
+<li><a href="https://github.com/rand-asswad/muallef" target="blank"><i class="fa fa-github"></i> Github repository</a></li>
+<li><a href="https://github.com/rand-asswad/muallef/archive/refs/heads/master.zip"><i class="fa fa-download"></i> Download code</a></li>
 
 </ul>
 
@@ -202,7 +195,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="background" class="section level1" number="1">
+<div id="background" class="section level1">
 <h1><span class="header-section-number">1</span> Background</h1>
 <p>The focus of this project is music information retrieval
 from music audio signals.
@@ -215,13 +208,13 @@ We also review the main characteristics of a sound wave
 as well as analytic tools for processing digital audio signals.
 Furthermore, we establish the bridge between music
 theory and physical properties of audio signals.</p>
-<div id="automatic-music-transcription" class="section level2" number="1.1">
+<div id="automatic-music-transcription" class="section level2">
 <h2><span class="header-section-number">1.1</span> Automatic Music Transcription</h2>
 <blockquote>
 <p>AMT is the process of converting an acoustic musical
-signal into some form of musical notation. <span class="citation">(Benetos et al. <a href="#ref-benetos_2013" role="doc-biblioref">2013</a>)</span></p>
+signal into some form of musical notation. <span class="citation">(Benetos et al. <a href="#ref-benetos_2013">2013</a>)</span></p>
 </blockquote>
-<div id="history-and-community" class="section level3" number="1.1.1">
+<div id="history-and-community" class="section level3">
 <h3><span class="header-section-number">1.1.1</span> History and community</h3>
 <p>The interest in the task of AMT has started in the late
 20<sup>th</sup> century, with researchers borrowing and adapting
@@ -232,14 +225,14 @@ particularly since the creation of the International
 Society for Music Information Retrieval <strong>(ISMIR)</strong> in 2000.
 Which have connected the community and provided a platform
 for sharing and learning Music Information Retrieval <strong>(MIR)</strong>
-concepts worldwide. <span class="citation">(Müller <a href="#ref-muller_2015" role="doc-biblioref">2015</a>)</span></p>
+concepts worldwide. <span class="citation">(Müller <a href="#ref-muller_2015">2015</a>)</span></p>
 <p>furthermore, the Music Information Retrieval Evaluation eXchange
 <strong>(MIREX)</strong> is an annual evaluation compaign for MIR algorithms.
 Since it started in 2005, MIREX has served as a benchmark
 for evaluating novelty algorithms and helped advance
 MIR Research.</p>
 </div>
-<div id="motivation" class="section level3" number="1.1.2">
+<div id="motivation" class="section level3">
 <h3><span class="header-section-number">1.1.2</span> Motivation</h3>
 <p>MIR and AMT can be of great interest for different demographics.
 First, most musicians stand to benefit from reliable
@@ -263,7 +256,7 @@ databases compared to anotated music, which can also
 be applied for various tasks such as music recognition
 or melody recognition.</p>
 </div>
-<div id="underlying-tasks" class="section level3" number="1.1.3">
+<div id="underlying-tasks" class="section level3">
 <h3><span class="header-section-number">1.1.3</span> Underlying tasks</h3>
 <p>Automatic Music Transcription is divided into several subtasks
 where each represents a research topic that fall
@@ -277,7 +270,7 @@ Exploration of main pitch analysis techniques is the
 first part of this project.</p>
 <p>Another main AMT task is <em>temporal segmentation</em>,
 which relates consequently to rythme extraction and tempo
-detection in melodic sounds. <span class="citation">(Benetos et al. <a href="#ref-benetos_2013" role="doc-biblioref">2013</a>)</span>
+detection in melodic sounds. <span class="citation">(Benetos et al. <a href="#ref-benetos_2013">2013</a>)</span>
 This task pertains pertains to spectral features
 as well as signal energy.
 We expore this topic in the second part of this project.</p>
@@ -288,14 +281,14 @@ In the scope of this project, we limit our study to
 <em>pitch analysis</em> and <em>temporal segmentation</em>.</p>
 </div>
 </div>
-<div id="physical-definition-of-acoustic-waves" class="section level2" number="1.2">
+<div id="physical-definition-of-acoustic-waves" class="section level2">
 <h2><span class="header-section-number">1.2</span> Physical definition of acoustic waves</h2>
 <p>Sound is generated by vibrating objects, these vibrations
 cause oscillations of molecules in the medium.
 The varying pressure propagates through the medium as a wave,
 the pressure is therefore the solution of the wave
 equation in time and space, also known as the acoustic
-wave equation. <span class="citation">(Feynman <a href="#ref-feynman" role="doc-biblioref">1965</a>)</span>
+wave equation. <span class="citation">(Feynman <a href="#ref-feynman">1965</a>)</span>
 <span class="math display">\[\Delta p =\frac{1}{c^2}\frac{\partial^2 p}{ {\partial t}^2}\]</span>
 where <span class="math inline">\(p\)</span> is the accoustic pressure function of time and space
 and <span class="math inline">\(c\)</span> is the speed of sound propagation.
@@ -326,7 +319,7 @@ frequency, <span class="math inline">\(h=0\)</span> is excluded from the sum
 <span class="math display">\[\tilde{x}(t) = a_0 + \sum_{h=1}^{\infty} A_h \cos(2\pi hf_0t + \varphi_h)\]</span>
 with <span class="math inline">\(a_0 = A_0\cos(\varphi_0)\)</span>.</p>
 </div>
-<div id="perception-of-sound-and-music" class="section level2" number="1.3">
+<div id="perception-of-sound-and-music" class="section level2">
 <h2><span class="header-section-number">1.3</span> Perception of sound and music</h2>
 <p>The human auditory system is capable of distinguishing
 intensities and frequencies of sound waves as well as
@@ -341,7 +334,7 @@ frequency, and time patterns.</p>
 represents the smallest musical object.
 The note’s attributes define the <em>pitch</em> of the sound, its
 <em>relative duration</em> and its <em>relative intensity</em>.</p>
-<div id="fundamental-frequency-and-pitch" class="section level3" number="1.3.1">
+<div id="fundamental-frequency-and-pitch" class="section level3">
 <h3><span class="header-section-number">1.3.1</span> Fundamental frequency and pitch</h3>
 <p>Sound signals are periodic, therefore by definition there
 exists a <span class="math inline">\(T&gt;0\)</span> such as
@@ -375,7 +368,7 @@ corresponding to A♯ pitch.
 Even in modern day, variations of the pitch frequency
 exist in different regions and even different orchestras!</p>
 </div>
-<div id="perception-of-intensity" class="section level3" number="1.3.2">
+<div id="perception-of-intensity" class="section level3">
 <h3><span class="header-section-number">1.3.2</span> Perception of intensity</h3>
 <p>Sound intensity is defined physically as the power carried
 by sound waves per unit area, whereas sound pressure is
@@ -408,9 +401,9 @@ in loudness, indicated as symbols or italian keywords
 (<em>crescendo</em> and <em>diminuendo</em>).</p>
 </div>
 </div>
-<div id="audio-signal-processing" class="section level2" number="1.4">
+<div id="audio-signal-processing" class="section level2">
 <h2><span class="header-section-number">1.4</span> Audio signal processing</h2>
-<div id="discrete-time-signals" class="section level3" number="1.4.1">
+<div id="discrete-time-signals" class="section level3">
 <h3><span class="header-section-number">1.4.1</span> Discrete-time signals</h3>
 <p>The domain of audio signal processing deals with recorded
 digital/analog signals, which are discrete-time signals.
@@ -419,7 +412,7 @@ bridge between continuous-time and discrete-time signals.
 It establishes a sufficient condition for a sample rate
 that permits a discrete sequence of samples to capture
 all the information from a continuous-time signal.
-<span class="citation">(Wikipedia <a href="#ref-wiki:nyquistshannon" role="doc-biblioref">2020</a>)</span></p>
+<span class="citation">(Wikipedia <a href="#ref-wiki:nyquistshannon">2020</a>)</span></p>
 <p>The sample rate <span class="math inline">\(f_s\)</span> of a discrete-time signal
 is defined as the number of samples per second,
 its inverse is the time step between samples <span class="math inline">\(T_s\)</span>.</p>
@@ -427,7 +420,7 @@ its inverse is the time step between samples <span class="math inline">\(T_s\)</
 time frame as <span class="math inline">\(x[n]=x(t_n)\)</span> where
 <span class="math inline">\(t_n=n\cdot T_s=\frac{n}{f_s}\)</span>.</p>
 </div>
-<div id="discrete-fourier-transform-dft" class="section level3" number="1.4.2">
+<div id="discrete-fourier-transform-dft" class="section level3">
 <h3><span class="header-section-number">1.4.2</span> Discrete Fourier Transform (DFT)</h3>
 <p>The discrete Fourier transform of <span class="math inline">\(N\)</span> samples,
 with a sample rate of <span class="math inline">\(f_s\)</span> can be obtained
@@ -513,6 +506,7 @@ gitbook.start({
 "toolbar": {
 "position": "fixed"
 },
+"search": true,
 "info": false
 });
 });

@@ -23,9 +23,13 @@ bookdown::gitbook:
   config:
     toc:
       before: |
-        <li><a href="./">Automatic Music Transcription</a></li>
+        <li class="toc-logo"><img src="img/logo_insa.png" width="100%" style="padding: 15px"></li>
+        <li><h3 style="margin: 0"><a href="./">Automatic Music Transcription</a></h3></li>
+        <li><h2 style="margin: 0"><a href="https://rand-asswad.xyz/" target="blank">Rand ASSWAD</a></h2></li>
       after: |
-        <li><a href="https://github.com/rand-asswad/muallef" target="blank">Github Repository</a></li>
+        <li><a href="book.pdf" target="blank"><i class="fa fa-file-pdf-o"></i> PDF book</a></li>
+        <li><a href="https://github.com/rand-asswad/muallef" target="blank"><i class="fa fa-github"></i> Github repository</a></li>
+        <li><a href="https://github.com/rand-asswad/muallef/archive/refs/heads/master.zip"><i class="fa fa-download"></i> Download code</a></li>
     toolbar:
       position: fixed
     sharing:
@@ -33,7 +37,10 @@ bookdown::gitbook:
       facebook: no
       twitter: no
       all: []
-    download: [['book.pdf', 'PDF']]
+    download:
+      - ['book.pdf', 'PDF']
+#      - ['https://github.com/rand-asswad/muallef/archive/refs/heads/master.zip', 'CODE']
+    search: yes
     info: no
     fontsettings: no
 beamer_presentation:

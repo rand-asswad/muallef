@@ -1,10 +1,9 @@
-doc: pdf html
+book: pdf gitbook
 	@echo "rendering document html and pdf..."
 
 pdf: index.rmd
 	@echo "rendering pdf book..."
 	Rscript -e "bookdown::render_book('$<', 'bookdown::pdf_book', output_file='book.pdf')"
-	[ -f book/book.pdf ] && mv book/book.pdf report.pdf
 	@echo "done!"
 
 html: index.rmd
@@ -26,3 +25,7 @@ reveal: presentation.md
 	@echo "rendering revealjs presentation..."
 	Rscript -e "rmarkdown::render('$<', 'revealjs::revealjs_presentation')"
 	@echo "done!"
+
+clean:
+	-rm -rf book _bookdown_files
+	@echo "clean"
