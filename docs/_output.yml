@@ -8,28 +8,23 @@ bookdown::pdf_book:
   includes:
     in_header: include/preambule.tex
     before_body: include/cover.tex
-bookdown::html_document2:
-  toc: true
-  toc_float: true
-  number_sections: true
-  theme: simplex
-  fig_caption: true
-  css: include/styles.css
-  includes:
-    in_header: include/header.html
-    after_body: include/scripts.html
 bookdown::gitbook:
   split_by: rmd
+  css: include/gitbook.css
+  highlight: pygments
   config:
     toc:
+      scroll_highlight: yes
       before: |
-        <li class="toc-logo"><img src="img/logo_insa.png" width="100%" style="padding: 15px"></li>
-        <li><h3 style="margin: 0"><a href="./">Automatic Music Transcription</a></h3></li>
-        <li><h2 style="margin: 0"><a href="https://rand-asswad.xyz/" target="blank">Rand ASSWAD</a></h2></li>
+        <li class="toc-logo"><a href="https://www.insa-rouen.fr/" target="blank"><img src="img/logo_insa.png"></a></li>
+        <li class="toc-title"><a href="./">Automatic Music Transcription</a></li>
+        <li class="toc-author"><a href="/" target="blank">Rand ASSWAD</a></li>
       after: |
         <li><a href="book.pdf" target="blank"><i class="fa fa-file-pdf-o"></i> PDF book</a></li>
+        <li><a href="../onepage.html" target="blank"><i class="fa fa-file-code-o"></i> HTML standalone version</a></li>
+        <li><a href="../presentation.html" target="blank"><img class="icon" src="include/presentation.svg"> Presentation slides</a></li>
         <li><a href="https://github.com/rand-asswad/muallef" target="blank"><i class="fa fa-github"></i> Github repository</a></li>
-        <li><a href="https://github.com/rand-asswad/muallef/archive/refs/heads/master.zip"><i class="fa fa-download"></i> Download code</a></li>
+        <li><a href="https://github.com/rand-asswad/muallef/archive/refs/heads/master.zip"><i class="fa fa-download"></i> Download source code</a></li>
     toolbar:
       position: fixed
     sharing:
@@ -39,16 +34,20 @@ bookdown::gitbook:
       all: []
     download:
       - ['book.pdf', 'PDF']
-#      - ['https://github.com/rand-asswad/muallef/archive/refs/heads/master.zip', 'CODE']
     search: yes
     info: no
     fontsettings: no
-beamer_presentation:
-  keep_tex: false
-  slide_level: 1
-  theme: Warsaw
+bookdown::html_document2:
+  toc: true
+  toc_float: true
+  number_sections: true
+  theme: simplex
+  fig_caption: true
+  css: include/styles.css
+  code_folding: show
   includes:
-    in_header: include/mybeamer.tex
+    in_header: include/header.html
+    after_body: include/scripts.html
 revealjs::revealjs_presentation:
   theme: simple
   highlight: haddock
@@ -56,7 +55,7 @@ revealjs::revealjs_presentation:
   transition: slide
   incremental: true
   css: include/reveal.css
-  self_contained: false
+  self_contained: true
   reveal_options:
     history: false
     slideNumber: true

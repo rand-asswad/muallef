@@ -4,21 +4,20 @@ book: pdf gitbook
 pdf: index.rmd
 	@echo "rendering pdf book..."
 	Rscript -e "bookdown::render_book('$<', 'bookdown::pdf_book', output_file='book.pdf')"
+	[ -f book.pdf ] || ln -s book/book.pdf book.pdf
 	@echo "done!"
 
 html: index.rmd
 	@echo "rendering html document..."
-	Rscript -e "bookdown::render_book('$<', 'bookdown::html_document2', output_file='index.html')"
+	Rscript -e "bookdown::render_book('$<', 'bookdown::html_document2', output_file='onepage.html')"
+	[ -f index.html ] || ln -s .redirect index.html
 	@echo "done!"
 
 gitbook: index.rmd
 	@echo "rendering gitbook..."
+	[ ! -f index.html ] || rm index.html
 	Rscript -e "bookdown::render_book('$<', 'bookdown::gitbook')"
-	@echo "done!"
-
-beamer: presentation.md
-	@echo "rendering beamer presentation..."
-	Rscript -e "rmarkdown::render('$<', 'beamer_presentation')"
+	@ln -s .redirect index.html
 	@echo "done!"
 
 reveal: presentation.md
@@ -27,5 +26,5 @@ reveal: presentation.md
 	@echo "done!"
 
 clean:
-	-rm -rf book _bookdown_files
-	@echo "clean"
+	@-rm -rf book _bookdown_files index.html book.pdf
+	@echo "cleaned book output."

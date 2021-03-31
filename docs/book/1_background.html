@@ -115,6 +115,7 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<link rel="stylesheet" href="include/gitbook.css" type="text/css" />
 </head>
 
 <body>
@@ -127,9 +128,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li class="toc-logo"><img src="img/logo_insa.png" width="100%" style="padding: 15px"></li>
-<li><h3 style="margin: 0"><a href="./">Automatic Music Transcription</a></h3></li>
-<li><h2 style="margin: 0"><a href="https://rand-asswad.xyz/" target="blank">Rand ASSWAD</a></h2></li>
+<li class="toc-logo"><a href="https://www.insa-rouen.fr/" target="blank"><img src="img/logo_insa.png"></a></li>
+<li class="toc-title"><a href="./">Automatic Music Transcription</a></li>
+<li class="toc-author"><a href="/" target="blank">Rand ASSWAD</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="0_intro.html"><a href="0_intro.html"><i class="fa fa-check"></i>Introduction</a></li>
@@ -175,8 +176,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="4_conclusion.html"><a href="4_conclusion.html#references"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="book.pdf" target="blank"><i class="fa fa-file-pdf-o"></i> PDF book</a></li>
+<li><a href="../onepage.html" target="blank"><i class="fa fa-file-code-o"></i> HTML standalone version</a></li>
+<li><a href="../presentation.html" target="blank"><img class="icon" src="include/presentation.svg"> Presentation slides</a></li>
 <li><a href="https://github.com/rand-asswad/muallef" target="blank"><i class="fa fa-github"></i> Github repository</a></li>
-<li><a href="https://github.com/rand-asswad/muallef/archive/refs/heads/master.zip"><i class="fa fa-download"></i> Download code</a></li>
+<li><a href="https://github.com/rand-asswad/muallef/archive/refs/heads/master.zip"><i class="fa fa-download"></i> Download source code</a></li>
 
 </ul>
 
@@ -501,7 +504,8 @@ gitbook.start({
 },
 "download": [["book.pdf", "PDF"]],
 "toc": {
-"collapse": "subsection"
+"collapse": "subsection",
+"scroll_highlight": true
 },
 "toolbar": {
 "position": "fixed"

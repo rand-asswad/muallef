@@ -11,6 +11,8 @@ link-citations: true
 
 # Summary
 
+## Summary
+
 - Automatic music transcription
 - Audio signal characterization
 - Perception of music
@@ -50,6 +52,8 @@ link-citations: true
 \def\argmax{\mathop{\mathrm{argmax}}}
 
 # Automatic Music Transcription
+
+## Automatic Music Transcription: Definition
 
 > AMT is the process of converting an acoustic musical
 signal into some form of musical notation. [@benetos_2013]
@@ -132,9 +136,8 @@ $$\mathrm{SPL} = 20\log_{10}\left(\frac{P}{P_0}\right)\mathrm{dB}$$
 
 ---
 
-![Fletcher-Munson Equal Loudness Contours](img/loudness.png)
-
----
+<!--![Fletcher-Munson Equal Loudness Contours](img/loudness.png)-->
+<img class="full-img-slide" src="img/loudness.png">
 
 # Pitch Analysis
 
@@ -146,7 +149,7 @@ $$\mathrm{SPL} = 20\log_{10}\left(\frac{P}{P_0}\right)\mathrm{dB}$$
   - Inharmonicity
   - Resonance
   - Surrounding noise
-- $$x(t) = \x(t) + z(t)$$
+- $x(t) = \x(t) + z(t)$
 - $x(t)$ is **quasi-periodic**
 - Performed on short-time periods we refer to as **frames**
 using a sliding windowing function
@@ -431,6 +434,8 @@ by combining spectral difference and phase-based approaches.
 <img src="plot/onsets_complex.png" class="full-img-slide">
 
 # Conclusion
+
+## Conclusion
 
 - Single pitch estimation obtains satisfactory results
 - Multi-pitch estimation remains an open problem

@@ -4,16 +4,12 @@
 biblio/
 
 # RMD shit
-index_cache
-doc_cache
-gitbook_files
-book_files
-index_files
+**/*_cache
+**/*_files
 main.md
 index.md
 doc.rmd
 *.knit.md
-_bookdown_files
 
 # LaTeX
 
