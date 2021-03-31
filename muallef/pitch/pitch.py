@@ -3,6 +3,8 @@ from itertools import zip_longest
 import numpy as np
 
 from aubio import pitch as aubiopitch
+from muallef import util
+from muallef.pitch.yin import yin_detect
 from muallef.pitch.klapuri import PitchKlapuri
 
 
@@ -40,9 +42,9 @@ class MonoPitch(Pitch):
                                  self.frameSize, self.sampleRate)
         self._aubio.set_unit('Hz')
         self._aubio.set_tolerance(0.8)
-        self.confidence = []
     
     def __call__(self, signal=None):
+        self.confidence = []
         f0 = super().__call__(signal)
         self.confidence = np.asarray(self.confidence)
         if self.method == 'yinfft':
@@ -51,9 +53,21 @@ class MonoPitch(Pitch):
         return f0
 
     def _func(self, signal):
-        pitch = self._aubio(signal)[0]
-        self.confidence.append(self._aubio.get_confidence())
+        if self.method == 'yinfft':
+            pitch = self._aubio(signal)[0]
+            conf = self._aubio.get_confidence()
+        elif self.method == 'yin':
+            pitch, conf = yin_detect(signal, self.sampleRate)
+        if isinstance(self.confidence, list):
+            self.confidence.append(conf)
+        elif isinstance(self.confidence, np.ndarray):
+            self.confidence = conf
         return pitch
+    
+    def get_confidence(self, normalize=False):
+        if normalize:
+            return util.normalize(self.confidence)
+        return np.array(self.confidence)
 
 
 class MultiPitch(Pitch):
