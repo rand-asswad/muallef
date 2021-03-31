@@ -410,19 +410,25 @@ the API provided in for testing [@muller_2015].
 
 
 ```{python nmf}
-from muallef.plot.nmf import plot_NMF_factors
+from muallef.plot.nmf import plot_matrix, plot_NMF_factors
+from muallef.pitch.nmf import NMF
 
-import pandas as pd
-import librosa
-from LibFMP.B import plot_matrix
-from LibFMP.C8 import NMF
+import numpy as np
+import matplotlib.pyplot as plt
+
+# use stft from scipy instead of librosa
+# from librosa import stft
+from scipy.signal import stft as sp_stft
+def stft(x, n_fft=2048, hop_length=None):
+    noverlap = n_fft // 2 if hop_length is None else n_fft - hop_length
+    return sp_stft(x, nperseg=n_fft, noverlap=noverlap)[2]
 
 fs = fur_elise.sampleRate
 x = fur_elise.signal
 N_fft = 2048
 H_fft = 1024
 
-X = librosa.stft(x, n_fft=N_fft, hop_length=H_fft)
+X = stft(x, n_fft=N_fft, hop_length=H_fft)
 V = np.log(1 + np.abs(X))
 freq_max = 2000
 

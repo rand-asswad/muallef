@@ -1,48 +1,39 @@
-% Options for packages loaded elsewhere
-\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
 \PassOptionsToPackage{hyphens}{url}
 %
-\documentclass[
-  american,
-]{article}
+\documentclass[american,]{article}
 \usepackage{lmodern}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
-  \usepackage{textcomp} % provide euro and other symbols
-\else % if luatex or xetex
+  \usepackage{textcomp} % provides euro and other symbols
+\else % if luatex or xelatex
   \usepackage{unicode-math}
-  \defaultfontfeatures{Scale=MatchLowercase}
-  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
 \fi
-% Use upquote if available, for straight quotes in verbatim environments
+% use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-\IfFileExists{microtype.sty}{% use microtype if available
-  \usepackage[]{microtype}
-  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage[]{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
-\makeatletter
-\@ifundefined{KOMAClassName}{% if non-KOMA class
-  \IfFileExists{parskip.sty}{%
-    \usepackage{parskip}
-  }{% else
-    \setlength{\parindent}{0pt}
-    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
-}{% if KOMA class
-  \KOMAoptions{parskip=half}}
-\makeatother
-\usepackage{xcolor}
-\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\usepackage{hyperref}
 \hypersetup{
-  pdftitle={Automatic Music Transcription},
-  pdfauthor={Rand ASSWAD},
-  pdflang={en-US},
-  hidelinks,
-  pdfcreator={LaTeX via pandoc}}
-\urlstyle{same} % disable monospaced font for URLs
+            pdftitle={Automatic Music Transcription},
+            pdfauthor={Rand ASSWAD},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
 \usepackage[margin=1in]{geometry}
 \usepackage{color}
 \usepackage{fancyvrb}
@@ -85,15 +76,9 @@
 \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
 \usepackage{longtable,booktabs}
-% Correct order of tables after \paragraph or \subparagraph
-\usepackage{etoolbox}
-\makeatletter
-\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
-\makeatother
-% Allow footnotes in longtable head/foot
-\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
-\makesavenoteenv{longtable}
-\usepackage{graphicx}
+% Fix footnotes in tables (requires footnote package)
+\IfFileExists{footnote.sty}{\usepackage{footnote}\makesavenoteenv{longtable}}{}
+\usepackage{graphicx,grffile}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
 \def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
@@ -102,14 +87,25 @@
 % margins by default, and it is still possible to overwrite the defaults
 % using explicit options in \includegraphics[width, height, ...]{}
 \setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
-% Set default figure placement to htbp
-\makeatletter
-\def\fps@figure{htbp}
-\makeatother
-\setlength{\emergencystretch}{3em} % prevent overfull lines
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{5}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
 \geometry{paper=a4paper, margin=2.2cm}
 \usepackage[defaultlines=10,all]{nowidow}
 \usepackage{float}
@@ -135,10 +131,6 @@
 \DeclareUnicodeCharacter{266D}{\musFlat{}}
 \DeclareUnicodeCharacter{266E}{\musNatural{}}
 
-% remove paragraph numbering
-\let\oldparagraph\paragraph
-\renewcommand{\paragraph}[1]{\oldparagraph*{#1}}
-
 \makeatletter
 
 \usepackage{fancyhdr}
@@ -158,27 +150,22 @@
 \setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
 \newcommand{\hsp}{\hspace{20pt}}
 \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
-\ifxetex
-  % Load polyglossia as late as possible: uses bidi with RTL langages (e.g. Hebrew, Arabic)
-  \usepackage{polyglossia}
-  \setmainlanguage[variant=american]{english}
-\else
-  \usepackage[shorthands=off,main=american]{babel}
-\fi
-\newlength{\cslhangindent}
-\setlength{\cslhangindent}{1.5em}
-\newenvironment{cslreferences}%
-  {\setlength{\parindent}{0pt}%
-  \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces}%
-  {\par}
-
-\title{Automatic Music Transcription}
 \usepackage{etoolbox}
 \makeatletter
 \providecommand{\subtitle}[1]{% add subtitle to \maketitle
   \apptocmd{\@title}{\par {\large #1 \par}}{}{}
 }
 \makeatother
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[shorthands=off,main=american]{babel}
+\else
+  % load polyglossia as late as possible as it *could* call bidi if RTL lang (e.g. Hebrew or Arabic)
+  \usepackage{polyglossia}
+  \setmainlanguage[variant=american]{english}
+\fi
+
+\title{Automatic Music Transcription}
+\providecommand{\subtitle}[1]{}
 \subtitle{Masters Thesis Project}
 \author{Rand ASSWAD}
 \date{12 March 2020}
@@ -703,7 +690,7 @@ We will study and compare the functions that
 appear the most in litterature.
 
 \hypertarget{autocorrelation-function}{%
-\paragraph*{Autocorrelation function}\label{autocorrelation-function}}
+\paragraph{Autocorrelation function}\label{autocorrelation-function}}
 \addcontentsline{toc}{paragraph}{Autocorrelation function}
 
 The autocorrelation function (ACF) comes immediately to mind.
@@ -721,7 +708,7 @@ However, in the case of music signals, resonance structures
 appear hence the need for a better adapted function.
 
 \hypertarget{difference-function}{%
-\paragraph*{Difference function}\label{difference-function}}
+\paragraph{Difference function}\label{difference-function}}
 \addcontentsline{toc}{paragraph}{Difference function}
 
 The Average Magnitude Difference Function (AMDF) (Ross et al. \protect\hyperlink{ref-ross_average_1974}{1974})
@@ -734,7 +721,7 @@ AMDF is more adapted than autocorrelation for applications
 in music processing.
 
 \hypertarget{squared-difference-function}{%
-\paragraph*{Squared difference function}\label{squared-difference-function}}
+\paragraph{Squared difference function}\label{squared-difference-function}}
 \addcontentsline{toc}{paragraph}{Squared difference function}
 
 The Squared Difference Function (SDF) is very similar to AMDF,
@@ -758,15 +745,15 @@ and drops when SQD falls under its average.
 \begin{Shaded}
 \begin{Highlighting}[]
 \ImportTok{from}\NormalTok{ muallef.io }\ImportTok{import}\NormalTok{ AudioLoader}
-\ImportTok{from}\NormalTok{ muallef.plot }\ImportTok{import}\NormalTok{ diff\_functions }\ImportTok{as}\NormalTok{ df}
+\ImportTok{from}\NormalTok{ muallef.plot }\ImportTok{import}\NormalTok{ diff_functions }\ImportTok{as}\NormalTok{ df}
 
-\NormalTok{cello }\OperatorTok{=}\NormalTok{ AudioLoader(}\StringTok{\textquotesingle{}samples/instrument\_single/cello\_csharp2.wav\textquotesingle{}}\NormalTok{)}
+\NormalTok{cello }\OperatorTok{=}\NormalTok{ AudioLoader(}\StringTok{'samples/instrument_single/cello_csharp2.wav'}\NormalTok{)}
 \NormalTok{cello.cut(start}\OperatorTok{=}\DecValTok{2}\NormalTok{, stop}\OperatorTok{=}\FloatTok{2.06}\NormalTok{)}
-\NormalTok{df.time\_domain\_plots(cello.signal, cello.sampleRate, pitch}\OperatorTok{=}\FloatTok{69.3}\NormalTok{)}
+\NormalTok{df.time_domain_plots(cello.signal, cello.sampleRate, pitch}\OperatorTok{=}\FloatTok{69.3}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{/mnt/my_passport/Backups/2017_11_06_2016_05_16_DELL/D/INSA/GM/GM5/muallef/book_files/figure-latex/time_psf-1.pdf}
+\includegraphics{book_files/figure-latex/time_psf-1.pdf}
 
 \hypertarget{spectral-domain}{%
 \subsubsection{Spectral domain}\label{spectral-domain}}
@@ -784,7 +771,7 @@ Nevertheless, similar comparison functions are employed
 in order to get the fundamental frequency.
 
 \hypertarget{spectral-autocorrelation}{%
-\paragraph*{Spectral autocorrelation}\label{spectral-autocorrelation}}
+\paragraph{Spectral autocorrelation}\label{spectral-autocorrelation}}
 \addcontentsline{toc}{paragraph}{Spectral autocorrelation}
 
 Autocorrelation measures repititive patterns, since harmonics
@@ -800,7 +787,7 @@ For a spectrum \(S[f]=\left\lvert X[f]\right\rvert\) with \(K\) spectral bins
 \[R[f] = \sum_{k=1}^{K-f} S[k]S[k+f]\]
 
 \hypertarget{harmonic-sum}{%
-\paragraph*{Harmonic sum}\label{harmonic-sum}}
+\paragraph{Harmonic sum}\label{harmonic-sum}}
 \addcontentsline{toc}{paragraph}{Harmonic sum}
 
 A \emph{frequency histogram} represents the number of occurrences
@@ -827,16 +814,16 @@ of the logarithm function.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{oboe }\OperatorTok{=}\NormalTok{ AudioLoader(}\StringTok{\textquotesingle{}samples/instrument\_single/oboe\_a4.wav\textquotesingle{}}\NormalTok{)}
+\NormalTok{oboe }\OperatorTok{=}\NormalTok{ AudioLoader(}\StringTok{'samples/instrument_single/oboe_a4.wav'}\NormalTok{)}
 \NormalTok{oboe.cut(start}\OperatorTok{=}\FloatTok{0.5}\NormalTok{)}
-\NormalTok{df.spectral\_plots(oboe.signal[:}\DecValTok{4096}\NormalTok{], oboe.sampleRate, pitch}\OperatorTok{=}\DecValTok{440}\NormalTok{)}
+\NormalTok{df.spectral_plots(oboe.signal[:}\DecValTok{4096}\NormalTok{], oboe.sampleRate, pitch}\OperatorTok{=}\DecValTok{440}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{/mnt/my_passport/Backups/2017_11_06_2016_05_16_DELL/D/INSA/GM/GM5/muallef/book_files/figure-latex/spectral_psf-1.pdf}
+\includegraphics{book_files/figure-latex/spectral_psf-1.pdf}
 
 \hypertarget{spectral-yin}{%
-\paragraph*{Spectral YIN}\label{spectral-yin}}
+\paragraph{Spectral YIN}\label{spectral-yin}}
 \addcontentsline{toc}{paragraph}{Spectral YIN}
 
 The spectral YIN method (Brossier \protect\hyperlink{ref-brossier}{2006}) is an optimized version of YIN's
@@ -860,38 +847,38 @@ in the time domain as well as the spectral domain.
 \begin{Shaded}
 \begin{Highlighting}[]
 \ImportTok{from}\NormalTok{ muallef.pitch }\ImportTok{import}\NormalTok{ MonoPitch}
-\ImportTok{from}\NormalTok{ muallef.util.units }\ImportTok{import}\NormalTok{ Hz\_to\_MIDI}
+\ImportTok{from}\NormalTok{ muallef.util.units }\ImportTok{import}\NormalTok{ Hz_to_MIDI}
 
-\NormalTok{czardas }\OperatorTok{=}\NormalTok{ AudioLoader(}\StringTok{\textquotesingle{}samples/monophonic/czardas\_cut.wav\textquotesingle{}}\NormalTok{)}
+\NormalTok{czardas }\OperatorTok{=}\NormalTok{ AudioLoader(}\StringTok{'samples/monophonic/czardas_cut.wav'}\NormalTok{)}
 
-\NormalTok{yin }\OperatorTok{=}\NormalTok{ MonoPitch(czardas.signal, czardas.sampleRate, method}\OperatorTok{=}\StringTok{\textquotesingle{}yin\textquotesingle{}}\NormalTok{)}
-\NormalTok{yin\_f0 }\OperatorTok{=}\NormalTok{ yin()}
-\NormalTok{yin\_conf }\OperatorTok{=}\NormalTok{ yin.get\_confidence(normalize}\OperatorTok{=}\VariableTok{True}\NormalTok{)}
-\NormalTok{yinfft }\OperatorTok{=}\NormalTok{ MonoPitch(czardas.signal, czardas.sampleRate, method}\OperatorTok{=}\StringTok{\textquotesingle{}yinfft\textquotesingle{}}\NormalTok{)}
-\NormalTok{yinfft\_f0 }\OperatorTok{=}\NormalTok{ yinfft()}
-\NormalTok{yinfft\_conf }\OperatorTok{=}\NormalTok{ yinfft.get\_confidence(normalize}\OperatorTok{=}\VariableTok{True}\NormalTok{)}
-\NormalTok{time }\OperatorTok{=}\NormalTok{ czardas.time(}\BuiltInTok{len}\NormalTok{(yinfft\_f0))}
+\NormalTok{yin }\OperatorTok{=}\NormalTok{ MonoPitch(czardas.signal, czardas.sampleRate, method}\OperatorTok{=}\StringTok{'yin'}\NormalTok{)}
+\NormalTok{yin_f0 }\OperatorTok{=}\NormalTok{ yin()}
+\NormalTok{yin_conf }\OperatorTok{=}\NormalTok{ yin.get_confidence(normalize}\OperatorTok{=}\VariableTok{True}\NormalTok{)}
+\NormalTok{yinfft }\OperatorTok{=}\NormalTok{ MonoPitch(czardas.signal, czardas.sampleRate, method}\OperatorTok{=}\StringTok{'yinfft'}\NormalTok{)}
+\NormalTok{yinfft_f0 }\OperatorTok{=}\NormalTok{ yinfft()}
+\NormalTok{yinfft_conf }\OperatorTok{=}\NormalTok{ yinfft.get_confidence(normalize}\OperatorTok{=}\VariableTok{True}\NormalTok{)}
+\NormalTok{time }\OperatorTok{=}\NormalTok{ czardas.time(}\BuiltInTok{len}\NormalTok{(yinfft_f0))}
 
 \NormalTok{fig, ax }\OperatorTok{=}\NormalTok{ plt.subplots(}\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{, sharex}\OperatorTok{=}\VariableTok{True}\NormalTok{)}
-\NormalTok{fig.set\_figheight(}\DecValTok{6}\NormalTok{)}
-\NormalTok{\_ }\OperatorTok{=}\NormalTok{ fig.suptitle(}\StringTok{"Single Pitch Estimation using YIN method"}\NormalTok{, fontsize}\OperatorTok{=}\DecValTok{16}\NormalTok{)}
-\NormalTok{\_ }\OperatorTok{=}\NormalTok{ ax[}\DecValTok{0}\NormalTok{].set\_title(}\StringTok{"$f\_0$ of Monti\textquotesingle{}s }\CharTok{\textbackslash{}"}\StringTok{Czardas}\CharTok{\textbackslash{}"}\StringTok{ on violin"}\NormalTok{)}
-\NormalTok{\_ }\OperatorTok{=}\NormalTok{ ax[}\DecValTok{0}\NormalTok{].scatter(time, yin\_f0, c}\OperatorTok{=}\StringTok{\textquotesingle{}blue\textquotesingle{}}\NormalTok{, s}\OperatorTok{=}\DecValTok{10}\OperatorTok{*}\NormalTok{yin\_conf, label}\OperatorTok{=}\StringTok{\textquotesingle{}YIN\textquotesingle{}}\NormalTok{)}
-\NormalTok{\_ }\OperatorTok{=}\NormalTok{ ax[}\DecValTok{0}\NormalTok{].scatter(time, yinfft\_f0, c}\OperatorTok{=}\StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{, s}\OperatorTok{=}\DecValTok{10}\OperatorTok{*}\NormalTok{yinfft\_conf, label}\OperatorTok{=}\StringTok{\textquotesingle{}Spectral YIN\textquotesingle{}}\NormalTok{)}
-\NormalTok{\_ }\OperatorTok{=}\NormalTok{ ax[}\DecValTok{0}\NormalTok{].set\_ylim(}\DecValTok{0}\NormalTok{, }\DecValTok{600}\NormalTok{)}
-\NormalTok{\_ }\OperatorTok{=}\NormalTok{ ax[}\DecValTok{0}\NormalTok{].set\_ylabel(}\StringTok{\textquotesingle{}Estimated $f\_0$ (Hz)\textquotesingle{}}\NormalTok{)}
-\NormalTok{\_ }\OperatorTok{=}\NormalTok{ ax[}\DecValTok{0}\NormalTok{].legend()}
-\NormalTok{\_ }\OperatorTok{=}\NormalTok{ ax[}\DecValTok{1}\NormalTok{].set\_title(}\StringTok{"Pitch of Monti\textquotesingle{}s }\CharTok{\textbackslash{}"}\StringTok{Czardas}\CharTok{\textbackslash{}"}\StringTok{ on violin"}\NormalTok{)}
-\NormalTok{pitch }\OperatorTok{=}\NormalTok{ np.}\BuiltInTok{round}\NormalTok{(Hz\_to\_MIDI(yinfft\_f0))}
-\NormalTok{\_ }\OperatorTok{=}\NormalTok{ ax[}\DecValTok{1}\NormalTok{].scatter(time, pitch, s}\OperatorTok{=}\DecValTok{10}\OperatorTok{*}\NormalTok{yinfft\_conf)}
-\NormalTok{\_ }\OperatorTok{=}\NormalTok{ ax[}\DecValTok{1}\NormalTok{].set\_ylim(}\DecValTok{0}\NormalTok{, }\DecValTok{100}\NormalTok{)}
-\NormalTok{\_ }\OperatorTok{=}\NormalTok{ ax[}\DecValTok{1}\NormalTok{].set\_ylabel(}\StringTok{\textquotesingle{}Estimated pitch (MIDI)\textquotesingle{}}\NormalTok{)}
-\NormalTok{\_ }\OperatorTok{=}\NormalTok{ ax[}\DecValTok{1}\NormalTok{].set\_xlabel(}\StringTok{\textquotesingle{}Time (s)\textquotesingle{}}\NormalTok{)}
+\NormalTok{fig.set_figheight(}\DecValTok{6}\NormalTok{)}
+\NormalTok{_ }\OperatorTok{=}\NormalTok{ fig.suptitle(}\StringTok{"Single Pitch Estimation using YIN method"}\NormalTok{, fontsize}\OperatorTok{=}\DecValTok{16}\NormalTok{)}
+\NormalTok{_ }\OperatorTok{=}\NormalTok{ ax[}\DecValTok{0}\NormalTok{].set_title(}\StringTok{"$f_0$ of Monti's }\CharTok{\textbackslash{}"}\StringTok{Czardas}\CharTok{\textbackslash{}"}\StringTok{ on violin"}\NormalTok{)}
+\NormalTok{_ }\OperatorTok{=}\NormalTok{ ax[}\DecValTok{0}\NormalTok{].scatter(time, yin_f0, c}\OperatorTok{=}\StringTok{'blue'}\NormalTok{, s}\OperatorTok{=}\DecValTok{10}\OperatorTok{*}\NormalTok{yin_conf, label}\OperatorTok{=}\StringTok{'YIN'}\NormalTok{)}
+\NormalTok{_ }\OperatorTok{=}\NormalTok{ ax[}\DecValTok{0}\NormalTok{].scatter(time, yinfft_f0, c}\OperatorTok{=}\StringTok{'red'}\NormalTok{, s}\OperatorTok{=}\DecValTok{10}\OperatorTok{*}\NormalTok{yinfft_conf, label}\OperatorTok{=}\StringTok{'Spectral YIN'}\NormalTok{)}
+\NormalTok{_ }\OperatorTok{=}\NormalTok{ ax[}\DecValTok{0}\NormalTok{].set_ylim(}\DecValTok{0}\NormalTok{, }\DecValTok{600}\NormalTok{)}
+\NormalTok{_ }\OperatorTok{=}\NormalTok{ ax[}\DecValTok{0}\NormalTok{].set_ylabel(}\StringTok{'Estimated $f_0$ (Hz)'}\NormalTok{)}
+\NormalTok{_ }\OperatorTok{=}\NormalTok{ ax[}\DecValTok{0}\NormalTok{].legend()}
+\NormalTok{_ }\OperatorTok{=}\NormalTok{ ax[}\DecValTok{1}\NormalTok{].set_title(}\StringTok{"Pitch of Monti's }\CharTok{\textbackslash{}"}\StringTok{Czardas}\CharTok{\textbackslash{}"}\StringTok{ on violin"}\NormalTok{)}
+\NormalTok{pitch }\OperatorTok{=}\NormalTok{ np.}\BuiltInTok{round}\NormalTok{(Hz_to_MIDI(yinfft_f0))}
+\NormalTok{_ }\OperatorTok{=}\NormalTok{ ax[}\DecValTok{1}\NormalTok{].scatter(time, pitch, s}\OperatorTok{=}\DecValTok{10}\OperatorTok{*}\NormalTok{yinfft_conf)}
+\NormalTok{_ }\OperatorTok{=}\NormalTok{ ax[}\DecValTok{1}\NormalTok{].set_ylim(}\DecValTok{0}\NormalTok{, }\DecValTok{100}\NormalTok{)}
+\NormalTok{_ }\OperatorTok{=}\NormalTok{ ax[}\DecValTok{1}\NormalTok{].set_ylabel(}\StringTok{'Estimated pitch (MIDI)'}\NormalTok{)}
+\NormalTok{_ }\OperatorTok{=}\NormalTok{ ax[}\DecValTok{1}\NormalTok{].set_xlabel(}\StringTok{'Time (s)'}\NormalTok{)}
 \NormalTok{plt.show()}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{/mnt/my_passport/Backups/2017_11_06_2016_05_16_DELL/D/INSA/GM/GM5/muallef/book_files/figure-latex/monopitch-1.pdf}
+\includegraphics{book_files/figure-latex/monopitch-1.pdf}
 
 As expected, \(f_0\) values were successfuly detected
 including fuzzy glissando pitches and grace notes.
@@ -983,7 +970,7 @@ strength over candidate frequencies in a whitened spectrum.
 \end{enumerate}
 
 \hypertarget{application-example-1}{%
-\paragraph*{Application Example}\label{application-example-1}}
+\paragraph{Application Example}\label{application-example-1}}
 \addcontentsline{toc}{paragraph}{Application Example}
 
 We test Klapuri's pipeline on Beethoven's infamous piano
@@ -992,29 +979,29 @@ piece ``Für Elise''.
 \begin{Shaded}
 \begin{Highlighting}[]
 \ImportTok{from}\NormalTok{ muallef.pitch }\ImportTok{import}\NormalTok{ MultiPitch}
-\ImportTok{from}\NormalTok{ muallef.util.units }\ImportTok{import}\NormalTok{ Hz\_to\_MIDI}
+\ImportTok{from}\NormalTok{ muallef.util.units }\ImportTok{import}\NormalTok{ Hz_to_MIDI}
 
-\NormalTok{fur\_elise }\OperatorTok{=}\NormalTok{ AudioLoader(}\StringTok{\textquotesingle{}samples/polyphonic/furElise.wav\textquotesingle{}}\NormalTok{)}
-\NormalTok{fur\_elise.cut(stop}\OperatorTok{=}\DecValTok{5}\NormalTok{)}
+\NormalTok{fur_elise }\OperatorTok{=}\NormalTok{ AudioLoader(}\StringTok{'samples/polyphonic/furElise.wav'}\NormalTok{)}
+\NormalTok{fur_elise.cut(stop}\OperatorTok{=}\DecValTok{5}\NormalTok{)}
 
-\NormalTok{klapuri }\OperatorTok{=}\NormalTok{ MultiPitch(fur\_elise.signal, fur\_elise.sampleRate, method}\OperatorTok{=}\StringTok{\textquotesingle{}klapuri\textquotesingle{}}\NormalTok{)}
-\NormalTok{pitch }\OperatorTok{=}\NormalTok{ Hz\_to\_MIDI(klapuri())}
-\NormalTok{time }\OperatorTok{=}\NormalTok{ fur\_elise.time(pitch.shape[}\DecValTok{1}\NormalTok{])}
+\NormalTok{klapuri }\OperatorTok{=}\NormalTok{ MultiPitch(fur_elise.signal, fur_elise.sampleRate, method}\OperatorTok{=}\StringTok{'klapuri'}\NormalTok{)}
+\NormalTok{pitch }\OperatorTok{=}\NormalTok{ Hz_to_MIDI(klapuri())}
+\NormalTok{time }\OperatorTok{=}\NormalTok{ fur_elise.time(pitch.shape[}\DecValTok{1}\NormalTok{])}
 
 \NormalTok{fig, ax }\OperatorTok{=}\NormalTok{ plt.subplots()}
-\NormalTok{fig.set\_figheight(}\DecValTok{8}\NormalTok{)}
-\NormalTok{\_ }\OperatorTok{=}\NormalTok{ fig.suptitle(}\StringTok{"Multi{-}pitch estimation using Klapuri\textquotesingle{}s iterative method"}\NormalTok{, fontsize}\OperatorTok{=}\DecValTok{16}\NormalTok{)}
-\NormalTok{\_ }\OperatorTok{=}\NormalTok{ ax.set\_title(}\StringTok{"Piano roll of Beethoven\textquotesingle{}s }\CharTok{\textbackslash{}"}\StringTok{Für Elise}\CharTok{\textbackslash{}"}\StringTok{"}\NormalTok{)}
+\NormalTok{fig.set_figheight(}\DecValTok{8}\NormalTok{)}
+\NormalTok{_ }\OperatorTok{=}\NormalTok{ fig.suptitle(}\StringTok{"Multi-pitch estimation using Klapuri's iterative method"}\NormalTok{, fontsize}\OperatorTok{=}\DecValTok{16}\NormalTok{)}
+\NormalTok{_ }\OperatorTok{=}\NormalTok{ ax.set_title(}\StringTok{"Piano roll of Beethoven's }\CharTok{\textbackslash{}"}\StringTok{Für Elise}\CharTok{\textbackslash{}"}\StringTok{"}\NormalTok{)}
 \ControlFlowTok{for}\NormalTok{ m }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(pitch.shape[}\DecValTok{0}\NormalTok{]):}
-\NormalTok{    \_ }\OperatorTok{=}\NormalTok{ ax.scatter(time, np.}\BuiltInTok{round}\NormalTok{(pitch[m]), s}\OperatorTok{=}\DecValTok{5}\NormalTok{)}
-\NormalTok{\_ }\OperatorTok{=}\NormalTok{ ax.set\_xlabel(}\StringTok{\textquotesingle{}Time (s)\textquotesingle{}}\NormalTok{)}
-\NormalTok{\_ }\OperatorTok{=}\NormalTok{ ax.set\_ylabel(}\StringTok{\textquotesingle{}Estimated Pitch (MIDI)\textquotesingle{}}\NormalTok{)}
-\NormalTok{\_ }\OperatorTok{=}\NormalTok{ ax.set\_ylim(}\DecValTok{30}\NormalTok{, }\DecValTok{80}\NormalTok{)}
+\NormalTok{    _ }\OperatorTok{=}\NormalTok{ ax.scatter(time, np.}\BuiltInTok{round}\NormalTok{(pitch[m]), s}\OperatorTok{=}\DecValTok{5}\NormalTok{)}
+\NormalTok{_ }\OperatorTok{=}\NormalTok{ ax.set_xlabel(}\StringTok{'Time (s)'}\NormalTok{)}
+\NormalTok{_ }\OperatorTok{=}\NormalTok{ ax.set_ylabel(}\StringTok{'Estimated Pitch (MIDI)'}\NormalTok{)}
+\NormalTok{_ }\OperatorTok{=}\NormalTok{ ax.set_ylim(}\DecValTok{30}\NormalTok{, }\DecValTok{80}\NormalTok{)}
 \NormalTok{plt.show()}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{/mnt/my_passport/Backups/2017_11_06_2016_05_16_DELL/D/INSA/GM/GM5/muallef/book_files/figure-latex/klapuri-1.pdf}
+\includegraphics{book_files/figure-latex/klapuri-1.pdf}
 
 The resulting piano-roll shows a generally decent
 representation of the piece as the percentage
@@ -1077,30 +1064,36 @@ the API provided in for testing (Müller \protect\hyperlink{ref-muller_2015}{201
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\ImportTok{from}\NormalTok{ muallef.plot.nmf }\ImportTok{import}\NormalTok{ plot\_NMF\_factors}
+\ImportTok{from}\NormalTok{ muallef.plot.nmf }\ImportTok{import}\NormalTok{ plot_matrix, plot_NMF_factors}
+\ImportTok{from}\NormalTok{ muallef.pitch.nmf }\ImportTok{import}\NormalTok{ NMF}
 
-\ImportTok{import}\NormalTok{ pandas }\ImportTok{as}\NormalTok{ pd}
-\ImportTok{import}\NormalTok{ librosa}
-\ImportTok{from}\NormalTok{ LibFMP.B }\ImportTok{import}\NormalTok{ plot\_matrix}
-\ImportTok{from}\NormalTok{ LibFMP.C8 }\ImportTok{import}\NormalTok{ NMF}
+\ImportTok{import}\NormalTok{ numpy }\ImportTok{as}\NormalTok{ np}
+\ImportTok{import}\NormalTok{ matplotlib.pyplot }\ImportTok{as}\NormalTok{ plt}
 
-\NormalTok{fs }\OperatorTok{=}\NormalTok{ fur\_elise.sampleRate}
-\NormalTok{x }\OperatorTok{=}\NormalTok{ fur\_elise.signal}
-\NormalTok{N\_fft }\OperatorTok{=} \DecValTok{2048}
-\NormalTok{H\_fft }\OperatorTok{=} \DecValTok{1024}
+\CommentTok{# use stft from scipy instead of librosa}
+\CommentTok{# from librosa import stft}
+\ImportTok{from}\NormalTok{ scipy.signal }\ImportTok{import}\NormalTok{ stft }\ImportTok{as}\NormalTok{ sp_stft}
+\KeywordTok{def}\NormalTok{ stft(x, n_fft}\OperatorTok{=}\DecValTok{2048}\NormalTok{, hop_length}\OperatorTok{=}\VariableTok{None}\NormalTok{):}
+\NormalTok{    noverlap }\OperatorTok{=}\NormalTok{ n_fft }\OperatorTok{//} \DecValTok{2} \ControlFlowTok{if}\NormalTok{ hop_length }\KeywordTok{is} \VariableTok{None} \ControlFlowTok{else}\NormalTok{ n_fft }\OperatorTok{-}\NormalTok{ hop_length}
+    \ControlFlowTok{return}\NormalTok{ sp_stft(x, nperseg}\OperatorTok{=}\NormalTok{n_fft, noverlap}\OperatorTok{=}\NormalTok{noverlap)[}\DecValTok{2}\NormalTok{]}
 
-\NormalTok{X }\OperatorTok{=}\NormalTok{ librosa.stft(x, n\_fft}\OperatorTok{=}\NormalTok{N\_fft, hop\_length}\OperatorTok{=}\NormalTok{H\_fft)}
+\NormalTok{fs }\OperatorTok{=}\NormalTok{ fur_elise.sampleRate}
+\NormalTok{x }\OperatorTok{=}\NormalTok{ fur_elise.signal}
+\NormalTok{N_fft }\OperatorTok{=} \DecValTok{2048}
+\NormalTok{H_fft }\OperatorTok{=} \DecValTok{1024}
+
+\NormalTok{X }\OperatorTok{=}\NormalTok{ stft(x, n_fft}\OperatorTok{=}\NormalTok{N_fft, hop_length}\OperatorTok{=}\NormalTok{H_fft)}
 \NormalTok{V }\OperatorTok{=}\NormalTok{ np.log(}\DecValTok{1} \OperatorTok{+}\NormalTok{ np.}\BuiltInTok{abs}\NormalTok{(X))}
-\NormalTok{freq\_max }\OperatorTok{=} \DecValTok{2000}
+\NormalTok{freq_max }\OperatorTok{=} \DecValTok{2000}
 
-\CommentTok{\# plot input spectrogram}
-\NormalTok{\_ }\OperatorTok{=}\NormalTok{ plot\_matrix(V, Fs}\OperatorTok{=}\NormalTok{fs}\OperatorTok{/}\NormalTok{H\_fft, Fs\_F}\OperatorTok{=}\NormalTok{N\_fft}\OperatorTok{/}\NormalTok{fs, figsize}\OperatorTok{=}\NormalTok{(}\DecValTok{8}\NormalTok{, }\DecValTok{5}\NormalTok{))}
-\NormalTok{\_ }\OperatorTok{=}\NormalTok{ plt.ylim([}\DecValTok{0}\NormalTok{, freq\_max])}
+\CommentTok{# plot input spectrogram}
+\NormalTok{_ }\OperatorTok{=}\NormalTok{ plot_matrix(V, Fs}\OperatorTok{=}\NormalTok{fs}\OperatorTok{/}\NormalTok{H_fft, Fs_F}\OperatorTok{=}\NormalTok{N_fft}\OperatorTok{/}\NormalTok{fs, figsize}\OperatorTok{=}\NormalTok{(}\DecValTok{8}\NormalTok{, }\DecValTok{5}\NormalTok{))}
+\NormalTok{_ }\OperatorTok{=}\NormalTok{ plt.ylim([}\DecValTok{0}\NormalTok{, freq_max])}
 \NormalTok{plt.show()}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{/mnt/my_passport/Backups/2017_11_06_2016_05_16_DELL/D/INSA/GM/GM5/muallef/book_files/figure-latex/nmf-1.pdf}
+\includegraphics{book_files/figure-latex/nmf-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1108,34 +1101,34 @@ the API provided in for testing (Müller \protect\hyperlink{ref-muller_2015}{201
 \NormalTok{N }\OperatorTok{=}\NormalTok{ V.shape[}\DecValTok{1}\NormalTok{]}
 \NormalTok{R }\OperatorTok{=} \DecValTok{30}
 
-\CommentTok{\# Initialize and plot random matrices W, H}
-\NormalTok{W\_init }\OperatorTok{=}\NormalTok{ np.random.rand(K,R)}
-\NormalTok{H\_init }\OperatorTok{=}\NormalTok{ np.random.rand(R,N)}
-\NormalTok{plot\_NMF\_factors(W\_init, H\_init, W\_init.dot(H\_init), fs, N\_fft, H\_fft, freq\_max)}
+\CommentTok{# Initialize and plot random matrices W, H}
+\NormalTok{W_init }\OperatorTok{=}\NormalTok{ np.random.rand(K,R)}
+\NormalTok{H_init }\OperatorTok{=}\NormalTok{ np.random.rand(R,N)}
+\NormalTok{plot_NMF_factors(W_init, H_init, W_init.dot(H_init), fs, N_fft, H_fft, freq_max)}
 
-\CommentTok{\# Calculate and plot NMF decomposition}
+\CommentTok{# Calculate and plot NMF decomposition}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{/mnt/my_passport/Backups/2017_11_06_2016_05_16_DELL/D/INSA/GM/GM5/muallef/book_files/figure-latex/nmf-2.pdf}
+\includegraphics{book_files/figure-latex/nmf-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{W, H, V\_approx, V\_approx\_err, H\_W\_error }\OperatorTok{=}\NormalTok{ NMF(V, R, W}\OperatorTok{=}\NormalTok{W\_init, H}\OperatorTok{=}\NormalTok{H\_init, L}\OperatorTok{=}\DecValTok{200}\NormalTok{, norm}\OperatorTok{=}\VariableTok{True}\NormalTok{)}
-\NormalTok{plot\_NMF\_factors(W, H, W.dot(H), fs, N\_fft, H\_fft, freq\_max)               }
+\NormalTok{W, H, V_approx, V_approx_err, H_W_error }\OperatorTok{=}\NormalTok{ NMF(V, R, W}\OperatorTok{=}\NormalTok{W_init, H}\OperatorTok{=}\NormalTok{H_init, L}\OperatorTok{=}\DecValTok{200}\NormalTok{, norm}\OperatorTok{=}\VariableTok{True}\NormalTok{)}
+\NormalTok{plot_NMF_factors(W, H, W.dot(H), fs, N_fft, H_fft, freq_max)               }
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{/mnt/my_passport/Backups/2017_11_06_2016_05_16_DELL/D/INSA/GM/GM5/muallef/book_files/figure-latex/nmf-3.pdf}
+\includegraphics{book_files/figure-latex/nmf-3.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"V error approximation = }\SpecialCharTok{\{}\NormalTok{V\_approx\_err}\SpecialCharTok{\}}\SpecialStringTok{"}\NormalTok{)}
+\BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"V error approximation = }\SpecialCharTok{\{}\NormalTok{V_approx_err}\SpecialCharTok{\}}\SpecialStringTok{"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-V error approximation = 3.429512976534373
+V error approximation = 0.012754889405417127
 \end{verbatim}
 
 The obtained \(\boldsymbol{V}\) matrix is close to the input spectrogram,
@@ -1294,29 +1287,29 @@ audio sample of Beethoven's ``Für Elise''.
 \begin{Highlighting}[]
 \ImportTok{from}\NormalTok{ muallef.onset }\ImportTok{import}\NormalTok{ Onset}
 
-\NormalTok{fur\_elise.cut(stop}\OperatorTok{=}\DecValTok{5}\NormalTok{)}
-\NormalTok{fs }\OperatorTok{=}\NormalTok{ fur\_elise.sampleRate}
-\NormalTok{x }\OperatorTok{=}\NormalTok{ fur\_elise.signal}
-\NormalTok{t }\OperatorTok{=}\NormalTok{ fur\_elise.time()}
+\NormalTok{fur_elise.cut(stop}\OperatorTok{=}\DecValTok{5}\NormalTok{)}
+\NormalTok{fs }\OperatorTok{=}\NormalTok{ fur_elise.sampleRate}
+\NormalTok{x }\OperatorTok{=}\NormalTok{ fur_elise.signal}
+\NormalTok{t }\OperatorTok{=}\NormalTok{ fur_elise.time()}
 
-\NormalTok{onset }\OperatorTok{=}\NormalTok{ Onset(x, fs, method}\OperatorTok{=}\StringTok{\textquotesingle{}complex\textquotesingle{}}\NormalTok{)}
+\NormalTok{onset }\OperatorTok{=}\NormalTok{ Onset(x, fs, method}\OperatorTok{=}\StringTok{'complex'}\NormalTok{)}
 \NormalTok{onsets }\OperatorTok{=}\NormalTok{ onset()}
 
 \NormalTok{fig, ax }\OperatorTok{=}\NormalTok{ plt.subplots(}\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{, sharex}\OperatorTok{=}\VariableTok{True}\NormalTok{)}
-\NormalTok{fig.set\_figheight(}\DecValTok{6}\NormalTok{)}
-\NormalTok{\_ }\OperatorTok{=}\NormalTok{ fig.suptitle(}\StringTok{"Onset detection of Beethoven\textquotesingle{}s }\CharTok{\textbackslash{}"}\StringTok{Für Elise}\CharTok{\textbackslash{}"}\StringTok{"}\NormalTok{, fontsize}\OperatorTok{=}\DecValTok{16}\NormalTok{)}
-\NormalTok{\_ }\OperatorTok{=}\NormalTok{ ax[}\DecValTok{0}\NormalTok{].set\_title(}\StringTok{"Segmented time signal"}\NormalTok{)}
-\NormalTok{\_ }\OperatorTok{=}\NormalTok{ ax[}\DecValTok{0}\NormalTok{].plot(t, x)}
+\NormalTok{fig.set_figheight(}\DecValTok{6}\NormalTok{)}
+\NormalTok{_ }\OperatorTok{=}\NormalTok{ fig.suptitle(}\StringTok{"Onset detection of Beethoven's }\CharTok{\textbackslash{}"}\StringTok{Für Elise}\CharTok{\textbackslash{}"}\StringTok{"}\NormalTok{, fontsize}\OperatorTok{=}\DecValTok{16}\NormalTok{)}
+\NormalTok{_ }\OperatorTok{=}\NormalTok{ ax[}\DecValTok{0}\NormalTok{].set_title(}\StringTok{"Segmented time signal"}\NormalTok{)}
+\NormalTok{_ }\OperatorTok{=}\NormalTok{ ax[}\DecValTok{0}\NormalTok{].plot(t, x)}
 \ControlFlowTok{for}\NormalTok{ on }\KeywordTok{in}\NormalTok{ onsets:}
-\NormalTok{    \_ }\OperatorTok{=}\NormalTok{ ax[}\DecValTok{0}\NormalTok{].axvline(x}\OperatorTok{=}\NormalTok{on, color}\OperatorTok{=}\StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{)}
-\NormalTok{\_ }\OperatorTok{=}\NormalTok{ ax[}\DecValTok{1}\NormalTok{].set\_title(}\StringTok{"Complex difference ODF"}\NormalTok{)}
-\NormalTok{\_ }\OperatorTok{=}\NormalTok{ ax[}\DecValTok{1}\NormalTok{].plot(onset.onsetTime, onset.onsetFunction)}
-\NormalTok{\_ }\OperatorTok{=}\NormalTok{ ax[}\DecValTok{1}\NormalTok{].set\_xlabel(}\StringTok{\textquotesingle{}Time (s)\textquotesingle{}}\NormalTok{)}
+\NormalTok{    _ }\OperatorTok{=}\NormalTok{ ax[}\DecValTok{0}\NormalTok{].axvline(x}\OperatorTok{=}\NormalTok{on, color}\OperatorTok{=}\StringTok{'red'}\NormalTok{)}
+\NormalTok{_ }\OperatorTok{=}\NormalTok{ ax[}\DecValTok{1}\NormalTok{].set_title(}\StringTok{"Complex difference ODF"}\NormalTok{)}
+\NormalTok{_ }\OperatorTok{=}\NormalTok{ ax[}\DecValTok{1}\NormalTok{].plot(onset.onsetTime, onset.onsetFunction)}
+\NormalTok{_ }\OperatorTok{=}\NormalTok{ ax[}\DecValTok{1}\NormalTok{].set_xlabel(}\StringTok{'Time (s)'}\NormalTok{)}
 \NormalTok{plt.show()}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{/mnt/my_passport/Backups/2017_11_06_2016_05_16_DELL/D/INSA/GM/GM5/muallef/book_files/figure-latex/onset_complex-1.pdf}
+\includegraphics{book_files/figure-latex/onset_complex-1.pdf}
 
 \pagebreak
 
@@ -1364,9 +1357,8 @@ as we could to accomplish with very little time.
 \addcontentsline{toc}{section}{References}
 
 \hypertarget{refs}{}
-\begin{cslreferences}
 \leavevmode\hypertarget{ref-bello}{}%
-Bello, J. P., and M. Sandler. 2003. ``Phase-Based Note Onset Detection for Music Signals.'' In \emph{2003 IEEE International Conference on Acoustics, Speech, and Signal Processing, 2003. Proceedings. (ICASSP '03).}, 5:V--441. \url{https://doi.org/10.1109/ICASSP.2003.1200001}.
+Bello, J.P., and M. Sandler. 2003. ``Phase-Based Note Onset Detection for Music Signals.'' In \emph{2003 IEEE International Conference on Acoustics, Speech, and Signal Processing, 2003. Proceedings. (ICASSP '03).}, 5:V--441. \url{https://doi.org/10.1109/ICASSP.2003.1200001}.
 
 \leavevmode\hypertarget{ref-benetos_2013}{}%
 Benetos, Emmanouil, Simon Dixon, Dimitrios Giannoulis, Holger Kirchhoff, and Anssi Klapuri. 2013. ``Automatic Music Transcription: Challenges and Future Directions.'' \emph{Journal of Intelligent Information Systems} 41 (December). \url{https://doi.org/10.1007/s10844-013-0258-3}.
@@ -1405,13 +1397,12 @@ Ross, M., H. Shaffer, A. Cohen, R. Freudberg, and H. Manley. 1974. ``Average Mag
 Schroeder, Manfred R. 1968. ``Period Histogram and Product Spectrum: New Methods for Fundamental-Frequency Measurement.'' \emph{The Journal of the Acoustical Society of America}. \url{https://doi.org/10.1121/1.1910902}.
 
 \leavevmode\hypertarget{ref-NNMF}{}%
-Smaragdis, P., and J. C. Brown. 2003. ``Non-Negative Matrix Factorization for Polyphonic Music Transcription.'' In \emph{2003 IEEE Workshop on Applications of Signal Processing to Audio and Acoustics (IEEE Cat. No.03TH8684)}, 177--80. New Paltz, NY, USA: IEEE. \url{https://doi.org/10.1109/ASPAA.2003.1285860}.
+Smaragdis, P., and J.C. Brown. 2003. ``Non-Negative Matrix Factorization for Polyphonic Music Transcription.'' In \emph{2003 IEEE Workshop on Applications of Signal Processing to Audio and Acoustics (IEEE Cat. No.03TH8684)}, 177--80. New Paltz, NY, USA: IEEE. \url{https://doi.org/10.1109/ASPAA.2003.1285860}.
 
 \leavevmode\hypertarget{ref-wiki:nyquistshannon}{}%
 Wikipedia. 2020. ``Nyquist--Shannon Sampling Theorem.'' \emph{Wikipedia}. \url{https://en.wikipedia.org/w/index.php?title=Nyquist\%E2\%80\%93Shannon_sampling_theorem\&oldid=941933031}.
 
 \leavevmode\hypertarget{ref-yeh_thesis}{}%
 Yeh, Chunghsin. 2008. ``Multiple Fundamental Frequency Estimation of Polyphonic Recordings,'' 153.
-\end{cslreferences}
 
 \end{document}
