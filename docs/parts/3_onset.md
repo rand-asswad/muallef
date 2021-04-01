@@ -22,7 +22,7 @@ In both cases, the spectral flux, changes in energy,
 and/or harmonic distribution are analysed in order
 to estimate onset times.
 
-![(left) a violin onset profile (right) a piano onset profile](plot/onset_profiles.png)
+![(left) a violin onset profile (right) a piano onset profile](img/plot/onset_profiles.png)
 
 The general onset estimation model is a three-step pipeline [@brossier]
 
@@ -88,7 +88,7 @@ $\hat{X}[n, k] = \abs{X[n, k]} \cdot e^{j\hat{\varphi}[n, k]}$
 The presented function combines spectral difference and phase-based approaches,
 by borrowing the phase deviation function from [@bello]
 
-![](plot/odf.png)
+![](img/plot/odf.png)
 
 ## Thresholding & Peak-picking
 

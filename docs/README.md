@@ -36,7 +36,7 @@ install.packages('reticulate')
 
 The documentation has embeded python code that runs in the project's virtual environment
 make sure to properly initialize the project virtual environment in the directory `venv`
-since it is hardcoded in [`index.rmd`](index.rmd).
+since it is hardcoded in [`main.rmd`](main.rmd).
 
 Once the virtual environment is initialized properly,
 the documentation can be generated using the `make` command.
@@ -55,18 +55,15 @@ Consult [`Makefile`](Makefile) for more options.
 
 ```sh
 docs/
-├── book/                           # gitbook output dir
 ├── img/                            # image dir
 ├── include/                        # TeX and HTML options
+├── out/                            # output dir
 ├── parts/                          # markdown content
 ├── _bookdown.yml                   # bookmark options
 ├── _output.yml                     # RMD options
-├── .redirect ~> book/index.html    # page redirect to gitbook home
-├── book.pdf -> book/book.pdf       # link to PDF book
-├── index.html -> .redirect         # link to page redirect
-├── index.rmd                       # main RMD file
-├── onepage.html                    # onepage HTML output
-├── presentation.html               # revealjs presenation output
+├── book.pdf -> out/book.pdf        # link to PDF book
+├── index.html ~> out/index.html    # redirect HTML to gitbook home
+├── main.rmd                        # main RMD file
 ├── presentation.md                 # presentation MD file
 ├── ref.bib                         # bibliography file
 ├── Makefile

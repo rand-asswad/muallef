@@ -151,7 +151,7 @@ where the magnitude of the transform attains its local
 maxima at the signal's frequency and its *harmonics*.
 
 <video width="800" controls>
-    <source src="plot/fourier.mp4" type="video/mp4">
+    <source src="img/plot/fourier.mp4" type="video/mp4">
 </video>
 
 Spectral domain methods analyse the magnitude and/or the phase

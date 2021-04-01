@@ -16,14 +16,14 @@ bookdown::gitbook:
     toc:
       scroll_highlight: yes
       before: |
-        <li class="toc-logo"><a href="https://www.insa-rouen.fr/" target="blank"><img src="img/logo_insa.png"></a></li>
+        <li class="toc-logo"><a href="https://www.insa-rouen.fr/" target="_blank"><img src="img/logo_insa.png"></a></li>
         <li class="toc-title"><a href="./">Automatic Music Transcription</a></li>
-        <li class="toc-author"><a href="/" target="blank">Rand ASSWAD</a></li>
+        <li class="toc-author"><a href="/" target="_blank">Rand ASSWAD</a></li>
       after: |
-        <li><a href="book.pdf" target="blank"><i class="fa fa-file-pdf-o"></i> PDF book</a></li>
-        <li><a href="../onepage.html" target="blank"><i class="fa fa-file-code-o"></i> HTML standalone version</a></li>
-        <li><a href="../presentation.html" target="blank"><img class="icon" src="include/presentation.svg"> Presentation slides</a></li>
-        <li><a href="https://github.com/rand-asswad/muallef" target="blank"><i class="fa fa-github"></i> Github repository</a></li>
+        <li><a href="book.pdf" target="_blank"><i class="fa fa-file-pdf-o"></i> PDF book</a></li>
+        <li><a href="onepage.html" target="_blank"><i class="fa fa-file-code-o"></i> HTML standalone version</a></li>
+        <li><a href="presentation.html" target="_blank"><img class="icon" src="include/presentation.svg"> Presentation slides</a></li>
+        <li><a href="https://github.com/rand-asswad/muallef" target="_blank"><i class="fa fa-github"></i> Github repository</a></li>
         <li><a href="https://github.com/rand-asswad/muallef/archive/refs/heads/master.zip"><i class="fa fa-download"></i> Download source code</a></li>
     toolbar:
       position: fixed

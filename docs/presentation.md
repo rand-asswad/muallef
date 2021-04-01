@@ -215,7 +215,7 @@ $$d_{\text{YIN}}[\tau] = \begin{cases}
 
 ---
 
-<img src="plot/timedomain_func.png" class="full-img-slide">
+<img src="img/plot/timedomain_func.png" class="full-img-slide">
 
 ## Spectral domain
 
@@ -227,7 +227,7 @@ $$d_{\text{YIN}}[\tau] = \begin{cases}
 ---
 
 <video width="800" controls>
-    <source src="plot/fourier.mp4" type="video/mp4">
+    <source src="img/plot/fourier.mp4" type="video/mp4">
 </video>
 
 ## Autocorrelation Function (ACF)
@@ -248,7 +248,7 @@ $$R[f] = \sum_{k=1}^{K-f} S[k]S[k+f]$$
 
 ---
 
-<img src="plot/spectral_func.png" class="full-img-slide">
+<img src="img/plot/spectral_func.png" class="full-img-slide">
 
 ---
 
@@ -261,7 +261,7 @@ $$\hat{d}(\tau) = \frac{2}{N} \sum\limits_{k=0}^{\frac{N}{2}+1}
 
 ---
 
-<img src="plot/monopitch_compare.png" class="full-img-slide">
+<img src="img/plot/monopitch_compare.png" class="full-img-slide">
 
 ## Multiple pitch estimation
 
@@ -321,7 +321,7 @@ $h$ partial of period $\tau$.
 
 ---
 
-<img src="plot/multipitch_klapuri.png" class="full-img-slide">
+<img src="img/plot/multipitch_klapuri.png" class="full-img-slide">
 
 ---
 
@@ -420,7 +420,7 @@ by combining spectral difference and phase-based approaches.
 
 ---
 
-<img src="plot/odf.png" class="full-img-slide">
+<img src="img/plot/odf.png" class="full-img-slide">
 
 ## Thresholding & Peak-picking
 
@@ -431,7 +431,7 @@ by combining spectral difference and phase-based approaches.
 
 ---
 
-<img src="plot/onsets_complex.png" class="full-img-slide">
+<img src="img/plot/onsets_complex.png" class="full-img-slide">
 
 # Conclusion
 
