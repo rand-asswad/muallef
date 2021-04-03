@@ -4,8 +4,11 @@
 biblio/
 
 # RMD shit
-**/*_cache
-**/*_files
+*_cache
+*_files
+!/out/*_files
+!/book/*_files
+!/_book/*_files
 main.md
 index.md
 doc.rmd
