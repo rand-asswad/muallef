@@ -25,5 +25,5 @@ reveal: presentation.md
 	@echo "done!"
 
 clean:
-	@-rm -rf out _book _bookdown_files book.pdf
+	@-rm -rf out _book *_files *_cache book.pdf
 	@echo "cleaned book output."
