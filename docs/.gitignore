@@ -3,6 +3,10 @@
 # Bibliography
 biblio/
 
+# RMD output
+out/
+_book/
+
 # RMD shit
 *_cache
 *_files

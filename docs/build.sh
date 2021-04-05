@@ -2,6 +2,7 @@
 
 cd docs
 
-make html presentation gitbook
+make clean
+make pdf html presentation gitbook
 
 cd ..
