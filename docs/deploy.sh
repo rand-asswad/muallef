@@ -11,7 +11,7 @@ git config --global user.email "asswad.rand@gmail.com"
 git config --global user.name "Rand Asswad"
 
 # clone gh-pages branch
-git clone -b gh-pages https://${GITHUB_PAT}@github.com/${TRAVIS_REPO_SLUG}.git rmd_output
+git clone -b gh-pages https://${GH_PAGES_PAT}@github.com/${TRAVIS_REPO_SLUG}.git rmd_output
 
 # copy output
 cd rmd_output
