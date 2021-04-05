@@ -1,0 +1,23 @@
+language: r
+cache: packages
+pandoc_version: 2.5
+jobs:
+  include:
+    - language: python
+      python: 3.8
+      install:
+        - rm -rf venv && python3 -m venv venv
+        - pip3 install -r requirements.txt
+
+env:
+  global:
+    secure: KjZ6yo82ETu9My77NEJka7B0Hz6d2AesFIYnHy/Gtm4YRe5+rMN4Z+pD6BDaW2kYWen6Q62n4Tl7lPQt5c5qBEXztFYbzUzxvaSWDV1b/9LLyy8dmfwMhdUbyOk/zCMt85gdm5pq+1qxwQqeRy1X+38dQFVftkia2/UNTooR14VNrwyXudLfY2Si39eO844IsLN6JNqVcnJ9cMbBc0K0urUuDhjuBp50mJgasHcKjbcnoyZ7TH+0qxbN0xRj0H5GYCBOa9Yr27cJDAnCRRCBCICGERRDKDIqVwN4Z57kjwGF4rAIxRIX/+3kzVEHlqQc3wJkeN5fmqozw3i0mQJgYHPTqqPOiYfPlKLT7nDPm9TNFLrASnWJ834kuM09cYwx5CRLnqDLSJgerJkWqE17w1GQFKRPxz43wZGjPHfNkRgrJmPFAqJtugdqqBp2MP+3WHFeBoeAfwKCrQ5AEq9wRL3nzLhGOFekoLcNqwotdLSDGWswIzVS33ZQ4w+QNbuDZsmFuh3ANTbX0Fan/LGX0oJ0QCihNnTXcvujmgn4Gxw/uMZLLfyiD+Nmbo4We82WTDsCNXDIMPz9Ujm1j4GNiNoD0FsSfOm9AKWbYr+v1a6RgavaaLcmnASgkibesVunr8AHuN9UInDKGLmiB5bJZJhUw4vRYnDbJtDkAiNcIvE=
+
+
+before_script:
+  - chmod +x build.sh
+  - chmod +x deploy.sh
+
+script:
+  - ./build.sh
+  - ./deploy.sh
