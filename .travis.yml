@@ -1,8 +1,9 @@
-language: r
-cache: packages
-pandoc_version: 2.5
 jobs:
   include:
+    - language: r
+      r_packages: bookdown, tinytex, reticulate
+      cache: packages
+      pandoc_version: 2.5
     - language: python
       python: 3.8
       install:

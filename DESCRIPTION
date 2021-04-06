@@ -1,6 +1,0 @@
-Package: MuallefDocs
-Type: Book
-Title: Muallef Documentation
-Version: 0.0.1
-Imports: bookdown, tinytex, reticulate
-Remotes: rand-asswad/muallef
