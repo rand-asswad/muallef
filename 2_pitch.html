@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en-US" xml:lang="en-US">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2 Pitch analysis | Automatic Music Transcription</title>
+  <meta name="description" content="2 Pitch analysis | Automatic Music Transcription" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2 Pitch analysis | Automatic Music Transcription" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="img/cover_img.png" />
+  
+  <meta name="github-repo" content="rand-asswad/muallef" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2 Pitch analysis | Automatic Music Transcription" />
+  
+  
+  <meta name="twitter:image" content="img/cover_img.png" />
+
+<meta name="author" content="Rand ASSWAD" />
+
+
+<meta name="date" content="2020-03-12" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="1_background.html"/>
+<link rel="next" href="3_onset.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="include/gitbook.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="toc-logo"><a href="https://www.insa-rouen.fr/" target="_blank"><img src="img/logo_insa.png"></a></li>
+<li class="toc-title"><a href="./">Automatic Music Transcription</a></li>
+<li class="toc-author"><a href="/" target="_blank">Rand ASSWAD</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="0_intro.html"><a href="0_intro.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1" data-path="1_background.html"><a href="1_background.html"><i class="fa fa-check"></i><b>1</b> Background</a><ul>
+<li class="chapter" data-level="1.1" data-path="1_background.html"><a href="1_background.html#automatic-music-transcription"><i class="fa fa-check"></i><b>1.1</b> Automatic Music Transcription</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="1_background.html"><a href="1_background.html#history-and-community"><i class="fa fa-check"></i><b>1.1.1</b> History and community</a></li>
+<li class="chapter" data-level="1.1.2" data-path="1_background.html"><a href="1_background.html#motivation"><i class="fa fa-check"></i><b>1.1.2</b> Motivation</a></li>
+<li class="chapter" data-level="1.1.3" data-path="1_background.html"><a href="1_background.html#underlying-tasks"><i class="fa fa-check"></i><b>1.1.3</b> Underlying tasks</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="1_background.html"><a href="1_background.html#physical-definition-of-acoustic-waves"><i class="fa fa-check"></i><b>1.2</b> Physical definition of acoustic waves</a></li>
+<li class="chapter" data-level="1.3" data-path="1_background.html"><a href="1_background.html#perception-of-sound-and-music"><i class="fa fa-check"></i><b>1.3</b> Perception of sound and music</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="1_background.html"><a href="1_background.html#fundamental-frequency-and-pitch"><i class="fa fa-check"></i><b>1.3.1</b> Fundamental frequency and pitch</a></li>
+<li class="chapter" data-level="1.3.2" data-path="1_background.html"><a href="1_background.html#perception-of-intensity"><i class="fa fa-check"></i><b>1.3.2</b> Perception of intensity</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="1_background.html"><a href="1_background.html#audio-signal-processing"><i class="fa fa-check"></i><b>1.4</b> Audio signal processing</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="1_background.html"><a href="1_background.html#discrete-time-signals"><i class="fa fa-check"></i><b>1.4.1</b> Discrete-time signals</a></li>
+<li class="chapter" data-level="1.4.2" data-path="1_background.html"><a href="1_background.html#discrete-fourier-transform-dft"><i class="fa fa-check"></i><b>1.4.2</b> Discrete Fourier Transform (DFT)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="2_pitch.html"><a href="2_pitch.html"><i class="fa fa-check"></i><b>2</b> Pitch analysis</a><ul>
+<li class="chapter" data-level="2.1" data-path="2_pitch.html"><a href="2_pitch.html#introduction-1"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="2_pitch.html"><a href="2_pitch.html#single-pitch"><i class="fa fa-check"></i><b>2.2</b> Single pitch</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="2_pitch.html"><a href="2_pitch.html#time-domain"><i class="fa fa-check"></i><b>2.2.1</b> Time domain</a></li>
+<li class="chapter" data-level="2.2.2" data-path="2_pitch.html"><a href="2_pitch.html#spectral-domain"><i class="fa fa-check"></i><b>2.2.2</b> Spectral domain</a></li>
+<li class="chapter" data-level="2.2.3" data-path="2_pitch.html"><a href="2_pitch.html#application-example"><i class="fa fa-check"></i><b>2.2.3</b> Application Example</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="2_pitch.html"><a href="2_pitch.html#multiple-pitch"><i class="fa fa-check"></i><b>2.3</b> Multiple pitch</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="2_pitch.html"><a href="2_pitch.html#harmonic-amplitudes-sum"><i class="fa fa-check"></i><b>2.3.1</b> Harmonic Amplitudes Sum</a></li>
+<li class="chapter" data-level="2.3.2" data-path="2_pitch.html"><a href="2_pitch.html#spectral-factorisation"><i class="fa fa-check"></i><b>2.3.2</b> Spectral factorisation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="3_onset.html"><a href="3_onset.html"><i class="fa fa-check"></i><b>3</b> Temporal segmentation</a><ul>
+<li class="chapter" data-level="3.1" data-path="3_onset.html"><a href="3_onset.html#introduction-2"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="3_onset.html"><a href="3_onset.html#onset-detection-function-odf"><i class="fa fa-check"></i><b>3.2</b> Onset Detection Function (ODF)</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="3_onset.html"><a href="3_onset.html#high-frequency-content-hfc"><i class="fa fa-check"></i><b>3.2.1</b> High Frequency Content (HFC)</a></li>
+<li class="chapter" data-level="3.2.2" data-path="3_onset.html"><a href="3_onset.html#phase-deviation"><i class="fa fa-check"></i><b>3.2.2</b> Phase Deviation</a></li>
+<li class="chapter" data-level="3.2.3" data-path="3_onset.html"><a href="3_onset.html#complex-distance"><i class="fa fa-check"></i><b>3.2.3</b> Complex Distance</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="3_onset.html"><a href="3_onset.html#thresholding-peak-picking"><i class="fa fa-check"></i><b>3.3</b> Thresholding &amp; Peak-picking</a></li>
+<li class="chapter" data-level="3.4" data-path="3_onset.html"><a href="3_onset.html#results"><i class="fa fa-check"></i><b>3.4</b> Results</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="4_conclusion.html"><a href="4_conclusion.html"><i class="fa fa-check"></i><b>4</b> Conclusion</a></li>
+<li class="chapter" data-level="" data-path="4_conclusion.html"><a href="4_conclusion.html#references"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="book.pdf" target="_blank"><i class="fa fa-file-pdf-o"></i> PDF book</a></li>
+<li><a href="onepage.html" target="_blank"><i class="fa fa-file-code-o"></i> HTML standalone version</a></li>
+<li><a href="presentation.html" target="_blank"><img class="icon" src="include/presentation.svg"> Presentation slides</a></li>
+<li><a href="https://github.com/rand-asswad/muallef" target="_blank"><i class="fa fa-github"></i> Github repository</a></li>
+<li><a href="https://github.com/rand-asswad/muallef/archive/refs/heads/master.zip"><i class="fa fa-download"></i> Download source code</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Automatic Music Transcription</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="pitch-analysis" class="section level1">
+<h1><span class="header-section-number">2</span> Pitch analysis</h1>
+<div id="introduction-1" class="section level2">
+<h2><span class="header-section-number">2.1</span> Introduction</h2>
+<p>Pitch analysis is the task of estimating the fundamental
+frequency of a periodic signal that is the inverse
+of the period which is defined as
+“the smallest positive member of the infinite set of time
+shifts leaving the signal invariant” <span class="citation">(Cheveigné and Kawahara <a href="#ref-yin_2002">2002</a>)</span>.
+As music signal frequencies vary through time,
+the pitch analysis is usually performed on a short time frame (window)
+allowing to express the obtained pitch as a function of time,
+we will consider henceforth the analysis on a single frame.</p>
+<p>Furthermore, the physical model we have considered
+for the signal formula is based on physical hypotheses.
+In fact, we considered a signal formed by a perfectly
+harmonic instrument travelling in a perfectly undisturbed
+homogenuous medium with no other iterfering waves.
+Since such conditions are almost never met, we base our
+analysis on <em>imperfect conditions</em>.
+Indeed, the recorded signal represents the pressure function
+at the receptors position.
+Consequently, the recorder captures the pressure
+at its position from <em>all</em> surrounding stimuli,
+recording surrounding noise, resonance effects,
+and the reflected wave with a certain lag.
+As a result, we express the observed signal
+as the sum of the harmonic signal <span class="math inline">\(\tilde{x}\)</span> and
+the residual <span class="math inline">\(z\)</span>. <span class="citation">(Yeh <a href="#ref-yeh_thesis">2008</a>)</span>
+<span class="math display">\[x(t) = \tilde{x}(t) + z(t)\]</span></p>
+<p>Before we move on, let’s consider the <em>harmonicity</em> of a sound.
+In the case of perfectly harmonic instrument the frequency
+of harmonic partials is expressed as a proper multiple
+of the fundamental frequency <span class="math inline">\(f_h = h f_0\)</span>.
+However, most musical instruments are not perfectly harmonic,
+for example the <span class="math inline">\(h^\text{th}\)</span> harmonic frequency
+of a vibrating string is given as
+<span class="math display">\[ f_h = h f_0 \sqrt{1 + Bh^2} \quad\text{where}\quad
+    B = \frac{\pi^3 Ed^4}{64l^2T}\]</span>
+where <span class="math inline">\(B\)</span> is the inharmonicity factor of the string,
+<span class="math inline">\(E\)</span> is Young’s modulus, <span class="math inline">\(d\)</span> is the diameter of the string,
+<span class="math inline">\(l\)</span> is its length and <span class="math inline">\(T\)</span> is its tension.
+We refer to such signals as <strong>quasi-periodic</strong>.
+Pitch analysis therefore has to take into account
+the inharmonicity of a signal in the process of estimating
+its fundamental frequencies in order to prevent
+cases of false negatives (missed pitches).
+[source needed]</p>
+<p>Pitch analysis deals with both monophonic and polyphonic signals,
+a monophonic signal is a signal produced by a single harmonic
+source whereas polyphonic signals have multiple sources,
+in the case of the latter the
+task is significantly harder.
+Nevertheless, pitch estimation methods for both
+single and multiple sourced harmonics can be
+classified into two categories: methods that
+estimate the <em>period</em> in the signal time domain
+and methods that estimate the <span class="math inline">\(f_0\)</span> from the harmonic
+patterns in the signal spectrum.</p>
+</div>
+<div id="single-pitch" class="section level2">
+<h2><span class="header-section-number">2.2</span> Single pitch</h2>
+<p>Single pitch estimation is based on finding the fundamental
+frequency of a monophonic sound.
+The quasi-periodic monophonic signal <span class="math inline">\(\tilde{x}\)</span> is expressed as
+<span class="math display">\[\tilde{x}(t)=\sum_{h=1}^{\infty} A_h\cos(2\pi f_0 t + \varphi_h)\]</span>
+For practical reasons, a finite number of harmonic
+partials <span class="math inline">\(H\)</span> is used to approximate the signal.
+<span class="math display">\[\tilde{x}(t)\approx\sum_{h=1}^{H} A_h\cos(2\pi f_0 t + \varphi_h)\]</span></p>
+<p>The estimation of <span class="math inline">\(f_0\)</span> can be approached in two
+different ways: by analysing the time function <span class="math inline">\(x(t)\)</span>
+or by analysing the signal spectrum <span class="math inline">\(X(f)\)</span>.</p>
+<div id="time-domain" class="section level3">
+<h3><span class="header-section-number">2.2.1</span> Time domain</h3>
+<p>Time domain methods analyse the repetitiveness of the wave
+by comparing the signal with a delayed version of itself.
+This comparison is achieved using special functions that
+represent the pattern similarity or dissimilarity
+as a function of the <strong>time lag</strong> <span class="math inline">\(\tau\)</span>.</p>
+<p>We will study and compare the functions that
+appear the most in litterature.</p>
+<div id="autocorrelation-function" class="section level4 unnumbered">
+<h4>Autocorrelation function</h4>
+<p>The autocorrelation function (ACF) comes immediately to mind.
+By definition, autocorrelation is the similarity
+function between observations.
+Given a discrete signal of <span class="math inline">\(N\)</span> samples, the autocorrelation
+function is defined as
+<span class="math display">\[r[\tau] = \sum_{t=1}^{N-\tau} x[t]x[t+\tau]\]</span></p>
+<p>The value is of the ACF is at a local maximum when the lag is equal
+to the signal’s period or its multiples.
+Autocorrelation is sensitive to structures in signals,
+making it useful to applications of speech detection.
+However, in the case of music signals, resonance structures
+appear hence the need for a better adapted function.</p>
+</div>
+<div id="difference-function" class="section level4 unnumbered">
+<h4>Difference function</h4>
+<p>The Average Magnitude Difference Function (AMDF) <span class="citation">(Ross et al. <a href="#ref-ross_average_1974">1974</a>)</span>
+is the average unsigned difference between <span class="math inline">\(x(t)\)</span> and <span class="math inline">\(x(t+\tau)\)</span>.
+<span class="math display">\[d_{\text{AM}}[\tau] = \frac{1}{N}
+    \sum_{t=1}^{N-\tau} \left\lvert x[t]-x[t+\tau]\right\rvert\]</span>
+The difference function is at its local minima for lags equal to
+proper multiples of the signals period.
+AMDF is more adapted than autocorrelation for applications
+in music processing.</p>
+</div>
+<div id="squared-difference-function" class="section level4 unnumbered">
+<h4>Squared difference function</h4>
+<p>The Squared Difference Function (SDF) is very similar to AMDF,
+it accentuates however the dips at the signals period
+therefore indicate local extrema more clearly.
+<span class="math display">\[d[\tau] = \sum_{t=1}^{N-\tau}(x[t]-x[t+\tau])^2\]</span></p>
+<p><strong>YIN algorithm</strong> <span class="citation">(Cheveigné and Kawahara <a href="#ref-yin_2002">2002</a>)</span> employs the SDF as an auxiliary
+function for calculating the <strong>cumulative mean normalized
+difference function</strong> that divides SDF by its average
+over shorter lags and starts at 1 rather than 0 (in the case
+of SDF and AMDF); it tends to stay large at short lags
+and drops when SQD falls under its average.</p>
+<p><span class="math display">\[d_{\text{YIN}}[\tau] = \begin{cases}
+    1 &amp;\text{if}~\tau = 0\\
+    d[\tau] / \frac{1}{\tau}\sum\limits_{t=0}^{\tau} d[t]
+        &amp;\text{otherwise}
+\end{cases}\]</span></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb1-1" title="1"><span class="im">from</span> muallef.io <span class="im">import</span> AudioLoader</a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="im">from</span> muallef.plot <span class="im">import</span> diff_functions <span class="im">as</span> df</a>
+<a class="sourceLine" id="cb1-3" title="3"></a>
+<a class="sourceLine" id="cb1-4" title="4">cello <span class="op">=</span> AudioLoader(<span class="st">&#39;samples/instrument_single/cello_csharp2.wav&#39;</span>)</a>
+<a class="sourceLine" id="cb1-5" title="5">cello.cut(start<span class="op">=</span><span class="dv">2</span>, stop<span class="op">=</span><span class="fl">2.06</span>)</a>
+<a class="sourceLine" id="cb1-6" title="6">df.time_domain_plots(cello.signal, cello.sampleRate, pitch<span class="op">=</span><span class="fl">69.3</span>)</a></code></pre></div>
+<p><img src="book_files/figure-html/time_psf-1.png" /><!-- --></p>
+</div>
+</div>
+<div id="spectral-domain" class="section level3">
+<h3><span class="header-section-number">2.2.2</span> Spectral domain</h3>
+<p>Fourier transform is the most adapted mathematical tool
+for analysing periodicity in functions.
+The transform produced a complex function of frequency,
+where the magnitude of the transform attains its local
+maxima at the signal’s frequency and its <em>harmonics</em>.</p>
+<video width="800" controls>
+<source src="img/plot/fourier.mp4" type="video/mp4">
+</video>
+<p>Spectral domain methods analyse the magnitude and/or the phase
+of the fourier transform of the signal,
+which generally gives better results.
+Nevertheless, similar comparison functions are employed
+in order to get the fundamental frequency.</p>
+<div id="spectral-autocorrelation" class="section level4 unnumbered">
+<h4>Spectral autocorrelation</h4>
+<p>Autocorrelation measures repititive patterns, since harmonics
+appear at almost fixed frequency intervals, ACF allows
+to identify harmonic partials. <span class="citation">(Lahat, Niederjohn, and Krubsack <a href="#ref-lahat_spectral_1987">1987</a>)</span>
+The autocorrelation is applied to the spectrum of the signal,
+that is the magnitude of the fourier transform.
+The function attains its local maxima at frequency shifts
+that are multiples of <span class="math inline">\(f_0\)</span>, otherwise the function
+is attenuated since the partial peaks are not well aligned.</p>
+<p>For a spectrum <span class="math inline">\(S[f]=\left\lvert X[f]\right\rvert\)</span> with <span class="math inline">\(K\)</span> spectral bins
+<span class="math display">\[R[f] = \sum_{k=1}^{K-f} S[k]S[k+f]\]</span></p>
+</div>
+<div id="harmonic-sum" class="section level4 unnumbered">
+<h4>Harmonic sum</h4>
+<p>A <em>frequency histogram</em> represents the number of occurrences
+of each frequency, it does not however reflect the <em>amplitudes</em>
+of the harmonics of frequencies.
+Schroeder proposes to <em>weight</em> the contribution of each harmonic
+to the histogram with a monotonically increasing function
+of its amplitude, this is done using <em>log compression</em>
+where spectral harmonic bins are compressed with a logarithm.
+Finally, Schroeder proposed two functions of frequency that
+sum the compressed weighted histogram. <span class="citation">(Schroeder <a href="#ref-schroeder_period_1968">1968</a>)</span></p>
+<ul>
+<li><strong>Harmonic sum:</strong> <span class="math display">\[\Sigma(f)=\sum_{m=1}^M 20\log_{10}S(nf)\]</span></li>
+<li><strong>Harmonic product:</strong> <span class="math display">\[\Sigma&#39;(f)=20\log_{10}\sum_{m=1}^M S(nf)\]</span></li>
+</ul>
+<p>The sum inside the logarithm in the harmonic product
+can be viewed as a product because of the properties
+of the logarithm function.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb2-1" title="1">oboe <span class="op">=</span> AudioLoader(<span class="st">&#39;samples/instrument_single/oboe_a4.wav&#39;</span>)</a>
+<a class="sourceLine" id="cb2-2" title="2">oboe.cut(start<span class="op">=</span><span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb2-3" title="3">df.spectral_plots(oboe.signal[:<span class="dv">4096</span>], oboe.sampleRate, pitch<span class="op">=</span><span class="dv">440</span>)</a></code></pre></div>
+<p><img src="book_files/figure-html/spectral_psf-1.png" /><!-- --></p>
+</div>
+<div id="spectral-yin" class="section level4 unnumbered">
+<h4>Spectral YIN</h4>
+<p>The spectral YIN method <span class="citation">(Brossier <a href="#ref-brossier">2006</a>)</span> is an optimized version of YIN’s
+algorithm computed in the frequency domain.
+The square difference function is defined over spectral magnitudes
+<span class="math display">\[\hat{d}(\tau) = \frac{2}{N} \sum\limits_{k=0}^{\frac{N}{2}+1}
+    \left\lvert\left(-e^{2\pi jk\tau/N}\right) X[k]\right\rvert^2\]</span></p>
+</div>
+</div>
+<div id="application-example" class="section level3">
+<h3><span class="header-section-number">2.2.3</span> Application Example</h3>
+<p>I have recorded myself playing Vittorio Monti’s
+violin piece “Czardas” which is relatively
+complex musically since it features tonal
+<em>glissando</em> (continuous slides) and is grace notes
+(short time notes).</p>
+<p>We test pitch estimation using the YIN method
+in the time domain as well as the spectral domain.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb3-1" title="1"><span class="im">from</span> muallef.pitch <span class="im">import</span> MonoPitch</a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="im">from</span> muallef.util.units <span class="im">import</span> Hz_to_MIDI</a>
+<a class="sourceLine" id="cb3-3" title="3"></a>
+<a class="sourceLine" id="cb3-4" title="4">czardas <span class="op">=</span> AudioLoader(<span class="st">&#39;samples/monophonic/czardas_cut.wav&#39;</span>)</a>
+<a class="sourceLine" id="cb3-5" title="5"></a>
+<a class="sourceLine" id="cb3-6" title="6">yin <span class="op">=</span> MonoPitch(czardas.signal, czardas.sampleRate, method<span class="op">=</span><span class="st">&#39;yin&#39;</span>)</a>
+<a class="sourceLine" id="cb3-7" title="7">yin_f0 <span class="op">=</span> yin()</a>
+<a class="sourceLine" id="cb3-8" title="8">yin_conf <span class="op">=</span> yin.get_confidence(normalize<span class="op">=</span><span class="va">True</span>)</a>
+<a class="sourceLine" id="cb3-9" title="9">yinfft <span class="op">=</span> MonoPitch(czardas.signal, czardas.sampleRate, method<span class="op">=</span><span class="st">&#39;yinfft&#39;</span>)</a>
+<a class="sourceLine" id="cb3-10" title="10">yinfft_f0 <span class="op">=</span> yinfft()</a>
+<a class="sourceLine" id="cb3-11" title="11">yinfft_conf <span class="op">=</span> yinfft.get_confidence(normalize<span class="op">=</span><span class="va">True</span>)</a>
+<a class="sourceLine" id="cb3-12" title="12">time <span class="op">=</span> czardas.time(<span class="bu">len</span>(yinfft_f0))</a>
+<a class="sourceLine" id="cb3-13" title="13"></a>
+<a class="sourceLine" id="cb3-14" title="14">fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, sharex<span class="op">=</span><span class="va">True</span>)</a>
+<a class="sourceLine" id="cb3-15" title="15">fig.set_figheight(<span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb3-16" title="16">_ <span class="op">=</span> fig.suptitle(<span class="st">&quot;Single Pitch Estimation using YIN method&quot;</span>, fontsize<span class="op">=</span><span class="dv">16</span>)</a>
+<a class="sourceLine" id="cb3-17" title="17">_ <span class="op">=</span> ax[<span class="dv">0</span>].set_title(<span class="st">&quot;$f_0$ of Monti&#39;s </span><span class="ch">\&quot;</span><span class="st">Czardas</span><span class="ch">\&quot;</span><span class="st"> on violin&quot;</span>)</a>
+<a class="sourceLine" id="cb3-18" title="18">_ <span class="op">=</span> ax[<span class="dv">0</span>].scatter(time, yin_f0, c<span class="op">=</span><span class="st">&#39;blue&#39;</span>, s<span class="op">=</span><span class="dv">10</span><span class="op">*</span>yin_conf, label<span class="op">=</span><span class="st">&#39;YIN&#39;</span>)</a>
+<a class="sourceLine" id="cb3-19" title="19">_ <span class="op">=</span> ax[<span class="dv">0</span>].scatter(time, yinfft_f0, c<span class="op">=</span><span class="st">&#39;red&#39;</span>, s<span class="op">=</span><span class="dv">10</span><span class="op">*</span>yinfft_conf, label<span class="op">=</span><span class="st">&#39;Spectral YIN&#39;</span>)</a>
+<a class="sourceLine" id="cb3-20" title="20">_ <span class="op">=</span> ax[<span class="dv">0</span>].set_ylim(<span class="dv">0</span>, <span class="dv">600</span>)</a>
+<a class="sourceLine" id="cb3-21" title="21">_ <span class="op">=</span> ax[<span class="dv">0</span>].set_ylabel(<span class="st">&#39;Estimated $f_0$ (Hz)&#39;</span>)</a>
+<a class="sourceLine" id="cb3-22" title="22">_ <span class="op">=</span> ax[<span class="dv">0</span>].legend()</a>
+<a class="sourceLine" id="cb3-23" title="23">_ <span class="op">=</span> ax[<span class="dv">1</span>].set_title(<span class="st">&quot;Pitch of Monti&#39;s </span><span class="ch">\&quot;</span><span class="st">Czardas</span><span class="ch">\&quot;</span><span class="st"> on violin&quot;</span>)</a>
+<a class="sourceLine" id="cb3-24" title="24">pitch <span class="op">=</span> np.<span class="bu">round</span>(Hz_to_MIDI(yinfft_f0))</a>
+<a class="sourceLine" id="cb3-25" title="25">_ <span class="op">=</span> ax[<span class="dv">1</span>].scatter(time, pitch, s<span class="op">=</span><span class="dv">10</span><span class="op">*</span>yinfft_conf)</a>
+<a class="sourceLine" id="cb3-26" title="26">_ <span class="op">=</span> ax[<span class="dv">1</span>].set_ylim(<span class="dv">0</span>, <span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb3-27" title="27">_ <span class="op">=</span> ax[<span class="dv">1</span>].set_ylabel(<span class="st">&#39;Estimated pitch (MIDI)&#39;</span>)</a>
+<a class="sourceLine" id="cb3-28" title="28">_ <span class="op">=</span> ax[<span class="dv">1</span>].set_xlabel(<span class="st">&#39;Time (s)&#39;</span>)</a>
+<a class="sourceLine" id="cb3-29" title="29">plt.show()</a></code></pre></div>
+<p><img src="book_files/figure-html/monopitch-1.png" /><!-- --></p>
+<p>As expected, <span class="math inline">\(f_0\)</span> values were successfuly detected
+including fuzzy glissando pitches and grace notes.</p>
+</div>
+</div>
+<div id="multiple-pitch" class="section level2">
+<h2><span class="header-section-number">2.3</span> Multiple pitch</h2>
+<p>In polyphonic music analysis, we are interested in detecting
+the fundamental frequences for concurrent signals,
+the signals can be produced by several instruments simultanuously.</p>
+<p>There are generally two approaches to this problem:
+iterative estimation and joint estimation.
+In iterative estimation, the most prominent <span class="math inline">\(f_0\)</span> is extracted
+at each iteration until no additional <span class="math inline">\(f_0\)</span> can be estimated.
+Generally, iterative estimation models tend to accumulate errors
+at each iteration step, they are however computationally cheap.
+Whereas joint estimation methods evaluation <span class="math inline">\(f_0\)</span> combinations
+which leads to more accurate estimates, however
+the computational cost is significantly increased.<span class="citation">(Benetos et al. <a href="#ref-benetos_2013">2013</a>)</span></p>
+<p>We establish the formalism of the task analogously to
+a single pitch harmonic signal.
+A multi-pitch harmonic signal <span class="math inline">\(\tilde{x}(t)\)</span> can be expressed as the
+sum of <span class="math inline">\(M\)</span> harmonic signals.
+<span class="math display">\[\tilde{x}(t)=\sum_{m=1}^M \tilde{x}_m(t)\]</span>
+where <span class="math inline">\(\tilde{x}_m(t)\)</span> is a harmonic monophonic signal
+similar to signals we’ve seen so far.
+It follows that
+<span class="math display">\[x(t)\approx \sum_{m=1}^{M} \sum_{h=1}^{H_m}
+    A_{m,h} \cos(2\pi h f_{0,m}t + \varphi_{m,h}) + z(t)\]</span></p>
+<div id="harmonic-amplitudes-sum" class="section level3">
+<h3><span class="header-section-number">2.3.1</span> Harmonic Amplitudes Sum</h3>
+<p>A. Klapuri <span class="citation">(<a href="#ref-klapuri">2006</a>)</span> proposes a robust pipeline for estimating
+fundamental frequencies in polyphonic music signals.
+The method looks for <span class="math inline">\(f_0\)</span> that maximizes a frequency
+strength over candidate frequencies in a whitened spectrum.</p>
+<ol style="list-style-type: decimal">
+<li><strong>Spectral whitening:</strong> different sources can have
+different timbral information in the signal spectrum.
+In order to detect analyse the frequencies of the different
+sources, Klapuri proposes suppressing the timbral
+information prior to detecting dominant frequencies
+in the spectrum.
+This process is done by a sequence of transformations:
+<ul>
+<li>Apply <em>bandpass filter</em> to the spectrum <span class="math inline">\(X(f)\)</span>
+to obtain center frequencies <span class="math inline">\(c_b\)</span> where <span class="math inline">\(b\)</span> is
+the subband index of the filtered spectrum.
+Each subband has a triangular power response <span class="math inline">\(H_b(f)\)</span>
+such that <span class="math inline">\(\mathop{\mathrm{supp}}\left(H_b(k)\right) = [c_{b-1},c_{b+1}]\)</span>.</li>
+<li>Calculate standard deviations <span class="math inline">\(\sigma_b\)</span> within subbands
+<span class="math display">\[\sigma_b=\left(\frac{1}{K}\sum_f H_b(f)\left\lvert X(f)\right\rvert^2\right)^{1/2}\]</span>
+where <span class="math inline">\(K\)</span> is the number of frequency bins of the Fourier transform.</li>
+<li>Calculate compression coefficients <span class="math inline">\(\gamma_b=\sigma_b^{\nu-1}\)</span>
+where <span class="math inline">\(\nu\)</span> is the whitening parameter, the proposed value is <span class="math inline">\(\nu=0.33\)</span>.</li>
+<li>Interpolate <span class="math inline">\(\gamma(f)\)</span> for all frequency bins <span class="math inline">\(f\)</span> from <span class="math inline">\(\gamma_b\)</span>.</li>
+<li>Finally calculate the whitened spectrum <span class="math inline">\(Y(f)\)</span> by weighting
+the input spectrum by the obtained compression coefficients
+<span class="math inline">\(Y(f)=\gamma(f)X(f)\)</span>.</li>
+</ul></li>
+<li><strong>Salience function:</strong> strength of <span class="math inline">\(f0\)</span> candidates is evaluated
+using a salience function <span class="math inline">\(s\)</span> that calculates the weighted sum
+of harmonic partials’ amplitudes, similarly to Schroeder’s function
+<span class="citation">(<a href="#ref-schroeder_period_1968">1968</a>)</span>.
+<span class="math display">\[s(\tau) = \sum_{h=1}^H g(\tau,h)\left\lvert Y(hf_{\tau})\right\rvert\]</span>
+where <span class="math inline">\(f_{\tau}=f_s/\tau\)</span> is the <span class="math inline">\(f_0\)</span> candidate corresponding
+to the period <span class="math inline">\(\tau\)</span> and <span class="math inline">\(g(\tau,h)\)</span> is the weight of the
+<span class="math inline">\(h\)</span> partial of period <span class="math inline">\(\tau\)</span>.</li>
+<li>Finally the frequencies are estimated iteratively or jointly
+by determining <span class="math inline">\(f_0=\mathop{\mathrm{argmax}}_{f} s(f)\)</span>.
+In iterative evaluation, the found <span class="math inline">\(f_0\)</span> is removed from the residual
+spectrum and the process is repeated until the spectrum is flat.</li>
+</ol>
+<div id="application-example-1" class="section level4 unnumbered">
+<h4>Application Example</h4>
+<p>We test Klapuri’s pipeline on Beethoven’s infamous piano
+piece “Für Elise”.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb4-1" title="1"><span class="im">from</span> muallef.pitch <span class="im">import</span> MultiPitch</a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="im">from</span> muallef.util.units <span class="im">import</span> Hz_to_MIDI</a>
+<a class="sourceLine" id="cb4-3" title="3"></a>
+<a class="sourceLine" id="cb4-4" title="4">fur_elise <span class="op">=</span> AudioLoader(<span class="st">&#39;samples/polyphonic/furElise.wav&#39;</span>)</a>
+<a class="sourceLine" id="cb4-5" title="5">fur_elise.cut(stop<span class="op">=</span><span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb4-6" title="6"></a>
+<a class="sourceLine" id="cb4-7" title="7">klapuri <span class="op">=</span> MultiPitch(fur_elise.signal, fur_elise.sampleRate, method<span class="op">=</span><span class="st">&#39;klapuri&#39;</span>)</a>
+<a class="sourceLine" id="cb4-8" title="8">pitch <span class="op">=</span> Hz_to_MIDI(klapuri())</a>
+<a class="sourceLine" id="cb4-9" title="9">time <span class="op">=</span> fur_elise.time(pitch.shape[<span class="dv">1</span>])</a>
+<a class="sourceLine" id="cb4-10" title="10"></a>
+<a class="sourceLine" id="cb4-11" title="11">fig, ax <span class="op">=</span> plt.subplots()</a>
+<a class="sourceLine" id="cb4-12" title="12">fig.set_figheight(<span class="dv">8</span>)</a>
+<a class="sourceLine" id="cb4-13" title="13">_ <span class="op">=</span> fig.suptitle(<span class="st">&quot;Multi-pitch estimation using Klapuri&#39;s iterative method&quot;</span>, fontsize<span class="op">=</span><span class="dv">16</span>)</a>
+<a class="sourceLine" id="cb4-14" title="14">_ <span class="op">=</span> ax.set_title(<span class="st">&quot;Piano roll of Beethoven&#39;s </span><span class="ch">\&quot;</span><span class="st">Für Elise</span><span class="ch">\&quot;</span><span class="st">&quot;</span>)</a>
+<a class="sourceLine" id="cb4-15" title="15"><span class="cf">for</span> m <span class="kw">in</span> <span class="bu">range</span>(pitch.shape[<span class="dv">0</span>]):</a>
+<a class="sourceLine" id="cb4-16" title="16">    _ <span class="op">=</span> ax.scatter(time, np.<span class="bu">round</span>(pitch[m]), s<span class="op">=</span><span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb4-17" title="17">_ <span class="op">=</span> ax.set_xlabel(<span class="st">&#39;Time (s)&#39;</span>)</a>
+<a class="sourceLine" id="cb4-18" title="18">_ <span class="op">=</span> ax.set_ylabel(<span class="st">&#39;Estimated Pitch (MIDI)&#39;</span>)</a>
+<a class="sourceLine" id="cb4-19" title="19">_ <span class="op">=</span> ax.set_ylim(<span class="dv">30</span>, <span class="dv">80</span>)</a>
+<a class="sourceLine" id="cb4-20" title="20">plt.show()</a></code></pre></div>
+<p><img src="book_files/figure-html/klapuri-1.png" /><!-- --></p>
+<p>The resulting piano-roll shows a generally decent
+representation of the piece as the percentage
+of false positives remains relatively low.</p>
+</div>
+</div>
+<div id="spectral-factorisation" class="section level3">
+<h3><span class="header-section-number">2.3.2</span> Spectral factorisation</h3>
+<p>Non-negative Matrix Factorisation <strong>(NMF)</strong> is a well-established
+technique applied to several problems, in <span class="citation">(Smaragdis and Brown <a href="#ref-NNMF">2003</a>)</span> a method
+is proposed for applying NMF to the signal spectrum.</p>
+<p><span class="math display">\[\boldsymbol{V}\approx\boldsymbol{W}\boldsymbol{H}\]</span></p>
+<p>The method consists of factorising a non-negative matrix
+<span class="math inline">\(\boldsymbol{V}\in\mathbb{R}_+^{K\times N}\)</span> into the product of two non-negative matrices
+<span class="math inline">\(\boldsymbol{W}\in\mathbb{R}_+^{K\times R}\)</span> and <span class="math inline">\(\boldsymbol{H}\in\mathbb{R}_+^{R\times N}\)</span> where <span class="math inline">\(R\)</span>
+is the factorisation rank with <span class="math inline">\(R&lt;&lt;K\)</span>, given <span class="math inline">\(N\)</span> time frames
+and <span class="math inline">\(K\)</span> spectral bins.
+The matrix <span class="math inline">\(\boldsymbol{W}\)</span> is the <strong>template matrix</strong> that extracts the features
+of <span class="math inline">\(\boldsymbol{X}\)</span> into <span class="math inline">\(R\)</span> classes referred to as <em>templates</em>.
+The matrix <span class="math inline">\(\boldsymbol{H}\)</span> is the <strong>activation matrix</strong> which represents
+the <em>activation time</em> of each template.</p>
+<p>In the application of over music signal spectrums, <span class="math inline">\(\boldsymbol{V}={\boldsymbol{X}}^{\top}\)</span>
+where <span class="math inline">\(\boldsymbol{X}\in\mathbb{R}_+^{N\times K}\)</span> is the spectrogram of the signal
+which is the magnitude of the STFT of the signal.
+The factorisation templates correspond to <em>pitch classes</em>,
+where in the case of most instruments or music ensembles is less than <span class="math inline">\(R=100\)</span>.
+The template matrix <span class="math inline">\(\boldsymbol{W}\)</span> corresponds to spectral bases for each pitch
+component and the activation matrix <span class="math inline">\(\boldsymbol{H}\)</span> represents pitch activity
+across time.</p>
+<p><img src="img/nmf.png" /></p>
+<p>The problem is formulated as a non-convex optimisation problem</p>
+<p><span class="math display">\[(\boldsymbol{W},\boldsymbol{H}) = \mathop{\mathrm{argmin}}_{\boldsymbol{W},\boldsymbol{H}&gt;0} \left\lVert\boldsymbol{V}-\boldsymbol{W}\boldsymbol{H}\right\rVert\]</span></p>
+<p>The implemented cost function <span class="math inline">\(C=\left\lVert\boldsymbol{V}-\boldsymbol{W}\boldsymbol{H}\right\rVert\)</span> is the euclidean norm <span class="math inline">\(L_2\)</span>.
+The matrices <span class="math inline">\(\boldsymbol{V}\)</span> and <span class="math inline">\(\boldsymbol{H}\)</span> are decomposed into <span class="math inline">\(N\)</span> column vectors,
+<span class="math inline">\(\boldsymbol{V}=(v_1,\ldots,v_N)\)</span> and <span class="math inline">\(\boldsymbol{H}=(h_1,\ldots,h_N)\)</span>, which implies
+<span class="math inline">\(\forall i\in\left\{1,\ldots,N\right\},v_i = \boldsymbol{W}h_i\)</span>.
+By imposing the orthogonality constraint <span class="math inline">\(\boldsymbol{H}{\boldsymbol{H}}^{\top}=I\)</span>,
+we obtain the <strong>K-means</strong> clustering property.
+The values of <span class="math inline">\(\boldsymbol{W}\)</span> and <span class="math inline">\(\boldsymbol{H}\)</span> can be initialized randomly
+and are therefore <em>learned</em> iteratively.</p>
+<p>Reinforcing a sparsity constraint was proposed in <span class="citation">(Cont <a href="#ref-cont_2006">2006</a>)</span>
+for spectral factorisation since pitch templates correspond to <em>discrete</em>
+frequency values.
+Moreover, a subset of pitch templates are activated simultanuously
+in a musical piece, especially in the case of a piano piece.</p>
+<p>Finally, single pitch estimation is performed on rows of <span class="math inline">\(\boldsymbol{H}\)</span>.</p>
+<p>Unfortunally, our implementation of this algorithm
+did not give successful results, we use
+the API provided in for testing <span class="citation">(Müller <a href="#ref-muller_2015">2015</a>)</span>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb5-1" title="1"><span class="im">from</span> muallef.plot.nmf <span class="im">import</span> plot_matrix, plot_NMF_factors</a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="im">from</span> muallef.pitch.nmf <span class="im">import</span> NMF</a>
+<a class="sourceLine" id="cb5-3" title="3"></a>
+<a class="sourceLine" id="cb5-4" title="4"><span class="im">import</span> numpy <span class="im">as</span> np</a>
+<a class="sourceLine" id="cb5-5" title="5"><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</a>
+<a class="sourceLine" id="cb5-6" title="6"></a>
+<a class="sourceLine" id="cb5-7" title="7"><span class="co"># use stft from scipy instead of librosa</span></a>
+<a class="sourceLine" id="cb5-8" title="8"><span class="co"># from librosa import stft</span></a>
+<a class="sourceLine" id="cb5-9" title="9"><span class="im">from</span> scipy.signal <span class="im">import</span> stft <span class="im">as</span> sp_stft</a>
+<a class="sourceLine" id="cb5-10" title="10"><span class="kw">def</span> stft(x, n_fft<span class="op">=</span><span class="dv">2048</span>, hop_length<span class="op">=</span><span class="va">None</span>):</a>
+<a class="sourceLine" id="cb5-11" title="11">    noverlap <span class="op">=</span> n_fft <span class="op">//</span> <span class="dv">2</span> <span class="cf">if</span> hop_length <span class="kw">is</span> <span class="va">None</span> <span class="cf">else</span> n_fft <span class="op">-</span> hop_length</a>
+<a class="sourceLine" id="cb5-12" title="12">    <span class="cf">return</span> sp_stft(x, nperseg<span class="op">=</span>n_fft, noverlap<span class="op">=</span>noverlap)[<span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb5-13" title="13"></a>
+<a class="sourceLine" id="cb5-14" title="14">fs <span class="op">=</span> fur_elise.sampleRate</a>
+<a class="sourceLine" id="cb5-15" title="15">x <span class="op">=</span> fur_elise.signal</a>
+<a class="sourceLine" id="cb5-16" title="16">N_fft <span class="op">=</span> <span class="dv">2048</span></a>
+<a class="sourceLine" id="cb5-17" title="17">H_fft <span class="op">=</span> <span class="dv">1024</span></a>
+<a class="sourceLine" id="cb5-18" title="18"></a>
+<a class="sourceLine" id="cb5-19" title="19">X <span class="op">=</span> stft(x, n_fft<span class="op">=</span>N_fft, hop_length<span class="op">=</span>H_fft)</a>
+<a class="sourceLine" id="cb5-20" title="20">V <span class="op">=</span> np.log(<span class="dv">1</span> <span class="op">+</span> np.<span class="bu">abs</span>(X))</a>
+<a class="sourceLine" id="cb5-21" title="21">freq_max <span class="op">=</span> <span class="dv">2000</span></a>
+<a class="sourceLine" id="cb5-22" title="22"></a>
+<a class="sourceLine" id="cb5-23" title="23"><span class="co"># plot input spectrogram</span></a>
+<a class="sourceLine" id="cb5-24" title="24">_ <span class="op">=</span> plot_matrix(V, Fs<span class="op">=</span>fs<span class="op">/</span>H_fft, Fs_F<span class="op">=</span>N_fft<span class="op">/</span>fs, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</a>
+<a class="sourceLine" id="cb5-25" title="25">_ <span class="op">=</span> plt.ylim([<span class="dv">0</span>, freq_max])</a>
+<a class="sourceLine" id="cb5-26" title="26">plt.show()</a></code></pre></div>
+<p><img src="book_files/figure-html/nmf-1.png" /><!-- --></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb6-1" title="1">K <span class="op">=</span> V.shape[<span class="dv">0</span>]</a>
+<a class="sourceLine" id="cb6-2" title="2">N <span class="op">=</span> V.shape[<span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb6-3" title="3">R <span class="op">=</span> <span class="dv">30</span></a>
+<a class="sourceLine" id="cb6-4" title="4"></a>
+<a class="sourceLine" id="cb6-5" title="5"><span class="co"># Initialize and plot random matrices W, H</span></a>
+<a class="sourceLine" id="cb6-6" title="6">W_init <span class="op">=</span> np.random.rand(K,R)</a>
+<a class="sourceLine" id="cb6-7" title="7">H_init <span class="op">=</span> np.random.rand(R,N)</a>
+<a class="sourceLine" id="cb6-8" title="8">plot_NMF_factors(W_init, H_init, W_init.dot(H_init), fs, N_fft, H_fft, freq_max)</a>
+<a class="sourceLine" id="cb6-9" title="9"></a>
+<a class="sourceLine" id="cb6-10" title="10"><span class="co"># Calculate and plot NMF decomposition</span></a></code></pre></div>
+<p><img src="book_files/figure-html/nmf-2.png" /><!-- --></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb7-1" title="1">W, H, V_approx, V_approx_err, H_W_error <span class="op">=</span> NMF(V, R, W<span class="op">=</span>W_init, H<span class="op">=</span>H_init, L<span class="op">=</span><span class="dv">200</span>, norm<span class="op">=</span><span class="va">True</span>)</a>
+<a class="sourceLine" id="cb7-2" title="2">plot_NMF_factors(W, H, W.dot(H), fs, N_fft, H_fft, freq_max)               </a></code></pre></div>
+<p><img src="book_files/figure-html/nmf-3.png" /><!-- --></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb8-1" title="1"><span class="bu">print</span>(<span class="ss">f&quot;V error approximation = </span><span class="sc">{</span>V_approx_err<span class="sc">}</span><span class="ss">&quot;</span>)</a></code></pre></div>
+<pre><code>V error approximation = 0.0123933677021451</code></pre>
+<p>The obtained <span class="math inline">\(\boldsymbol{V}\)</span> matrix is close to the input spectrogram,
+the matrices are all sparse as expected.
+Nevertheless, the matrices are fuzzy therefore pitch templates
+and their activations are not clear.
+The NMF factorisation as is, might not render better results than Klapuri’s.
+In fact most of pitch templates correspond to multiple note mixtures,
+the results can be enhanced by initializing <em>pitch-informed constraints</em>
+where <span class="math inline">\(\boldsymbol{W}\)</span> is initialized to MIDI pitch classes.
+It can however be very useful method for separating different sound sources.</p>
+<div style="page-break-after: always;"></div>
+
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-benetos_2013">
+<p>Benetos, Emmanouil, Simon Dixon, Dimitrios Giannoulis, Holger Kirchhoff, and Anssi Klapuri. 2013. “Automatic Music Transcription: Challenges and Future Directions.” <em>Journal of Intelligent Information Systems</em> 41 (December). <a href="https://doi.org/10.1007/s10844-013-0258-3">https://doi.org/10.1007/s10844-013-0258-3</a>.</p>
+</div>
+<div id="ref-brossier">
+<p>Brossier, Paul M. 2006. <em>Automatic Annotation of Musical Audio for Interactive Applications</em>.</p>
+</div>
+<div id="ref-yin_2002">
+<p>Cheveigné, Alain de, and Hideki Kawahara. 2002. “YIN, a Fundamental Frequency Estimator for Speech and Music.” <em>The Journal of the Acoustical Society of America</em> 111 (4): 1917–30. <a href="https://doi.org/10.1121/1.1458024">https://doi.org/10.1121/1.1458024</a>.</p>
+</div>
+<div id="ref-cont_2006">
+<p>Cont, Arshia. 2006. “Realtime Multiple Pitch Observation Using Sparse Non-Negative Constraints,” 6.</p>
+</div>
+<div id="ref-klapuri">
+<p>Klapuri, Anssi. 2006. “Multiple Fundamental Frequency Estimation by Summing Harmonic Amplitudes,” 6.</p>
+</div>
+<div id="ref-lahat_spectral_1987">
+<p>Lahat, M., Russell J. Niederjohn, and David A. Krubsack. 1987. “A Spectral Autocorrelation Method for Measurement of the Fundamental Frequency of Noise-Corrupted Speech.” <em>IEEE Trans. Acoustics, Speech, and Signal Processing</em>. <a href="https://doi.org/10.1109/TASSP.1987.1165224">https://doi.org/10.1109/TASSP.1987.1165224</a>.</p>
+</div>
+<div id="ref-muller_2015">
+<p>Müller, Meinard. 2015. <em>Fundamentals of Music Processing - Audio, Analysis, Algorithms, Applications</em>. Springer. <a href="https://www.audiolabs-erlangen.de/fau/professor/mueller/bookFMP">https://www.audiolabs-erlangen.de/fau/professor/mueller/bookFMP</a>.</p>
+</div>
+<div id="ref-ross_average_1974">
+<p>Ross, M., H. Shaffer, A. Cohen, R. Freudberg, and H. Manley. 1974. “Average Magnitude Difference Function Pitch Extractor.” <em>IEEE Transactions on Acoustics, Speech, and Signal Processing</em> 22 (5): 353–62. <a href="https://doi.org/10.1109/TASSP.1974.1162598">https://doi.org/10.1109/TASSP.1974.1162598</a>.</p>
+</div>
+<div id="ref-schroeder_period_1968">
+<p>Schroeder, Manfred R. 1968. “Period Histogram and Product Spectrum: New Methods for Fundamental-Frequency Measurement.” <em>The Journal of the Acoustical Society of America</em>. <a href="https://doi.org/10.1121/1.1910902">https://doi.org/10.1121/1.1910902</a>.</p>
+</div>
+<div id="ref-NNMF">
+<p>Smaragdis, P., and J.C. Brown. 2003. “Non-Negative Matrix Factorization for Polyphonic Music Transcription.” In <em>2003 IEEE Workshop on Applications of Signal Processing to Audio and Acoustics (IEEE Cat. No.03TH8684)</em>, 177–80. New Paltz, NY, USA: IEEE. <a href="https://doi.org/10.1109/ASPAA.2003.1285860">https://doi.org/10.1109/ASPAA.2003.1285860</a>.</p>
+</div>
+<div id="ref-yeh_thesis">
+<p>Yeh, Chunghsin. 2008. “Multiple Fundamental Frequency Estimation of Polyphonic Recordings,” 153.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="1_background.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="3_onset.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": {}
+},
+"fontsettings": false,
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": [["book.pdf", "PDF"]],
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+},
+"search": true,
+"info": false
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
