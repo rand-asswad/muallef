@@ -12,11 +12,14 @@ env:
 
 
 before_script:
+  # prepare python venv
   - python3.8 -m venv venv
   - source venv/bin/activate
   - pip3 install --upgrade pip
+  - pip install git+https://github.com/aubio/aubio/
   - pip3 install -r requirements.txt
   - deactivate
+  # grant execution permission
   - chmod +x docs/build.sh
   - chmod +x docs/deploy.sh
 
