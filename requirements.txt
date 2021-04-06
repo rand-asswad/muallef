@@ -1,4 +1,4 @@
-aubio==0.4.9
+aubio==0.5.0a0
 certifi==2020.12.5
 cycler==0.10.0
 essentia==2.1b6.dev374
