@@ -1,14 +1,7 @@
-jobs:
-  include:
-    - language: r
-      r_packages: bookdown, tinytex, reticulate
-      cache: packages
-      pandoc_version: 2.5
-    - language: python
-      python: 3.8
-      install:
-        - rm -rf venv && python3 -m venv venv
-        - pip3 install -r requirements.txt
+language: r
+r_packages: bookdown, tinytex, reticulate
+cache: packages
+pandoc_version: 2.5
 
 env:
   global:
@@ -16,6 +9,8 @@ env:
 
 
 before_script:
+  - rm -rf venv && python3 -m venv venv
+  - pip3 install -r requirements.txt
   - chmod +x docs/build.sh
   - chmod +x docs/deploy.sh
 
