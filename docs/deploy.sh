@@ -6,7 +6,7 @@ GH_USERNAME="rand-asswad"
 OUTPUT_DIR=_out
 GH_PAGES_DIR=_gh_pages
 
-MAKE_ARGS="pdf html reveal gitbook"
+MAKE_ARGS="clean all"
 
 # clone gh-pages branch (if not exists)
 [ -d $GH_PAGES_DIR/.git ] || git clone -b gh-pages git@github.com:$GH_USERNAME/$REPO_NAME.git $GH_PAGES_DIR
