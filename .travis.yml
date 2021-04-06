@@ -1,7 +1,8 @@
 language: r
-r_packages: bookdown, tinytex, reticulate
 cache: packages
 pandoc_version: 2.5
+before_install:
+  - sudo apt-get -y python3-pip python3-virtualenv
 
 env:
   global:
