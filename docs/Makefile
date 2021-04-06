@@ -21,7 +21,7 @@ html: ${BOOK_SRC}
 
 gitbook: ${BOOK_SRC}
 	@echo "rendering gitbook..."
-#	Rscript -e "bookdown::render_book('$<', 'bookdown::gitbook')"
+	Rscript -e "bookdown::render_book('$<', 'bookdown::gitbook')"
 	@mv ${OUTPUT_DIR}/$(basename ${BOOK_SRC}).html ${OUTPUT_DIR}/index.html
 	@echo "done!"
 
