@@ -4,19 +4,19 @@
 biblio/
 
 # RMD output
-out/
+_out/
 _book/
+_gh_pages/
 
 # RMD shit
 *_cache
 *_files
-!/out/*_files
-!/book/*_files
-!/_book/*_files
-main.md
-index.md
-doc.rmd
+*.md
+*.rmd
 *.knit.md
+!main.rmd
+!/parts/*.md
+!/parts/*.rmd
 
 # LaTeX
 

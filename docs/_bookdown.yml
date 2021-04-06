@@ -8,4 +8,4 @@ rmd_files:
   - parts/2_pitch.md
   - parts/3_onset.md
   - parts/4_conclusion.md
-output_dir: out
+output_dir: _out

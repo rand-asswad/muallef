@@ -57,12 +57,10 @@ Consult [`Makefile`](Makefile) for more options.
 docs/
 ├── img/                            # image dir
 ├── include/                        # TeX and HTML options
-├── out/                            # output dir
 ├── parts/                          # markdown content
 ├── _bookdown.yml                   # bookmark options
 ├── _output.yml                     # RMD options
-├── book.pdf -> out/book.pdf        # link to PDF book
-├── index.html ~> out/index.html    # redirect HTML to gitbook home
+├── deploy.sh                       # gh-pages deployment script
 ├── main.rmd                        # main RMD file
 ├── presentation.md                 # presentation MD file
 ├── ref.bib                         # bibliography file
