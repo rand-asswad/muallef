@@ -15,7 +15,7 @@ pdf: ${BOOK_SRC}
 
 html: ${BOOK_SRC}
 	@echo "rendering html document..."
-	[ -d ${BOOK_SRC} ] || mkdir ${BOOK_SRC}
+	[ -d ${OUTPUT_DIR} ] || mkdir ${OUTPUT_DIR}
 	Rscript -e "bookdown::render_book('$<', 'bookdown::html_document2', output_file='${OUTPUT_DIR}/onepage.html')"
 	@echo "done!"
 
