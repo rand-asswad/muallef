@@ -22,6 +22,8 @@ gitbook: main.rmd
 reveal: presentation.md
 	@echo "rendering revealjs presentation..."
 	Rscript -e "rmarkdown::render('$<', 'revealjs::revealjs_presentation', output_dir='out', output_file='presentation.html')"
+	@mkdir -p out/img
+	@cp img/logo_*.png out/img/
 	@echo "done!"
 
 clean:
