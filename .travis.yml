@@ -2,7 +2,10 @@ language: r
 cache: packages
 pandoc_version: 2.5
 before_install:
-  - sudo apt-get -y install python3 python3-pip python3-venv
+  - sudo apt-get update
+  - sudo apt-get -y install python3.8 python3-pip python3.8-venv
+  - python3 --version
+  - pip3 install --upgrade pip
 
 env:
   global:
@@ -10,8 +13,10 @@ env:
 
 
 before_script:
-  - rm -rf venv && python3 -m venv venv
+  - python3 -m venv venv
   - source venv/bin/activate
+  - pip3 --version
+  - pip3 install --upgrade pip
   - pip3 install -r requirements.txt
   - deactivate
   - chmod +x docs/build.sh
